@@ -189,6 +189,7 @@ get_promoter_distances <- function(.annotations, .pb = NULL, .locus_var = "locus
           dist          = NA
         )
       }
+      # This `else` should be eliminated! Initiate the table b4 the `if()`
       
       .pb$tick()
       
@@ -231,6 +232,7 @@ trim_distances <- function(.distances, .min_size = 100, .max_size = 2000) {
           TRUE ~ dist
         ))
     })
+    # This anonymous function is total garbage! Remove it!
   
   .distances # absolutelly useless return, but make it clearer what is happening
 }
@@ -349,6 +351,7 @@ get_promoters <- function(.distances, .txdb = NULL, .locus_var = "locus_tag", .c
     #.min_size = 100, .max_size = 2000, # not being used yet, might never be
     .debug = TRUE
     ) {
+      # Assign the chromossome name to an object
       .each_chr <- .keys %>% dplyr::pull(.chr_var) %>% unique()
 
       # Talk to me!
@@ -375,23 +378,20 @@ get_promoters <- function(.distances, .txdb = NULL, .locus_var = "locus_tag", .c
           nrow()
       )
       
-      # Initiate progress bar
       # Get promoters for each loci
       .promoters <- .data %>%
-        (function(.data) {
-          .pb$tick(0)
-          .data
+        (function(.data) { 
+          .pb$tick(0) # Initiate progress bar
+          .data       # pass input data to downstream stuff
         }) %>% 
-        #dplyr::group_by("locus_tag") %>% # 'locus_tag' must be assign on the fly
         dplyr::group_by(across(all_of(.locus_var))) %>%
         dplyr::group_map(.f = function(.each_data, .each_keys) {
-          # 'locus_tag' and 'promoter_size' must be assign on the fly
-          # .each_loci       <- .each_keys %>% dplyr::pull(locus_tag) %>% unique()
-          # .each_upstream   <- .each_data %>% dplyr::pull(promoter_size) %>% unique()
+          # ditto
           .each_loci       <- .each_keys %>% dplyr::pull(.locus_var) %>% unique()
           .each_upstream   <- .each_data %>% dplyr::pull(.dist_var) %>% unique()
           .each_downstream <- 0 # implement properly lazy ass! Either function argument or data column
           
+          # get promoter sequence for each locus
           .each_promoters <- .txdb %>% 
             GenomicFeatures::transcripts(filter = list("tx_name" = .each_loci)) %>%
             GenomicFeatures::getPromoterSeq(
@@ -401,6 +401,7 @@ get_promoters <- function(.distances, .txdb = NULL, .locus_var = "locus_tag", .c
             ) %>% 
             set_names(.each_loci)
           
+          # progress bar oogie boogie
           .pb$tick()
           
           .each_promoters
