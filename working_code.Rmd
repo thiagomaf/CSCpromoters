@@ -378,10 +378,10 @@ get_promoters <- function(.distances, .txdb = NULL, .locus_var = "locus_tag", .c
           nrow()
       )
       
-      # Get promoters for each loci
+      # Get promoters
       .promoters <- .data %>%
         (function(.data) { 
-          .pb$tick(0) # Initiate progress bar
+          .pb$tick(0) # Initiate progress bar; this can be moved outside now!
           .data       # pass input data to downstream stuff
         }) %>% 
         dplyr::group_by(across(all_of(.locus_var))) %>%
