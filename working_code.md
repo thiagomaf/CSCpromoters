@@ -1,10 +1,9 @@
----
-title: "CSCpromoters - working code"
-output: github_document
----
+CSCpromoters - working code
+================
 
 # SETUP
-```{r}
+
+``` r
 library(magrittr)
 # library(progress)
 library(CSCprimers)
@@ -17,10 +16,11 @@ library(CSCprimers)
 # Omit messages!???
 ```
 
-
 # LOAD DATA
+
 ## H. vulgare cv. Golden Promise annotations
-```{r}
+
+``` r
 annotations <- load_fasta(
   .filename = paste0(
     "../../../Data/FASTA sequences/Genomes/Hordeum vulgare - Golden Promise/",
@@ -38,7 +38,8 @@ annotations <- load_fasta(
 ```
 
 ## H. vulgare cv. Golden Promise TxDB from GFF file
-```{r}
+
+``` r
 # gffFile <- paste0(
 #   # "E:/OneDrive - University of Cambridge/CSC/",
 #   "C:/Users/ta507/OneDrive - University of Cambridge/CSC/",
@@ -77,8 +78,13 @@ txdb <- paste0(
   make_txdb(.data_source = "Hv - Golden Promise", .organism = "Hordeum vulgare")
 ```
 
+    ## Import genomic features from the file as a GRanges object ... OK
+    ## Prepare the 'metadata' data frame ... OK
+    ## Make the TxDb object ... OK
+
 # GET PROMOTERS
-```{r}
+
+``` r
 # # pb <- progress_bar$new(
 # #   total = annotations %>% 
 # #     dplyr::select("locus_tag", "chr") %>% 
@@ -209,7 +215,22 @@ minyao_promoters <- annotations %>%
 minyao_promoters
 ```
 
-```{r}
+    ## # A tibble: 10 × 4
+    ## # Groups:   locus_tag, chr [10]
+    ##    locus_tag     chr   closest_locus   dist
+    ##    <chr>         <chr> <chr>          <dbl>
+    ##  1 chr1Hg0000001 chr1H <NA>              NA
+    ##  2 chr1Hg0000011 chr1H chr1Hg0000021     68
+    ##  3 chr1Hg0000021 chr1H chr1Hg0000011      1
+    ##  4 chr1Hg0000031 chr1H chr1Hg0000021  15680
+    ##  5 chr1Hg0000041 chr1H chr1Hg0000031   1585
+    ##  6 chr1Hg0000051 chr1H chr1Hg0000041   1749
+    ##  7 chr1Hg0000061 chr1H chr1Hg0000071   2010
+    ##  8 chr1Hg0000071 chr1H chr1Hg0000101 222620
+    ##  9 chr1Hg0000101 chr1H chr1Hg0000071 222620
+    ## 10 chr1Hg0000111 chr1H chr1Hg0000101   3030
+
+``` r
 # This should become a function
 # minyao_promoters2 <- minyao_promoters %>% 
 #   ungroup() %>%
@@ -243,9 +264,20 @@ minyao_promoters2 <- minyao_promoters %>%
 minyao_promoters2
 ```
 
+    ## # A tibble: 7 × 5
+    ##   locus_tag     chr   closest_locus   dist promoter_size
+    ##   <chr>         <chr> <chr>          <dbl>         <dbl>
+    ## 1 chr1Hg0000031 chr1H chr1Hg0000021  15680          2000
+    ## 2 chr1Hg0000041 chr1H chr1Hg0000031   1585          1585
+    ## 3 chr1Hg0000051 chr1H chr1Hg0000041   1749          1749
+    ## 4 chr1Hg0000061 chr1H chr1Hg0000071   2010          2000
+    ## 5 chr1Hg0000071 chr1H chr1Hg0000101 222620          2000
+    ## 6 chr1Hg0000101 chr1H chr1Hg0000071 222620          2000
+    ## 7 chr1Hg0000111 chr1H chr1Hg0000101   3030          2000
 
 # GET PROMOTERS
-```{r}
+
+``` r
 # pb2 <- progress_bar$new(
 #   total = minyao_promoters2 %>%
 #     dplyr::select(locus_tag, chr) %>% 
@@ -426,12 +458,27 @@ get_promoters <- function(.distances, .txdb = NULL, .locus_var = "locus_tag", .c
 
 my_promoters <- minyao_promoters2 %>% 
   get_promoters(.txdb = txdb)
+```
 
+    ## [1] "chr1H"
+
+``` r
 my_promoters
 ```
 
+    ## DNAStringSet object of length 7:
+    ##     width seq                                               names               
+    ## [1]  2000 ATTGCGCTGTTTTCACATGAAAA...AGAGGAACAGGTGTTGGAGAGTG chr1Hg0000031
+    ## [2]  1585 ACTAACACATGTACTCCTCCATG...GCCCGTAGGATGTGCTAAGCGTA chr1Hg0000041
+    ## [3]  1749 AGACTGCATCTAATATAAATTAG...GAGTTGGACAGGTTAGATTGTAT chr1Hg0000051
+    ## [4]  2000 GCCACATGGGACACATGGAAGTT...ATCAAGTTAACCTGGAACTCTGC chr1Hg0000061
+    ## [5]  2000 AATAAACCCCAAAACCACAAAAC...TTCTTCTACAAAGTTAAGTTAAG chr1Hg0000071
+    ## [6]  2000 GTTGTTTGCAATGATAAAATCAC...GCTAGCGGTGGTAGCCCCCCTCG chr1Hg0000101
+    ## [7]  2000 TTATATTTAAAGATGTAAATGTT...GCACCCAATGCAATGAGGCACTG chr1Hg0000111
+
 # EXPORT SEQUENCES
-```{r}
+
+``` r
 # output_file <- "data/promoters_Min-Yao.fasta"
 # Biostrings::writeXStringSet(my_promoters, filepath = output_file)
 #
