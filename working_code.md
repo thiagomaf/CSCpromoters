@@ -69,6 +69,11 @@ make_txdb <- function(.filename = NULL, .data_source = NULL, .organism = NULL) {
 # For some reason this cannot be properly loaded from an .RData or .rda file,
 # must be run on every new R session
 txdb <- paste0(
+<<<<<<< HEAD
+=======
+  # "E:/OneDrive - University of Cambridge/CSC/",
+  # "C:/Users/ta507/OneDrive - University of Cambridge/CSC/",
+>>>>>>> 38f2cd20d767b65bfee72007dbc2ac4bb054cb44
   "../../../",
   "Data/FASTA sequences/Genomes/Hordeum vulgare - Golden Promise/",
   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
@@ -392,6 +397,11 @@ get_promoters <- function(.distances, .txdb = NULL, .locus_var = "locus_tag", .c
       # - This is highly problematic! Currently assumes the input files will 
       #   have a given filename structure. There must be better ways to do that!
       .fasta_file <- paste0(
+<<<<<<< HEAD
+=======
+        # "E:/OneDrive - University of Cambridge/CSC/",
+        #"C:/Users/ta507/OneDrive - University of Cambridge/CSC/",
+>>>>>>> 38f2cd20d767b65bfee72007dbc2ac4bb054cb44
         "../../../",
         "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/",
         paste0("Hordeum_vulgare.refseq[", .each_chr, "].fasta")
