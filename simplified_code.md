@@ -167,7 +167,9 @@ get_promoter_distances <- function(
       }
       
       # progress bar oogie boogie
-      .pb$tick(tokens = list(what = .curr_locus))
+      .pb$tick(
+        tokens = list(what = paste(.curr_chr, .curr_locus, sep = " - "))
+      )
       
       .each_output
     })
@@ -278,10 +280,7 @@ get_promoters <- function(
       
       # Assign the current chromosome name to an object ("character")
       .curr_chr <- .keys %>% dplyr::pull(.chr_var)
-      
-      # Talk to me!
-      print(.curr_chr)
-      
+
       # Should trimming of promoter sizes be moved here???
       
       # Open FASTA file for each chromosome b4 extracting promoters in each
@@ -344,11 +343,7 @@ get_promoters <- function(
 
 my_promoters <- minyao_promoters2 %>% 
   get_promoters(.txdb = txdb)
-```
 
-    ## [1] "chr1H"
-
-``` r
 my_promoters
 ```
 
