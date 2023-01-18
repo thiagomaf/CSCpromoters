@@ -91,6 +91,8 @@ txdb <- paste0(
 
 # GET PROMOTERS
 
+## Calculate distances to closest upstream locus
+
 ``` r
 get_promoter_distances <- function(
     .annotations,
@@ -203,6 +205,8 @@ minyao_promoters
     ## 10 chr1Hg0000111 chr1H chr1Hg0000101   3030
     ## # … with 101 more rows
 
+## Trim found upstream distances and define promoter lengths
+
 ``` r
 trim_distances <- function(.distances, .min_size = 100, .max_size = 2000) {
   .distances <- .distances  %>%
@@ -239,7 +243,7 @@ minyao_promoters2
     ## 10 chr1Hg0000141 chr1H chr1Hg0000131  20898          2000
     ## # … with 89 more rows
 
-# GET PROMOTERS
+## Get promoter sequences
 
 ``` r
 get_promoters <- function(
