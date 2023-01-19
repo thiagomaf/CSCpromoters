@@ -31,7 +31,8 @@
 #'                     sequence length but have never tested. Defaults to `0`.
 #'                     
 #' @param .pb          An optional progress bar object created via 
-#'                     `progress::progress_bar()`.
+#'                     `progress::progress_bar()`. Defaults to `NULL`, case in
+#'                     which a progress bar will be generated internally.
 #' 
 #' @param .pb_format   A `character` indicating the format of the progress bar.
 #'                     A number of tokens can be used here, see them below. It 

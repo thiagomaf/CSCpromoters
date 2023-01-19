@@ -51,7 +51,8 @@ sequence. Presumably, will be reduced from the upstream
 sequence length but have never tested. Defaults to \code{0}.}
 
 \item{.pb}{An optional progress bar object created via
-\code{progress::progress_bar()}.}
+\code{progress::progress_bar()}. Defaults to \code{NULL}, case in
+which a progress bar will be generated internally.}
 
 \item{.pb_format}{A \code{character} indicating the format of the progress bar.
 A number of tokens can be used here, see them below. It
