@@ -1,0 +1,32 @@
+Package: CSCpromoter
+Title: CSCpromoter: Extract the sequences of promoter regions.
+Version: 0.0.0.9000
+Authors@R: 
+    person("Thiago", "Alexandre Moraes", , "ta507@cam.ac.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7156-6947"))
+    person("Min-Yao", "Jhu", , "myj23@cam.ac.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8654-0977"))		   
+Description: Extract the sequences of promoter regions from the genome fasta files.
+License: file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.2
+LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Imports: 
+    magrittr,
+    data.table,
+    seqinr,
+    blaster,
+    stringr,
+    tidyr,
+    plyr,
+    dplyr,
+    purrr,
+	progress,
+	GenomicFeatures,
+	CSCprimers
