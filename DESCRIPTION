@@ -18,15 +18,11 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Imports: 
-    magrittr,
-    data.table,
-    seqinr,
-    blaster,
-    stringr,
-    tidyr,
-    plyr,
-    dplyr,
-    purrr,
+	magrittr,
+	tidyr,
+	plyr,
+	dplyr,
+	purrr,
 	progress,
 	GenomicFeatures,
 	CSCprimers
