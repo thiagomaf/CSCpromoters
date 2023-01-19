@@ -171,7 +171,8 @@ get_promoter_distances <- function(
 }
 
 minyao_promoters <- annotations %>% 
-  dplyr::slice(1:110) %>% # Taking too long to do the whole table
+  # dplyr::slice(1:110) %>% # Taking too long to do the whole table
+  subset(locus_tag %in% c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"))
   get_promoter_distances()
 
 minyao_promoters
