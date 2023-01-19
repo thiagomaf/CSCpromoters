@@ -1,0 +1,9 @@
+TO RUN ONCE PER PACKAGE
+```{r}
+# usethis::use_pipe()
+
+# usethis::use_namespace()
+
+# usethis::use_package("magrittr")
+```
+

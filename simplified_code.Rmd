@@ -6,7 +6,8 @@ output: github_document
 # SETUP
 ## Load libraries
 ```{r}
-library(magrittr)
+# library(magrittr)
+library(CSCpromoter)
 library(CSCprimers)
 
 # library(progress)
@@ -15,6 +16,7 @@ library(CSCprimers)
 # library(tidyr)
 # library(dplyr)
 ```
+
 ## Define constants
 ```{r}
 pb_format <- ":what - [:bar] :percent (:spin)"
@@ -43,7 +45,8 @@ annotations <- paste0(
   dplyr::mutate(begin  = as.numeric(begin)) %>% 
   dplyr::mutate(end    = as.numeric(end)) %>% 
   dplyr::mutate(len    = as.numeric(len)) %>% 
-  dplyr::mutate(strand = as.numeric(strand))
+  dplyr::mutate(strand = as.numeric(strand)) %>% 
+  data.table::as.data.table()
 
 # consider moving these `mutate()` to inside the get_fasta_annotation() OR 
 # create a test function to be used on the fly - this is assumed to be true for
@@ -152,8 +155,8 @@ get_promoter_distances <- function(
             .each_annotation$strand ==  1 ~ .each_annotation$begin - value,
             .each_annotation$strand == -1 ~ value - .each_annotation$end
           )) %>%
-          dplyr::select(locus_tag, dist) %>%
-          dplyr::rename(closest_locus = locus_tag)
+          dplyr::select(locus_tag, dist) %>% # locus_tag here must be on the fly
+          dplyr::rename(closest_locus = locus_tag) # here too, only locus_tag
       }
       
       # progress bar oogie boogie
@@ -170,9 +173,10 @@ get_promoter_distances <- function(
   .distances
 }
 
-minyao_promoters <- annotations %>% 
-  # dplyr::slice(1:110) %>% # Taking too long to do the whole table
-  subset(locus_tag %in% c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"))
+minyao_promoters <- annotations %>%
+  #filter_locus(.keep = c(1,2)) %>%
+  #filter_locus(.keep = 1:10) %>%
+  filter_locus(.keep = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041")) %>%
   get_promoter_distances()
 
 minyao_promoters
@@ -202,7 +206,7 @@ minyao_promoters2
 
 ## Get promoter sequences
 ```{r}
-get_promoters <- function(
+get_promoter_sequences <- function(
     .distances,
     .folder     = paste0(
       "../../../",
@@ -240,7 +244,7 @@ get_promoters <- function(
       
       # Assign the current chromosome name to an object ("character")
       .curr_chr <- .keys %>% dplyr::pull(.chr_var)
-
+      
       # Should trimming of promoter sizes be moved here???
       
       # Open FASTA file for each chromosome b4 extracting promoters in each
@@ -302,7 +306,7 @@ get_promoters <- function(
 }
 
 my_promoters <- minyao_promoters2 %>% 
-  get_promoters(.txdb = txdb)
+  get_promoter_sequences(.txdb = txdb)
 
 my_promoters
 ```
@@ -323,10 +327,25 @@ write_sequences <- function(.sequences, .output_file) {
     tools::file_ext(.output_file),
     fasta = write_fasta(.sequences, .output_file),
     fa    = write_fasta(.sequences, .output_file),
-    rda   = write_rda(.sequences, .output_file)
+    rda   = write_rda(  .sequences, .output_file)
   )
 }
 
 my_promoters %>% write_fasta("data/promoters_Min-Yao.fasta")
 my_promoters %>% write_rda("data/promoters_Min-Yao.rda")
 ```
+
+
+# TO DELETE LATER (TAM)
+```{r}
+my_promoters5 <- annotations %>%
+  get_promoters(
+    .keep       = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"),
+    .txdb       = txdb,
+    .folder     = paste0(
+      "../../../",
+      "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
+    )
+)
+```
+

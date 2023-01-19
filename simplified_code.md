@@ -6,7 +6,8 @@ CSCpromoters - simplified code
 ## Load libraries
 
 ``` r
-library(magrittr)
+# library(magrittr)
+library(CSCpromoter)
 library(CSCprimers)
 
 # library(progress)
@@ -46,7 +47,8 @@ annotations <- paste0(
   dplyr::mutate(begin  = as.numeric(begin)) %>% 
   dplyr::mutate(end    = as.numeric(end)) %>% 
   dplyr::mutate(len    = as.numeric(len)) %>% 
-  dplyr::mutate(strand = as.numeric(strand))
+  dplyr::mutate(strand = as.numeric(strand)) %>% 
+  data.table::as.data.table()
 
 # consider moving these `mutate()` to inside the get_fasta_annotation() OR 
 # create a test function to be used on the fly - this is assumed to be true for
@@ -164,8 +166,8 @@ get_promoter_distances <- function(
             .each_annotation$strand ==  1 ~ .each_annotation$begin - value,
             .each_annotation$strand == -1 ~ value - .each_annotation$end
           )) %>%
-          dplyr::select(locus_tag, dist) %>%
-          dplyr::rename(closest_locus = locus_tag)
+          dplyr::select(locus_tag, dist) %>% # locus_tag here must be on the fly
+          dplyr::rename(closest_locus = locus_tag) # here too, only locus_tag
       }
       
       # progress bar oogie boogie
@@ -182,28 +184,22 @@ get_promoter_distances <- function(
   .distances
 }
 
-minyao_promoters <- annotations %>% 
-  dplyr::slice(1:110) %>% # Taking too long to do the whole table
+minyao_promoters <- annotations %>%
+  #filter_locus(.keep = c(1,2)) %>%
+  #filter_locus(.keep = 1:10) %>%
+  filter_locus(.keep = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041")) %>%
   get_promoter_distances()
 
 minyao_promoters
 ```
 
-    ## # A tibble: 111 × 4
-    ## # Groups:   locus_tag, chr [110]
-    ##    locus_tag     chr   closest_locus   dist
-    ##    <chr>         <chr> <chr>          <dbl>
-    ##  1 chr1Hg0000001 chr1H <NA>              NA
-    ##  2 chr1Hg0000011 chr1H chr1Hg0000021     68
-    ##  3 chr1Hg0000021 chr1H chr1Hg0000011      1
-    ##  4 chr1Hg0000031 chr1H chr1Hg0000021  15680
-    ##  5 chr1Hg0000041 chr1H chr1Hg0000031   1585
-    ##  6 chr1Hg0000051 chr1H chr1Hg0000041   1749
-    ##  7 chr1Hg0000061 chr1H chr1Hg0000071   2010
-    ##  8 chr1Hg0000071 chr1H chr1Hg0000101 222620
-    ##  9 chr1Hg0000101 chr1H chr1Hg0000071 222620
-    ## 10 chr1Hg0000111 chr1H chr1Hg0000101   3030
-    ## # … with 101 more rows
+    ## # A tibble: 3 × 4
+    ## # Groups:   locus_tag, chr [3]
+    ##   locus_tag     chr   closest_locus  dist
+    ##   <chr>         <chr> <chr>         <dbl>
+    ## 1 chr1Hg0000021 chr1H <NA>             NA
+    ## 2 chr1Hg0000031 chr1H chr1Hg0000021 15680
+    ## 3 chr1Hg0000041 chr1H chr1Hg0000031  1585
 
 ## Trim found upstream distances and define promoter lengths
 
@@ -228,25 +224,16 @@ minyao_promoters2 <- minyao_promoters %>%
 minyao_promoters2
 ```
 
-    ## # A tibble: 99 × 5
-    ##    locus_tag     chr   closest_locus   dist promoter_size
-    ##    <chr>         <chr> <chr>          <dbl>         <dbl>
-    ##  1 chr1Hg0000031 chr1H chr1Hg0000021  15680          2000
-    ##  2 chr1Hg0000041 chr1H chr1Hg0000031   1585          1585
-    ##  3 chr1Hg0000051 chr1H chr1Hg0000041   1749          1749
-    ##  4 chr1Hg0000061 chr1H chr1Hg0000071   2010          2000
-    ##  5 chr1Hg0000071 chr1H chr1Hg0000101 222620          2000
-    ##  6 chr1Hg0000101 chr1H chr1Hg0000071 222620          2000
-    ##  7 chr1Hg0000111 chr1H chr1Hg0000101   3030          2000
-    ##  8 chr1Hg0000121 chr1H chr1Hg0000111    789           789
-    ##  9 chr1Hg0000131 chr1H chr1Hg0000141  20898          2000
-    ## 10 chr1Hg0000141 chr1H chr1Hg0000131  20898          2000
-    ## # … with 89 more rows
+    ## # A tibble: 2 × 5
+    ##   locus_tag     chr   closest_locus  dist promoter_size
+    ##   <chr>         <chr> <chr>         <dbl>         <dbl>
+    ## 1 chr1Hg0000031 chr1H chr1Hg0000021 15680          2000
+    ## 2 chr1Hg0000041 chr1H chr1Hg0000031  1585          1585
 
 ## Get promoter sequences
 
 ``` r
-get_promoters <- function(
+get_promoter_sequences <- function(
     .distances,
     .folder     = paste0(
       "../../../",
@@ -284,7 +271,7 @@ get_promoters <- function(
       
       # Assign the current chromosome name to an object ("character")
       .curr_chr <- .keys %>% dplyr::pull(.chr_var)
-
+      
       # Should trimming of promoter sizes be moved here???
       
       # Open FASTA file for each chromosome b4 extracting promoters in each
@@ -346,24 +333,15 @@ get_promoters <- function(
 }
 
 my_promoters <- minyao_promoters2 %>% 
-  get_promoters(.txdb = txdb)
+  get_promoter_sequences(.txdb = txdb)
 
 my_promoters
 ```
 
-    ## DNAStringSet object of length 98:
-    ##      width seq                                              names               
-    ##  [1]  2000 ATTGCGCTGTTTTCACATGAAAA...GAGGAACAGGTGTTGGAGAGTG chr1Hg0000031
-    ##  [2]  1585 ACTAACACATGTACTCCTCCATG...CCCGTAGGATGTGCTAAGCGTA chr1Hg0000041
-    ##  [3]  1749 AGACTGCATCTAATATAAATTAG...AGTTGGACAGGTTAGATTGTAT chr1Hg0000051
-    ##  [4]  2000 GCCACATGGGACACATGGAAGTT...TCAAGTTAACCTGGAACTCTGC chr1Hg0000061
-    ##  [5]  2000 AATAAACCCCAAAACCACAAAAC...TCTTCTACAAAGTTAAGTTAAG chr1Hg0000071
-    ##  ...   ... ...
-    ## [94]  2000 GAGTAGCATTAAATGTGGCAATT...GATTAGGGTACTACGACAAGAC chr1Hg0001171
-    ## [95]  2000 GGCCAAGATCAAATAGTGCAAAA...TGCGTTGCGTTGCATTGCAGAG chr1Hg0001181
-    ## [96]  2000 TACTATCTATAATTCCTTCAAAA...AAGTCTCGATCGTATTAATTAA chr1Hg0001191
-    ## [97]  1478 TGGAACCATTAATTTGGTCCACA...CCACTTGTGCATATATAATAAA chr1Hg0001201
-    ## [98]  2000 ATTTTAGTTATTATGGCAATAAG...GCGGCAGGCAGATTCACAATGG chr1Hg0001211
+    ## DNAStringSet object of length 2:
+    ##     width seq                                               names               
+    ## [1]  2000 ATTGCGCTGTTTTCACATGAAAA...AGAGGAACAGGTGTTGGAGAGTG chr1Hg0000031
+    ## [2]  1585 ACTAACACATGTACTCCTCCATG...GCCCGTAGGATGTGCTAAGCGTA chr1Hg0000041
 
 # EXPORT SEQUENCES
 
@@ -382,10 +360,24 @@ write_sequences <- function(.sequences, .output_file) {
     tools::file_ext(.output_file),
     fasta = write_fasta(.sequences, .output_file),
     fa    = write_fasta(.sequences, .output_file),
-    rda   = write_rda(.sequences, .output_file)
+    rda   = write_rda(  .sequences, .output_file)
   )
 }
 
 my_promoters %>% write_fasta("data/promoters_Min-Yao.fasta")
 my_promoters %>% write_rda("data/promoters_Min-Yao.rda")
+```
+
+# TO DELETE LATER (TAM)
+
+``` r
+my_promoters5 <- annotations %>%
+  get_promoters(
+    .keep       = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"),
+    .txdb       = txdb,
+    .folder     = paste0(
+      "../../../",
+      "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
+    )
+)
 ```
