@@ -1,0 +1,19 @@
+---
+title: "How to use CSCpromoter to capture promoter sequences?"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to use CSCpromoter to capture promoter sequences?}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CSCpromoter)
+```
