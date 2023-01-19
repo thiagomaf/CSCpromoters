@@ -12,15 +12,11 @@ Extract the sequences of promoter regions from the genome fasta files.
 
 ## Dependencies
 
-    magrittr,
-    data.table,
-    seqinr,
-    blaster,
-    stringr,
-    tidyr,
-    plyr,
-    dplyr,
-    purrr,
+	magrittr,
+	tidyr,
+	plyr,
+	dplyr,
+	purrr,
 	progress,
 	GenomicFeatures,
 	CSCprimers
