@@ -153,13 +153,13 @@ annotations %>%
 
 ### Files
 
-- \[folder1\]/Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta
-- \[folder1\]/Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3
-- \[folder2\]/Hordeum_vulgare.refseq\[chr1H\].fasta
-- \[folder2\]/Hordeum_vulgare.refseq\[chr2H\].fasta
-- \[folder2\]/Hordeum_vulgare.refseq\[chr3H\].fasta
-- \[folder2\]/Hordeum_vulgare.refseq\[chr4H\].fasta
-- \[folder2\]/Hordeum_vulgare.refseq\[chr5H\].fasta
-- \[folder2\]/Hordeum_vulgare.refseq\[chr6H\].fasta
-- \[folder2\]/Hordeum_vulgare.refseq\[chr7H\].fasta
-- \[folder2\]/Hordeum_vulgare.refseq\[chrUn\].fasta
+- `[folder1]`/Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta
+- `[folder1]`/Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3
+- `[folder2]`/Hordeum_vulgare.refseq\[chr1H\].fasta
+- `[folder2]`/Hordeum_vulgare.refseq\[chr2H\].fasta
+- `[folder2]`/Hordeum_vulgare.refseq\[chr3H\].fasta
+- `[folder2]`/Hordeum_vulgare.refseq\[chr4H\].fasta
+- `[folder2]`/Hordeum_vulgare.refseq\[chr5H\].fasta
+- `[folder2]`/Hordeum_vulgare.refseq\[chr6H\].fasta
+- `[folder2]`/Hordeum_vulgare.refseq\[chr7H\].fasta
+- `[folder2]`/Hordeum_vulgare.refseq\[chrUn\].fasta
