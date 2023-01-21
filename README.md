@@ -1,3 +1,4 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # CSCpromoters
@@ -20,36 +21,39 @@ user-defined minimum and maximum promoter length.
 
 ## Installation
 
-You can install the development version of CSCpromoters from
-[GitHub](https://github.com/) with:
+`CSCpromoters` is part of a larger set of CSC libraries and depends on
+`CSCfasta`.
+
+You can install the development version of `CSCpromoters` and `CSCfasta`
+from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
+devtools::install_github("thiagomaf/CSCfasta")
 devtools::install_github("thiagomaf/CSCpromoters")
+
+# These commands will not work while the repositories are private.
+# There are work-around, we can talk about it later.
 ```
 
 ## Usage Example
 
 This is a basic example which shows you how to solve a common problem:
 
+### SETUP
+
+#### Load libraries
+
 ``` r
 library(magrittr)
-library(CSCpromoters)
-library(CSCprimers)
 
-library(progress)
-library(GenomicFeatures)
-library(Rsamtools)
-library(tidyr)
-library(dplyr)
-## basic example code
+#library(CSCfasta)
+library(CSCpromoters)
 ```
 
-Define constants
+#### Define constants
 
 ``` r
-pb_format <- ":what - [:bar] :percent (:spin)"
-
 folder1 <- paste0(
   "./"
 )
@@ -59,85 +63,85 @@ folder2 <- paste0(
 )
 ```
 
-LOAD DATA H. vulgare cv. Golden Promise annotations
+### LOAD DATA
+
+#### H. vulgare cv. Golden Promise annotations
 
 ``` r
 annotations <- paste0(
   folder1,
   "Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta"
-) %>% 
-  CSCprimers::load_fasta() %>%
-  CSCprimers::get_fasta_annotation() %>% # Add progress bar to this
-  dplyr::mutate(begin  = as.numeric(begin)) %>% 
-  dplyr::mutate(end    = as.numeric(end)) %>% 
-  dplyr::mutate(len    = as.numeric(len)) %>% 
-  dplyr::mutate(strand = as.numeric(strand)) %>% 
-  data.table::as.data.table()
-
-# consider moving these `mutate()` to inside the get_fasta_annotation() OR 
-# create a test function to be used on the fly - this is assumed to be true for
-# downstream analyses.
-
-# Ideally, selection of loci should be done here and be propagated downstream.
+) %>%
+  CSCfasta::load_fasta() %>%
+  CSCfasta::get_fasta_annotation()
 ```
 
-H. vulgare cv. Golden Promise TxDB from GFF file
+#### H. vulgare cv. Golden Promise TxDB from GFF file
 
 ``` r
 txdb <- paste0(
   folder1,
   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
-) %>% 
+) %>%
   make_txdb(.data_source = "Hv - Golden Promise", .organism = "Hordeum vulgare")
+
+# For some reason this cannot be properly loaded from an .RData or .rda file,
+# must be run on every new R session
+
+# If we can get the loci `start` and `end` coordinates from txdb we will not 
+# need the `annotations` table above.
 ```
 
-GET PROMOTERS Calculate distances to closest upstream locus
+### GET PROMOTERS
+
+#### Explicit pipeline
 
 ``` r
-minyao_promoters <- annotations %>%
-  #filter_locus(.keep = c(1,2)) %>%
-  #filter_locus(.keep = 1:10) %>%
-  filter_locus(.keep = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041")) %>%
-  get_promoter_distances()
-
-minyao_promoters
+annotations %>%
+  # Choose which loci to use
+  filter_locus(
+    .keep = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041")
+  ) %>%
+  # Calculate distances to closest upstream locus
+  get_promoter_distances() %>%
+  # Trim found upstream distances and define promoter lengths
+  trim_distances(.min_size = 100, .max_size = 2000) %>%
+  # Get promoter sequences
+  get_promoter_sequences(.txdb = txdb, .folder = folder2)
 ```
 
-Trim found upstream distances and define promoter lengths
+#### Wrap-up function
 
 ``` r
-minyao_promoters2 <- minyao_promoters %>% 
-  trim_distances(.min_size = 100, .max_size = 2000)
-
-minyao_promoters2
-```
-
-Get promoter sequences
-
-``` r
-my_promoters <- minyao_promoters2 %>% 
-  get_promoter_sequences(.txdb = txdb)
-
-my_promoters
-```
-
-EXPORT SEQUENCES
-
-``` r
-my_promoters %>% write_fasta("data/promoters_Min-Yao.fasta")
-my_promoters %>% write_rda("data/promoters_Min-Yao.rda")
+annotations %>%
+  # Wrap-up function
+  get_promoters(
+    .keep       = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"),
+    .txdb       = txdb,
+    .folder     = folder2
+)
 ```
 
 ## Dependencies
 
-    magrittr,
-    tidyr,
-    plyr,
-    dplyr,
-    purrr,
-    progress,
-    GenomicFeatures,
-    CSCprimers
+- magrittr
+- tidyr
+- plyr
+- dplyr
+- purrr
+- progress
+- GenomicFeatures
+- CSCprimers
 
 ### Files
 
+- Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta
+- Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3
+- Hordeum_vulgare.refseq\[chr1H\].fasta
+- Hordeum_vulgare.refseq\[chr2H\].fasta
+- Hordeum_vulgare.refseq\[chr3H\].fasta
+- Hordeum_vulgare.refseq\[chr4H\].fasta
+- Hordeum_vulgare.refseq\[chr5H\].fasta
+- Hordeum_vulgare.refseq\[chr6H\].fasta
+- Hordeum_vulgare.refseq\[chr7H\].fasta
+- Hordeum_vulgare.refseq\[chrUn\].fasta

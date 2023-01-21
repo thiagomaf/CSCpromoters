@@ -51,7 +51,7 @@ txdb <- paste0(
 ```
 
 # GET PROMOTERS
-# Explicit pipeline
+## Explicit pipeline
 ```{r}
 annotations %>%
   # Choose which loci to use
@@ -63,26 +63,17 @@ annotations %>%
   # Trim found upstream distances and define promoter lengths
   trim_distances(.min_size = 100, .max_size = 2000) %>%
   # Get promoter sequences
-  get_promoter_sequences(
-    .txdb   = txdb,
-    .folder = paste0(
-      "../../../",
-      "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
-    )
-  )
+  get_promoter_sequences(.txdb = txdb, .folder = folder2)
 ```
 
-# Wrap-up function
+## Wrap-up function
 ```{r}
 annotations %>%
   # Wrap-up function
   get_promoters(
     .keep       = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"),
     .txdb       = txdb,
-    .folder     = paste0(
-      "../../../",
-      "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
-    )
+    .folder     = folder2
 )
 ```
 
