@@ -50,7 +50,7 @@ This is a basic example which shows you how to solve a common problem:
 
 ### SETUP
 #### Load libraries
-```{r eval=FALSE}
+```{r}
 library(magrittr)
 
 #library(CSCfasta)
@@ -68,10 +68,22 @@ folder2 <- paste0(
 )
 ```
 
+```{r, include = FALSE}
+folder1 <- paste0(
+  "../../../",
+  "Data/FASTA sequences/Genomes/Hordeum vulgare - Golden Promise/"
+)
+
+folder2 <- paste0(
+  "../../../",
+  "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
+)
+```
+
 
 ### LOAD DATA
 #### H. vulgare cv. Golden Promise annotations
-```{r eval=FALSE}
+```{r}
 annotations <- paste0(
   folder1,
   "Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta"
@@ -81,7 +93,7 @@ annotations <- paste0(
 ```
 
 #### H. vulgare cv. Golden Promise TxDB from GFF file
-```{r eval=FALSE}
+```{r}
 txdb <- paste0(
   folder1,
   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
@@ -98,7 +110,7 @@ txdb <- paste0(
 
 ### GET PROMOTERS
 #### Explicit pipeline
-```{r eval=FALSE}
+```{r}
 annotations %>%
   # Choose which loci to use
   filter_locus(
@@ -113,7 +125,7 @@ annotations %>%
 ```
 
 #### Wrap-up function
-```{r eval=FALSE}
+```{r}
 annotations %>%
   # Wrap-up function
   get_promoters(
