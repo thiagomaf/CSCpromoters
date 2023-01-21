@@ -36,6 +36,21 @@ devtools::install_github("thiagomaf/CSCpromoters")
 # There are work-around, we can talk about it later.
 ```
 
+Alternatively, you can download this git repository and install it
+locally. To do that, download the content of this repository by clicking
+the big green `Code` button (on the top right) and then click
+`Download ZIP`. Download it to a local folder.
+
+After that, run the following code lines:
+
+- [CSCpromoters](https://github.com/thiagomaf/CSCpromoters)
+- [CSCfasta](https://github.com/thiagomaf/CSCfasta)
+
+``` r
+devtools::install_local("PATH/CSCCSCfasta-main.zip")
+devtools::install_local("PATH/CSCpromoters-main.zip")
+```
+
 ## Usage Example
 
 This is a basic example which shows you how to solve a common problem:

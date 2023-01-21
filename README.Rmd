@@ -35,13 +35,28 @@ The goal of CSCpromoters is to extract the sequences of promoter regions from th
 You can install the development version of `CSCpromoters` and `CSCfasta` from 
 [GitHub](https://github.com/) with:
 
-```{r installation, eval=FALSE}
+```{r installation1, eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("thiagomaf/CSCfasta")
 devtools::install_github("thiagomaf/CSCpromoters")
 
 # These commands will not work while the repositories are private.
 # There are work-around, we can talk about it later.
+```
+
+Alternatively, you can download this git repository and install it locally. To 
+do that, download the content of this repository by clicking the big green 
+`Code` button (on the top right) and then click `Download ZIP`. Download it to 
+a local folder. 
+
+After that, run the following code lines:
+
+- [CSCpromoters](https://github.com/thiagomaf/CSCpromoters)
+- [CSCfasta](https://github.com/thiagomaf/CSCfasta)
+
+```{r installation2, eval=FALSE}
+devtools::install_local("PATH/CSCCSCfasta-main.zip")
+devtools::install_local("PATH/CSCpromoters-main.zip")
 ```
 
 
