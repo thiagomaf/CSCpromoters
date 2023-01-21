@@ -2,7 +2,8 @@
 % Please edit documentation in R/get_promoter_distances.R
 \name{get_promoter_distances}
 \alias{get_promoter_distances}
-\title{Get the distance from the gene-of-interest transcription start site to the closest upstream gene.}
+\title{Get the distance from the gene-of-interest transcription start site to the
+closest upstream gene.}
 \usage{
 get_promoter_distances(
   .annotations,
@@ -43,8 +44,11 @@ different column names (not recommended). Defaults to
 \code{"chr"}.}
 }
 \value{
-A data frame with the closest upstream gene ID and distance from the gene-of-interest transcription start site to the closest upstream gene.
+A data frame with the closest upstream gene ID and distance from the
+gene-of-interest transcription start site to the closest upstream
+gene.
 }
 \description{
-Get the distance from the gene-of-interest transcription start site to the closest upstream gene.
+Get the distance from the gene-of-interest transcription start site to the
+closest upstream gene.
 }

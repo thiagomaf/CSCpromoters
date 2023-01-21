@@ -1,8 +1,11 @@
-#' Get the distance from the gene-of-interest transcription start site to the closest upstream gene.
+#' Get the distance from the gene-of-interest transcription start site to the 
+#' closest upstream gene.
 #'
 #' @inheritParams get_promoters
 #'
-#' @return A data frame with the closest upstream gene ID and distance from the gene-of-interest transcription start site to the closest upstream gene.
+#' @return A data frame with the closest upstream gene ID and distance from the 
+#'         gene-of-interest transcription start site to the closest upstream 
+#'         gene.
 #' @export
 #' 
 get_promoter_distances <- function(
@@ -75,9 +78,8 @@ get_promoter_distances <- function(
             .each_annotation$strand ==  1 ~ .each_annotation$begin - value,
             .each_annotation$strand == -1 ~ value - .each_annotation$end
           )) %>%
-          #dplyr::select(locus_tag, dist) %>% # locus_tag here must be on the fly
           dplyr::select(dplyr::all_of(c(.locus_var, "dist"))) %>%
-          dplyr::rename(closest_locus = all_of(.locus_var)) # here too, only locus_tag
+          dplyr::rename(closest_locus = dplyr::all_of(.locus_var))
       }
       
       # progress bar oogie boogie
