@@ -21,14 +21,14 @@ get_promoters(
 }
 \arguments{
 \item{.annotations}{Preferably a \code{data.table} (but possibly a \code{data.frame})
-of annotations as described \link{HERE}. \code{data.table}
+of annotations as described {HERE}. \code{data.table}
 computations are normally faster.}
 
 \item{.keep}{Either a \code{character} vector of loci names (present in the
 \code{.annotations} table) or a \code{numeric} vector of indexes
 (of the \code{.annotations} table).}
 
-\item{.txdb}{\link{TODO}}
+\item{.txdb}{{TODO}}
 
 \item{.folder}{A \code{character} indicating the folder in which the FASTA
 files containing the genome sequences of each individual

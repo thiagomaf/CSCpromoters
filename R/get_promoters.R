@@ -1,14 +1,14 @@
 #' Wrap-up function to query promoter sequences
 #'
 #' @param .annotations Preferably a `data.table` (but possibly a `data.frame`) 
-#'                     of annotations as described [HERE]. `data.table` 
+#'                     of annotations as described {HERE}. `data.table` 
 #'                     computations are normally faster.
 #'                     
 #' @param .keep        Either a `character` vector of loci names (present in the
 #'                     `.annotations` table) or a `numeric` vector of indexes 
 #'                     (of the `.annotations` table).
 #'                     
-#' @param .txdb        [TODO]
+#' @param .txdb        {TODO}
 #' 
 #' @param .folder      A `character` indicating the folder in which the FASTA 
 #'                     files containing the genome sequences of each individual
