@@ -25,5 +25,9 @@ Suggests:
   testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Imports: 
+	Biostrings,
+	GenomicFeatures,
+	progress,
 	magrittr,
-	dplyr
+	dplyr,
+	tidyr
