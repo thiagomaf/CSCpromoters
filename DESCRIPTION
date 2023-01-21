@@ -1,5 +1,5 @@
-Package: CSCpromoter
-Title: CSCpromoter: Extract the sequences of promoter regions.
+Package: CSCpromoters
+Title: CSCpromoters: Extract the sequences of promoter regions
 Version: 0.0.0.9000
 Authors@R:
   # can only have one person with "cre" role, otherwise won't pass check / install
@@ -25,11 +25,9 @@ Suggests:
   testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Imports: 
-	magrittr,
-	tidyr,
-	plyr,
-	dplyr,
-	purrr,
-	progress,
+	Biostrings,
 	GenomicFeatures,
-	CSCprimers
+	progress,
+	magrittr,
+	dplyr,
+	tidyr
