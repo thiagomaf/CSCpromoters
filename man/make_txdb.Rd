@@ -6,13 +6,6 @@
 \usage{
 make_txdb(.filename = NULL, .data_source = NULL, .organism = NULL)
 }
-\arguments{
-\item{.filename}{}
-
-\item{.data_source}{}
-
-\item{.organism}{}
-}
 \value{
 A TxDb object.
 }

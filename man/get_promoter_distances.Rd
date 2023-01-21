@@ -7,21 +7,40 @@
 get_promoter_distances(
   .annotations,
   .pb = NULL,
-  .pb_format = pb_format,
+  .pb_format = ":what - [:bar] :percent (:spin)",
   .locus_var = "locus_tag",
   .chr_var = "chr"
 )
 }
 \arguments{
-\item{.annotations}{}
+\item{.annotations}{Preferably a \code{data.table} (but possibly a \code{data.frame})
+of annotations as described {HERE}. \code{data.table}
+computations are normally faster.}
 
-\item{.pb}{}
+\item{.pb}{An optional progress bar object created via
+\code{progress::progress_bar()}. Defaults to \code{NULL}, case in
+which a progress bar will be generated internally.}
 
-\item{.pb_format}{}
+\item{.pb_format}{A \code{character} indicating the format of the progress bar.
+A number of tokens can be used here, see them below. It
+defaults to \code{":what - [:bar] :percent (:spin)"}, which
+means that information on the locus being handled in
+shown on the left (\verb{:what}), followed by the progress
+bar is within brackets (\verb{[:bar]}), and ended by the
+percentage and a spinning character on the right
+(\verb{:percent (:spin)}).}
 
-\item{.locus_var}{}
+\item{.locus_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing loci names. This can be
+altered to fit input annotation tables with different
+column names (not recommended). Defaults to \code{"locus_tag"}
+.}
 
-\item{.chr_var}{}
+\item{.chr_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing chromosome names. This
+can be altered to fit input annotation tables with
+different column names (not recommended). Defaults to
+\code{"chr"}.}
 }
 \value{
 A data frame with the closest upstream gene ID and distance from the gene-of-interest transcription start site to the closest upstream gene.

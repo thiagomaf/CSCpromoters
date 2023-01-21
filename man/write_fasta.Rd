@@ -6,11 +6,6 @@
 \usage{
 write_fasta(.sequences, .output_file)
 }
-\arguments{
-\item{.sequences}{}
-
-\item{.output_file}{}
-}
 \value{
 A fasta file.
 }

@@ -84,13 +84,3 @@ get_promoters <- function(
     trim_distances(.min_size, .max_size) %>% 
     get_promoter_sequences(.folder, .txdb)
 }
-
-# my_promoters4 <- annotations %>% 
-#   get_promoters(
-#     .keep       = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"),
-#     .txdb       = txdb,
-#     .folder     = paste0(
-#       "../../../",
-#       "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
-#     )
-# )

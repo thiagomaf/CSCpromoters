@@ -1,26 +1,17 @@
 #' Extract promoter sequences from the final promoter sizes.
 #'
-#' @param .distances 
-#' @param .folder 
-#' @param .txdb 
-#' @param .pb 
-#' @param .pb_format 
-#' @param .locus_var 
-#' @param .chr_var 
-#' @param .dist_var 
-#' @param .downstream 
 #' @inheritParams get_promoters
+#' @param .distances {TODO}
 #'
 #' @return DNAStringSet
 #' @export
 #'
-#' @examples
 get_promoter_sequences <- function(
     .distances,
     .folder     = NULL,
     .txdb       = NULL,
     .pb         = NULL,
-    .pb_format  = pb_format,
+    .pb_format  = ":what - [:bar] :percent (:spin)",
     .locus_var  = "locus_tag",
     .chr_var    = "chr",
     .dist_var   = "promoter_size",

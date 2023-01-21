@@ -9,7 +9,7 @@ get_promoter_sequences(
   .folder = NULL,
   .txdb = NULL,
   .pb = NULL,
-  .pb_format = pb_format,
+  .pb_format = ":what - [:bar] :percent (:spin)",
   .locus_var = "locus_tag",
   .chr_var = "chr",
   .dist_var = "promoter_size",
@@ -17,23 +17,51 @@ get_promoter_sequences(
 )
 }
 \arguments{
-\item{.distances}{}
+\item{.distances}{{TODO}}
 
-\item{.folder}{}
+\item{.folder}{A \code{character} indicating the folder in which the FASTA
+files containing the genome sequences of each individual
+chromosome. Currently, the library assumes that the
+filename will have the following format:
+\code{paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")}
+.}
 
-\item{.txdb}{}
+\item{.txdb}{{TODO}}
 
-\item{.pb}{}
+\item{.pb}{An optional progress bar object created via
+\code{progress::progress_bar()}. Defaults to \code{NULL}, case in
+which a progress bar will be generated internally.}
 
-\item{.pb_format}{}
+\item{.pb_format}{A \code{character} indicating the format of the progress bar.
+A number of tokens can be used here, see them below. It
+defaults to \code{":what - [:bar] :percent (:spin)"}, which
+means that information on the locus being handled in
+shown on the left (\verb{:what}), followed by the progress
+bar is within brackets (\verb{[:bar]}), and ended by the
+percentage and a spinning character on the right
+(\verb{:percent (:spin)}).}
 
-\item{.locus_var}{}
+\item{.locus_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing loci names. This can be
+altered to fit input annotation tables with different
+column names (not recommended). Defaults to \code{"locus_tag"}
+.}
 
-\item{.chr_var}{}
+\item{.chr_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing chromosome names. This
+can be altered to fit input annotation tables with
+different column names (not recommended). Defaults to
+\code{"chr"}.}
 
-\item{.dist_var}{}
+\item{.dist_var}{A \code{character} indicating the name of the output column
+table containing the final promoter lengths. There is
+absolutely no reason you would need to change that.
+Defaults to \code{"promoter_size"}.}
 
-\item{.downstream}{}
+\item{.downstream}{An integer indicating the sequence length downstream the
+start site to be included in the output promoter
+sequence. Presumably, will be reduced from the upstream
+sequence length but have never tested. Defaults to \code{0}.}
 }
 \value{
 DNAStringSet

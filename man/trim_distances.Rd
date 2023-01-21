@@ -7,11 +7,15 @@
 trim_distances(.distances, .min_size = 100, .max_size = 2000)
 }
 \arguments{
-\item{.distances}{}
+\item{.distances}{{TODO}}
 
-\item{.min_size}{}
+\item{.min_size}{An integer indicating the minimum promoter size. Any
+\emph{loci} identified to have sequence length shorter than
+\code{.min_size} will be ignored.}
 
-\item{.max_size}{}
+\item{.max_size}{An integer indicating the maximum promoter size. Any
+\emph{loci} identified to have sequence length longer than
+\code{.max_size} will be set (trimmed) to equals \code{.max_size}.}
 }
 \value{
 A data frame with filtered genes that have promoter lengths longer than the user-defined minimum length, and a new column containing the length of the final promoter sizes.

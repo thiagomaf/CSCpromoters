@@ -1,19 +1,14 @@
 #' Get the distance from the gene-of-interest transcription start site to the closest upstream gene.
 #'
-#' @param .annotations 
-#' @param .pb 
-#' @param .pb_format 
-#' @param .locus_var 
-#' @param .chr_var 
+#' @inheritParams get_promoters
 #'
 #' @return A data frame with the closest upstream gene ID and distance from the gene-of-interest transcription start site to the closest upstream gene.
 #' @export
-#'
-#' @examples
+#' 
 get_promoter_distances <- function(
     .annotations,
     .pb        = NULL,
-    .pb_format = pb_format,
+    .pb_format = ":what - [:bar] :percent (:spin)",
     .locus_var = "locus_tag",
     .chr_var   = "chr"
 ) {

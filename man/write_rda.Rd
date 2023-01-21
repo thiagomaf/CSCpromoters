@@ -6,11 +6,6 @@
 \usage{
 write_rda(.sequences, .output_file)
 }
-\arguments{
-\item{.sequences}{}
-
-\item{.output_file}{}
-}
 \value{
 A R Data File \code{rda}.
 }
