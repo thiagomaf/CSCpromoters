@@ -1,0 +1,144 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+```
+
+# CSCpromoters
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+## About
+
+The goal of CSCpromoters is to extract the sequences of promoter regions from the genome fasta files.
+
+## Description
+
+`CSCpromoters` allows users to extract the sequences of promoter regions from the genome fasta files. `CSCpromoters` can calculate the length of promoters based on the distance to the closest upstream gene. `CSCpromoters` also provides the option for users to enter the user-defined minimum and maximum promoter length.
+
+## Installation
+
+You can install the development version of CSCpromoters from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("thiagomaf/CSCpromoters")
+```
+
+## Usage Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r eval=FALSE}
+library(magrittr)
+library(CSCpromoters)
+library(CSCprimers)
+
+library(progress)
+library(GenomicFeatures)
+library(Rsamtools)
+library(tidyr)
+library(dplyr)
+## basic example code
+```
+
+Define constants
+```{r eval=FALSE}
+pb_format <- ":what - [:bar] :percent (:spin)"
+
+folder1 <- paste0(
+  "./"
+)
+
+folder2 <- paste0(
+  "./"
+)
+```
+
+LOAD DATA
+H. vulgare cv. Golden Promise annotations
+```{r eval=FALSE}
+annotations <- paste0(
+  folder1,
+  "Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta"
+) %>%
+  CSCprimers::load_fasta() %>%
+  CSCprimers::get_fasta_annotation() %>% # Add progress bar to this
+  dplyr::mutate(begin  = as.numeric(begin)) %>%
+  dplyr::mutate(end    = as.numeric(end)) %>%
+  dplyr::mutate(len    = as.numeric(len)) %>%
+  dplyr::mutate(strand = as.numeric(strand)) %>%
+  data.table::as.data.table()
+
+# consider moving these `mutate()` to inside the get_fasta_annotation() OR 
+# create a test function to be used on the fly - this is assumed to be true for
+# downstream analyses.
+
+# Ideally, selection of loci should be done here and be propagated downstream.
+```
+
+H. vulgare cv. Golden Promise TxDB from GFF file
+```{r eval=FALSE}
+txdb <- paste0(
+  folder1,
+  "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
+) %>%
+  make_txdb(.data_source = "Hv - Golden Promise", .organism = "Hordeum vulgare")
+```
+
+GET PROMOTERS
+Calculate distances to closest upstream locus
+```{r eval=FALSE}
+minyao_promoters <- annotations %>%
+  #filter_locus(.keep = c(1,2)) %>%
+  #filter_locus(.keep = 1:10) %>%
+  filter_locus(.keep = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041")) %>%
+  get_promoter_distances()
+
+minyao_promoters
+```
+
+Trim found upstream distances and define promoter lengths
+```{r eval=FALSE}
+minyao_promoters2 <- minyao_promoters %>% 
+  trim_distances(.min_size = 100, .max_size = 2000)
+
+minyao_promoters2
+```
+
+Get promoter sequences
+```{r eval=FALSE}
+my_promoters <- minyao_promoters2 %>% 
+  get_promoter_sequences(.txdb = txdb)
+
+my_promoters
+```
+
+EXPORT SEQUENCES
+```{r eval=FALSE}
+# my_promoters %>% write_fasta("data/promoters_Min-Yao.fasta")
+# my_promoters %>% write_rda("data/promoters_Min-Yao.rda")
+```
+
+
+## Dependencies
+
+	magrittr,
+	tidyr,
+	plyr,
+	dplyr,
+	purrr,
+	progress,
+	GenomicFeatures,
+	CSCprimers
+	
+### Files
