@@ -26,8 +26,9 @@ Suggests:
 VignetteBuilder: knitr
 Imports: 
 	Biostrings,
+	dplyr,
 	GenomicFeatures,
 	progress,
 	magrittr,
-	dplyr,
+	Rsamtools,
 	tidyr
