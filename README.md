@@ -84,10 +84,13 @@ txdb <- paste0(
   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
 ) %>%
   make_txdb(.data_source = "Hv - Golden Promise", .organism = "Hordeum vulgare")
-#> Import genomic features from the file as a GRanges object ... OK
-#> Prepare the 'metadata' data frame ... OK
-#> Make the TxDb object ... OK
+```
 
+    ## Import genomic features from the file as a GRanges object ... OK
+    ## Prepare the 'metadata' data frame ... OK
+    ## Make the TxDb object ... OK
+
+``` r
 # For some reason this cannot be properly loaded from an .RData or .rda file,
 # must be run on every new R session
 
@@ -111,11 +114,12 @@ annotations %>%
   trim_distances(.min_size = 100, .max_size = 2000) %>%
   # Get promoter sequences
   get_promoter_sequences(.txdb = txdb, .folder = folder2)
-#> DNAStringSet object of length 2:
-#>     width seq                                               names               
-#> [1]  2000 ATTGCGCTGTTTTCACATGAAAA...AGAGGAACAGGTGTTGGAGAGTG chr1Hg0000031
-#> [2]  1585 ACTAACACATGTACTCCTCCATG...GCCCGTAGGATGTGCTAAGCGTA chr1Hg0000041
 ```
+
+    ## DNAStringSet object of length 2:
+    ##     width seq                                               names               
+    ## [1]  2000 ATTGCGCTGTTTTCACATGAAAA...AGAGGAACAGGTGTTGGAGAGTG chr1Hg0000031
+    ## [2]  1585 ACTAACACATGTACTCCTCCATG...GCCCGTAGGATGTGCTAAGCGTA chr1Hg0000041
 
 #### Wrap-up function
 
@@ -127,11 +131,12 @@ annotations %>%
     .txdb       = txdb,
     .folder     = folder2
 )
-#> DNAStringSet object of length 2:
-#>     width seq                                               names               
-#> [1]  2000 ATTGCGCTGTTTTCACATGAAAA...AGAGGAACAGGTGTTGGAGAGTG chr1Hg0000031
-#> [2]  1585 ACTAACACATGTACTCCTCCATG...GCCCGTAGGATGTGCTAAGCGTA chr1Hg0000041
 ```
+
+    ## DNAStringSet object of length 2:
+    ##     width seq                                               names               
+    ## [1]  2000 ATTGCGCTGTTTTCACATGAAAA...AGAGGAACAGGTGTTGGAGAGTG chr1Hg0000031
+    ## [2]  1585 ACTAACACATGTACTCCTCCATG...GCCCGTAGGATGTGCTAAGCGTA chr1Hg0000041
 
 ## Dependencies
 
