@@ -1,6 +1,7 @@
 #' Export promoter sequences in a fasta file.
 #' 
-#' @inheritParams get_promoters
+#' @param .sequences   {TODO}
+#' @param .output_file {TODO}
 #'
 #' @return A fasta file.
 #' @export

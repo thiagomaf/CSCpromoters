@@ -25,10 +25,11 @@ Suggests:
   testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Imports: 
-	Biostrings,
-	dplyr,
-	GenomicFeatures,
-	progress,
-	magrittr,
-	Rsamtools,
-	tidyr
+    Biostrings,
+    dplyr,
+    GenomicFeatures,
+    progress,
+    magrittr,
+    Rsamtools,
+    tidyr,
+    plyr

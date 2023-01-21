@@ -23,14 +23,14 @@ get_promoter_sequences <- function(
   if(is.null(.txdb)) stop(".txdb is NULL")
   
   .sequences <- .distances %>%
-    dplyr::group_by(across(all_of(.chr_var))) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(.chr_var))) %>%
     dplyr::group_map(.f = function(.distances_curr_chr, .keys) {
       # Initiate (or not) the progress bar - can also receive external object
       if(is.null(.pb)) {
         .pb <- progress::progress_bar$new(
           format = .pb_format,
           total  = .distances_curr_chr %>%
-            dplyr::select(all_of(.locus_var)) %>% 
+            dplyr::select(dplyr::all_of(.locus_var)) %>% 
             unique() %>% 
             nrow()
         )
@@ -56,7 +56,7 @@ get_promoter_sequences <- function(
       
       # Get promoters
       .sequences_curr_chr <- .distances_curr_chr %>%
-        dplyr::group_by(across(all_of(.locus_var))) %>%
+        dplyr::group_by(dplyr::across(dplyr::all_of(.locus_var))) %>%
         dplyr::group_map(.f = function(.distance_curr_locus, .each_keys) {
           # Assign the current locus locus name to an object
           .curr_locus    <- .each_keys %>% dplyr::pull(.locus_var)
@@ -88,16 +88,16 @@ get_promoter_sequences <- function(
           .each_promoters
         })
       
-      # Close FASTA file
+      # Close FASTA file 
       close(.fasta_file)
       
       # End progress bar
       rm(.pb)
       
       .sequences_curr_chr %>% 
-        do.call(what = c, arg = .)
+        do.call(what = c, args = .)
     }) %>% 
-    do.call(what = c, arg = .)
+    do.call(what = c, args = .)
   
   .sequences
 }

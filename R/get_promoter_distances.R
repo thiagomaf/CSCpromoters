@@ -17,7 +17,7 @@ get_promoter_distances <- function(
     .pb <- progress::progress_bar$new(
       format = .pb_format,
       total  = .annotations %>% 
-        dplyr::select(all_of(c(.locus_var, .chr_var))) %>% 
+        dplyr::select(dplyr::all_of(c(.locus_var, .chr_var))) %>% 
         unique() %>% 
         nrow()
     )
@@ -28,7 +28,7 @@ get_promoter_distances <- function(
   
   # THIS MUST BE PARALLELIZED
   .distances <- .annotations %>%
-    dplyr::group_by(across(all_of(c(.locus_var, .chr_var)))) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(c(.locus_var, .chr_var)))) %>%
     dplyr::group_modify(.f = function(.each_annotation, .keys) {
       # Assign the current locus and chromosome names to objects ("character")
       .curr_locus <- .keys %>% dplyr::pull(.locus_var)
@@ -75,8 +75,9 @@ get_promoter_distances <- function(
             .each_annotation$strand ==  1 ~ .each_annotation$begin - value,
             .each_annotation$strand == -1 ~ value - .each_annotation$end
           )) %>%
-          dplyr::select(locus_tag, dist) %>% # locus_tag here must be on the fly
-          dplyr::rename(closest_locus = locus_tag) # here too, only locus_tag
+          #dplyr::select(locus_tag, dist) %>% # locus_tag here must be on the fly
+          dplyr::select(dplyr::all_of(c(.locus_var, "dist"))) %>%
+          dplyr::rename(closest_locus = get(.locus_var)) # here too, only locus_tag
       }
       
       # progress bar oogie boogie

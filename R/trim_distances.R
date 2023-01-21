@@ -7,12 +7,16 @@
 #' @export
 #'
 trim_distances <- function(.distances, .min_size = 100, .max_size = 2000) {
+  .value_var <- "dist"
+  
   .distances <- .distances  %>%
     dplyr::ungroup() %>% # breaks the magig if removed!
-    subset(dist >= .min_size) %>%
+    #subset(dist >= .min_size) %>%
+    subset(get(.value_var) >= .min_size) %>%
     dplyr::mutate(
       promoter_size = dplyr::case_when(
-        dist > .max_size ~ .max_size,
+        #dist > .max_size ~ .max_size,
+        get(.value_var) > .max_size ~ .max_size,
         TRUE ~ dist
       )
     )

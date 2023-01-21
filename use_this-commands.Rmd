@@ -5,5 +5,7 @@ TO RUN ONCE PER PACKAGE
 # usethis::use_namespace()
 
 # usethis::use_package("magrittr")
+
+# usethis::use_import_from("plyr", ".")
 ```
 

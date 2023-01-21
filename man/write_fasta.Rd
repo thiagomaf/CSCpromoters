@@ -6,6 +6,11 @@
 \usage{
 write_fasta(.sequences, .output_file)
 }
+\arguments{
+\item{.sequences}{{TODO}}
+
+\item{.output_file}{{TODO}}
+}
 \value{
 A fasta file.
 }

@@ -1,6 +1,7 @@
 #' Export extracted promoter sequence results in a R Data File.
 #' 
-#' @inheritParams get_promoters
+#' @param .sequences   {TODO}
+#' @param .output_file {TODO}
 #'
 #' @return A R Data File `rda`.
 #' @export

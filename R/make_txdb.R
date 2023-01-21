@@ -1,6 +1,8 @@
 #' make a TxDb object from transcript annotations available as a GFF3 or GTF file.
 #'
-#' @inheritParams get_promoters
+#' @param .filename    {TODO}
+#' @param .data_source {TODO}
+#' @param .organism    {TODO}
 #'
 #' @return A TxDb object.
 #' @export
