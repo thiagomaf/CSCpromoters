@@ -124,6 +124,8 @@ annotations %>%
 
 ## Dependencies
 
+### Libraries
+
 - magrittr
 - tidyr
 - plyr
