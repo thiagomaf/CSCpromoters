@@ -13,8 +13,6 @@ library(CSCpromoters)
 ## Define constants
 
 ``` r
-pb_format <- ":what - [:bar] :percent (:spin)"
-
 folder1 <- paste0(
   "../../../",
   "Data/FASTA sequences/Genomes/Hordeum vulgare - Golden Promise/"

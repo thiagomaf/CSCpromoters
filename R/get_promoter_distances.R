@@ -77,7 +77,7 @@ get_promoter_distances <- function(
           )) %>%
           #dplyr::select(locus_tag, dist) %>% # locus_tag here must be on the fly
           dplyr::select(dplyr::all_of(c(.locus_var, "dist"))) %>%
-          dplyr::rename(closest_locus = get(.locus_var)) # here too, only locus_tag
+          dplyr::rename(closest_locus = all_of(.locus_var)) # here too, only locus_tag
       }
       
       # progress bar oogie boogie
