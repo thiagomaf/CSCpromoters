@@ -1,15 +1,18 @@
 #' Extract annotation table from TxDB object
 #'
 #' @inheritParams get_promoters
-
+#' @inheritDotParams get_promoters
+#' 
 #' @export
+#' 
 get_txdb_annotation <- function(
     .txdb,
     .locus_var  = "locus_tag",
     .chr_var    = "chr",
     .strand_var = "strand",
     .start_var  = "begin",
-    .end_var    = "end"
+    .end_var    = "end",
+    ...
 ) {
   .txdb_dump <- GenomicFeatures::as.list(.txdb)
   

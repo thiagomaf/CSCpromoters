@@ -8,6 +8,7 @@
 #' Filter annotation table by loci names or loci indexes
 #'
 #' @inheritParams get_promoters
+#' @inheritDotParams get_promoters
 #'
 #' @return An annotations table object with the same class as `.annotations`
 #' 
@@ -15,7 +16,8 @@
 filter_locus <- function(
     .annotations,
     .keep       = NULL,
-    .locus_var  = "locus_tag"
+    .locus_var  = "locus_tag",
+    ...
 ) {
   # Check if .keep argument was set.
   if(is.null(.keep)) {

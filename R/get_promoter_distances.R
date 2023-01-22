@@ -2,6 +2,7 @@
 #' closest upstream gene.
 #'
 #' @inheritParams get_promoters
+#' @inheritDotParams get_promoters
 #'
 #' @return A data frame with the closest upstream gene ID and distance from the 
 #'         gene-of-interest transcription start site to the closest upstream 
@@ -13,7 +14,8 @@ get_promoter_distances <- function(
     .pb        = NULL,
     .pb_format = ":what - [:bar] :percent (:spin)",
     .locus_var = "locus_tag",
-    .chr_var   = "chr"
+    .chr_var   = "chr",
+    ...
 ) {
   # Initiate (or not) the progress bar - can also receive external object
   if(is.null(.pb)) {

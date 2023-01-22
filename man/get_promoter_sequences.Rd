@@ -13,7 +13,8 @@ get_promoter_sequences(
   .locus_var = "locus_tag",
   .chr_var = "chr",
   .dist_var = "promoter_size",
-  .downstream = 0
+  .downstream = 0,
+  ...
 )
 }
 \arguments{
@@ -62,6 +63,42 @@ Defaults to \code{"promoter_size"}.}
 start site to be included in the output promoter
 sequence. Presumably, will be reduced from the upstream
 sequence length but have never tested. Defaults to \code{0}.}
+
+\item{...}{
+  Arguments passed on to \code{\link[=get_promoters]{get_promoters}}
+  \describe{
+    \item{\code{.annotations}}{Preferably a \code{data.table} (but possibly a \code{data.frame})
+of annotations as described {HERE}. \code{data.table}
+computations are normally faster.}
+    \item{\code{.keep}}{Either a \code{character} vector of loci names (present in the
+\code{.annotations} table) or a \code{numeric} vector of indexes
+(of the \code{.annotations} table).}
+    \item{\code{.FASTA_list}}{A named \code{character} list. Each element is a full path and
+filename to each chromosome. Element names indicate
+chromosome names matching those found in the annotation
+table.}
+    \item{\code{.min_size}}{An integer indicating the minimum promoter size. Any
+\emph{loci} identified to have sequence length shorter than
+\code{.min_size} will be ignored.}
+    \item{\code{.max_size}}{An integer indicating the maximum promoter size. Any
+\emph{loci} identified to have sequence length longer than
+\code{.max_size} will be set (trimmed) to equals \code{.max_size}.}
+    \item{\code{.strand_var}}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing each loci strand
+direction. This can be altered to fit input annotation
+tables with different column names (not recommended).
+Defaults to \code{"strand"}.}
+    \item{\code{.start_var}}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing each loci start
+coordinate. This can be altered to fit input annotation
+tables with different column names (not recommended).
+Defaults to \code{"begin"}.}
+    \item{\code{.end_var}}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing each loci end coordinate.
+This can be altered to fit input annotation tables with
+different column names (not recommended). Defaults to
+\code{"end"}.}
+  }}
 }
 \value{
 DNAStringSet

@@ -4,6 +4,8 @@
 #'                     of annotations as described {HERE}. `data.table` 
 #'                     computations are normally faster.
 #'                     
+#' @param .distances   {TODO}
+#'                     
 #' @param .keep        Either a `character` vector of loci names (present in the
 #'                     `.annotations` table) or a `numeric` vector of indexes 
 #'                     (of the `.annotations` table).
@@ -16,6 +18,11 @@
 #'                     filename will have the following format: 
 #'                     `paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")`
 #'                     .
+#'                     
+#' @param .FASTA_list  A named `character` list. Each element is a full path and
+#'                     filename to each chromosome. Element names indicate 
+#'                     chromosome names matching those found in the annotation 
+#'                     table.
 #'                     
 #' @param .min_size    An integer indicating the minimum promoter size. Any 
 #'                     _loci_ identified to have sequence length shorter than 
@@ -76,6 +83,8 @@
 #'                     This can be altered to fit input annotation tables with 
 #'                     different column names (not recommended). Defaults to 
 #'                     `"end"`.
+#'                     
+#' @param ...          Future-proof stuff.
 #'
 #' @inheritSection progress::progress_bar Tokens
 #'
@@ -87,6 +96,7 @@ get_promoters <- function(
     .keep       = NULL,
     .txdb       = NULL,
     .folder     = NULL,
+    .FASTA_list = NULL,
     .min_size   = 100,
     .max_size   = 2000,
     .downstream = 0,
@@ -97,7 +107,9 @@ get_promoters <- function(
     .strand_var = "strand",
     .start_var  = "begin",
     .end_var    = "end",
-    .dist_var   = "promoter_size"
+    .dist_var   = "promoter_size",
+    .distances  = NULL,
+    ...
 ) {
   .annotations %>%
     filter_locus(.keep) %>%

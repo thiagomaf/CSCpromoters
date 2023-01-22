@@ -10,7 +10,8 @@ get_txdb_annotation(
   .chr_var = "chr",
   .strand_var = "strand",
   .start_var = "begin",
-  .end_var = "end"
+  .end_var = "end",
+  ...
 )
 }
 \arguments{
@@ -45,6 +46,53 @@ Defaults to \code{"begin"}.}
 This can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
 \code{"end"}.}
+
+\item{...}{
+  Arguments passed on to \code{\link[=get_promoters]{get_promoters}}
+  \describe{
+    \item{\code{.annotations}}{Preferably a \code{data.table} (but possibly a \code{data.frame})
+of annotations as described {HERE}. \code{data.table}
+computations are normally faster.}
+    \item{\code{.distances}}{{TODO}}
+    \item{\code{.keep}}{Either a \code{character} vector of loci names (present in the
+\code{.annotations} table) or a \code{numeric} vector of indexes
+(of the \code{.annotations} table).}
+    \item{\code{.folder}}{A \code{character} indicating the folder in which the FASTA
+files containing the genome sequences of each individual
+chromosome. Currently, the library assumes that the
+filename will have the following format:
+\code{paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")}
+.}
+    \item{\code{.FASTA_list}}{A named \code{character} list. Each element is a full path and
+filename to each chromosome. Element names indicate
+chromosome names matching those found in the annotation
+table.}
+    \item{\code{.min_size}}{An integer indicating the minimum promoter size. Any
+\emph{loci} identified to have sequence length shorter than
+\code{.min_size} will be ignored.}
+    \item{\code{.max_size}}{An integer indicating the maximum promoter size. Any
+\emph{loci} identified to have sequence length longer than
+\code{.max_size} will be set (trimmed) to equals \code{.max_size}.}
+    \item{\code{.downstream}}{An integer indicating the sequence length downstream the
+start site to be included in the output promoter
+sequence. Presumably, will be reduced from the upstream
+sequence length but have never tested. Defaults to \code{0}.}
+    \item{\code{.pb}}{An optional progress bar object created via
+\code{progress::progress_bar()}. Defaults to \code{NULL}, case in
+which a progress bar will be generated internally.}
+    \item{\code{.pb_format}}{A \code{character} indicating the format of the progress bar.
+A number of tokens can be used here, see them below. It
+defaults to \code{":what - [:bar] :percent (:spin)"}, which
+means that information on the locus being handled in
+shown on the left (\verb{:what}), followed by the progress
+bar is within brackets (\verb{[:bar]}), and ended by the
+percentage and a spinning character on the right
+(\verb{:percent (:spin)}).}
+    \item{\code{.dist_var}}{A \code{character} indicating the name of the output column
+table containing the final promoter lengths. There is
+absolutely no reason you would need to change that.
+Defaults to \code{"promoter_size"}.}
+  }}
 }
 \description{
 Extract annotation table from TxDB object

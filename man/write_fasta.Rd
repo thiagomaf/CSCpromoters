@@ -4,12 +4,14 @@
 \alias{write_fasta}
 \title{Export promoter sequences in a fasta file.}
 \usage{
-write_fasta(.sequences, .output_file)
+write_fasta(.sequences, .output_file, ...)
 }
 \arguments{
 \item{.sequences}{{TODO}}
 
 \item{.output_file}{{TODO}}
+
+\item{...}{Future-proof stuff.}
 }
 \value{
 A fasta file.

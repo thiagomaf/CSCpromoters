@@ -4,7 +4,7 @@
 \alias{make_txdb}
 \title{make a TxDb object from transcript annotations available as a GFF3 or GTF file.}
 \usage{
-make_txdb(.filename = NULL, .data_source = NULL, .organism = NULL)
+make_txdb(.filename = NULL, .data_source = NULL, .organism = NULL, ...)
 }
 \arguments{
 \item{.filename}{{TODO}}
@@ -12,6 +12,8 @@ make_txdb(.filename = NULL, .data_source = NULL, .organism = NULL)
 \item{.data_source}{{TODO}}
 
 \item{.organism}{{TODO}}
+
+\item{...}{Future-proof stuff.}
 }
 \value{
 A TxDb object.

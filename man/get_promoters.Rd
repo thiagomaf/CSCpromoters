@@ -9,6 +9,7 @@ get_promoters(
   .keep = NULL,
   .txdb = NULL,
   .folder = NULL,
+  .FASTA_list = NULL,
   .min_size = 100,
   .max_size = 2000,
   .downstream = 0,
@@ -19,7 +20,9 @@ get_promoters(
   .strand_var = "strand",
   .start_var = "begin",
   .end_var = "end",
-  .dist_var = "promoter_size"
+  .dist_var = "promoter_size",
+  .distances = NULL,
+  ...
 )
 }
 \arguments{
@@ -39,6 +42,11 @@ chromosome. Currently, the library assumes that the
 filename will have the following format:
 \code{paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")}
 .}
+
+\item{.FASTA_list}{A named \code{character} list. Each element is a full path and
+filename to each chromosome. Element names indicate
+chromosome names matching those found in the annotation
+table.}
 
 \item{.min_size}{An integer indicating the minimum promoter size. Any
 \emph{loci} identified to have sequence length shorter than
@@ -100,6 +108,10 @@ different column names (not recommended). Defaults to
 table containing the final promoter lengths. There is
 absolutely no reason you would need to change that.
 Defaults to \code{"promoter_size"}.}
+
+\item{.distances}{{TODO}}
+
+\item{...}{Future-proof stuff.}
 }
 \value{
 DNAStringSet

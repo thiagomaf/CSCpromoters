@@ -4,12 +4,14 @@
 \alias{write_rda}
 \title{Export extracted promoter sequence results in a R Data File.}
 \usage{
-write_rda(.sequences, .output_file)
+write_rda(.sequences, .output_file, ...)
 }
 \arguments{
 \item{.sequences}{{TODO}}
 
 \item{.output_file}{{TODO}}
+
+\item{...}{Future-proof stuff.}
 }
 \value{
 A R Data File \code{rda}.
