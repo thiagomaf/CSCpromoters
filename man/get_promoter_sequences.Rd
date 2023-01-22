@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_promoter_sequences.R
 \name{get_promoter_sequences}
 \alias{get_promoter_sequences}
-\title{Extract promoter sequences from the final promoter sizes.}
+\title{Extract promoter sequences from the final promoter sizes}
 \usage{
 get_promoter_sequences(
   .distances,
@@ -67,5 +67,5 @@ sequence length but have never tested. Defaults to \code{0}.}
 DNAStringSet
 }
 \description{
-Extract promoter sequences from the final promoter sizes.
+Extract promoter sequences from the final promoter sizes
 }

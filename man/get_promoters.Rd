@@ -16,6 +16,7 @@ get_promoters(
   .pb_format = ":what - [:bar] :percent (:spin)",
   .locus_var = "locus_tag",
   .chr_var = "chr",
+  .strand_var = "strand",
   .dist_var = "promoter_size"
 )
 }
@@ -75,10 +76,28 @@ can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
 \code{"chr"}.}
 
+\item{.strand_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing each loci strand
+direction. This can be altered to fit input annotation
+tables with different column names (not recommended).
+Defaults to \code{"strand"}.}
+
 \item{.dist_var}{A \code{character} indicating the name of the output column
 table containing the final promoter lengths. There is
 absolutely no reason you would need to change that.
 Defaults to \code{"promoter_size"}.}
+
+\item{.start_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing each loci start
+coordinate. This can be altered to fit input annotation
+tables with different column names (not recommended).
+Defaults to \code{"begin"}.}
+
+\item{.end_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing each loci end coordinate.
+This can be altered to fit input annotation tables with
+different column names (not recommended). Defaults to
+\code{"begin"}.}
 }
 \value{
 DNAStringSet

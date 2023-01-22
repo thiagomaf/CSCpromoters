@@ -1,4 +1,4 @@
-#' Extract promoter sequences from the final promoter sizes.
+#' Extract promoter sequences from the final promoter sizes
 #'
 #' @inheritParams get_promoters
 #' @param .distances {TODO}

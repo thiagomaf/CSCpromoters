@@ -58,6 +58,24 @@
 #'                     table containing the final promoter lengths. There is 
 #'                     absolutely no reason you would need to change that. 
 #'                     Defaults to `"promoter_size"`.
+#'                     
+#' @param .strand_var  A `character` indicating the name of the column in the 
+#'                     `.annotation` table containing each loci strand 
+#'                     direction. This can be altered to fit input annotation 
+#'                     tables with different column names (not recommended). 
+#'                     Defaults to `"strand"`.
+#'                     
+#' @param .start_var   A `character` indicating the name of the column in the 
+#'                     `.annotation` table containing each loci start 
+#'                     coordinate. This can be altered to fit input annotation 
+#'                     tables with different column names (not recommended). 
+#'                     Defaults to `"begin"`.
+#'                     
+#' @param .end_var     A `character` indicating the name of the column in the 
+#'                     `.annotation` table containing each loci end coordinate.
+#'                     This can be altered to fit input annotation tables with 
+#'                     different column names (not recommended). Defaults to 
+#'                     `"begin"`.
 #'
 #'@inheritSection progress::progress_bar Tokens
 #'
@@ -76,6 +94,7 @@ get_promoters <- function(
     .pb_format  = ":what - [:bar] :percent (:spin)",
     .locus_var  = "locus_tag",
     .chr_var    = "chr",
+    .strand_var = "strand",
     .dist_var   = "promoter_size"
 ) {
   .annotations %>%
