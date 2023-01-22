@@ -26,10 +26,12 @@ Suggests:
 VignetteBuilder: knitr
 Imports: 
     Biostrings,
+    data.table,
     dplyr,
     GenomicFeatures,
     progress,
     magrittr,
     Rsamtools,
+    stringr,
     tidyr,
     plyr

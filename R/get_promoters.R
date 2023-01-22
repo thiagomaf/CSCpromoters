@@ -75,9 +75,9 @@
 #'                     `.annotation` table containing each loci end coordinate.
 #'                     This can be altered to fit input annotation tables with 
 #'                     different column names (not recommended). Defaults to 
-#'                     `"begin"`.
+#'                     `"end"`.
 #'
-#'@inheritSection progress::progress_bar Tokens
+#' @inheritSection progress::progress_bar Tokens
 #'
 #' @return DNAStringSet
 #' @export
@@ -95,6 +95,8 @@ get_promoters <- function(
     .locus_var  = "locus_tag",
     .chr_var    = "chr",
     .strand_var = "strand",
+    .start_var  = "begin",
+    .end_var    = "end",
     .dist_var   = "promoter_size"
 ) {
   .annotations %>%

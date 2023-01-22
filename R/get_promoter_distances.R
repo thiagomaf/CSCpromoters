@@ -78,7 +78,7 @@ get_promoter_distances <- function(
             .each_annotation$strand ==  1 ~ .each_annotation$begin - value,
             .each_annotation$strand == -1 ~ value - .each_annotation$end
           )) %>%
-          dplyr::mutate(dist = as.double(dist)) %>%
+          dplyr::mutate(dist = as.double(.$dist)) %>%
           dplyr::select(dplyr::all_of(c(.locus_var, "dist"))) %>%
           dplyr::rename(closest_locus = dplyr::all_of(.locus_var))
       }

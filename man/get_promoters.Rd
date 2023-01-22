@@ -17,6 +17,8 @@ get_promoters(
   .locus_var = "locus_tag",
   .chr_var = "chr",
   .strand_var = "strand",
+  .start_var = "begin",
+  .end_var = "end",
   .dist_var = "promoter_size"
 )
 }
@@ -82,11 +84,6 @@ direction. This can be altered to fit input annotation
 tables with different column names (not recommended).
 Defaults to \code{"strand"}.}
 
-\item{.dist_var}{A \code{character} indicating the name of the output column
-table containing the final promoter lengths. There is
-absolutely no reason you would need to change that.
-Defaults to \code{"promoter_size"}.}
-
 \item{.start_var}{A \code{character} indicating the name of the column in the
 \code{.annotation} table containing each loci start
 coordinate. This can be altered to fit input annotation
@@ -97,7 +94,12 @@ Defaults to \code{"begin"}.}
 \code{.annotation} table containing each loci end coordinate.
 This can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
-\code{"begin"}.}
+\code{"end"}.}
+
+\item{.dist_var}{A \code{character} indicating the name of the output column
+table containing the final promoter lengths. There is
+absolutely no reason you would need to change that.
+Defaults to \code{"promoter_size"}.}
 }
 \value{
 DNAStringSet

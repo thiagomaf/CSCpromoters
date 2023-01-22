@@ -44,7 +44,7 @@ Defaults to \code{"begin"}.}
 \code{.annotation} table containing each loci end coordinate.
 This can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
-\code{"begin"}.}
+\code{"end"}.}
 }
 \description{
 Extract annotation table from TxDB object

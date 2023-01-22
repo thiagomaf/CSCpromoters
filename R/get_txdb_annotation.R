@@ -15,7 +15,7 @@ get_txdb_annotation <- function(
   
   .txdb_dump$transcripts %>%
     data.table::as.data.table() %>% 
-    dplyr::mutate(tx_name = stringr::str_remove(tx_name, ".*\\|")) %>%
+    dplyr::mutate(tx_name = stringr::str_remove(.$tx_name, ".*\\|")) %>%
     dplyr::mutate(tx_strand = dplyr::case_when(
       tx_strand == "+" ~ 1,
       tx_strand == "-" ~ -1,
