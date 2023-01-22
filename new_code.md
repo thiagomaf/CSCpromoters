@@ -13,35 +13,33 @@ library(CSCpromoters)
 ## Define constants
 
 ``` r
-folder1 <- paste0(
+gff_folder <- paste0(
   "../../../",
   "Data/FASTA sequences/Genomes/Hordeum vulgare - Golden Promise/"
 )
 
-folder2 <- paste0(
-  "../../../",
-  "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
-)
+fasta_list <- (function(
+    .chr_list = c(
+      "chr1H", "chr2H", "chr3H", "chr4H", "chr5H", "chr6H", "chr7H", "chrUn"
+    ),
+    .folder   = paste0(
+      "../../../",
+      "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
+    )
+) {
+  .folder %>% 
+    paste0(paste0("Hordeum_vulgare.refseq[", .chr_list, "].fasta")) %>% 
+    magrittr::set_names(.chr_list)
+})()
 ```
 
 # LOAD DATA
-
-## H. vulgare cv. Golden Promise annotations
-
-``` r
-annotations <- paste0(
-  folder1,
-  "Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta"
-) %>% 
-  CSCfasta::load_fasta() %>%
-  CSCfasta::get_fasta_annotation()
-```
 
 ## H. vulgare cv. Golden Promise TxDB from GFF file
 
 ``` r
 txdb <- paste0(
-  folder1,
+  gff_folder,
   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
 ) %>% 
   make_txdb(.data_source = "Hv - Golden Promise", .organism = "Hordeum vulgare")
@@ -54,14 +52,25 @@ txdb <- paste0(
 ``` r
 # For some reason this cannot be properly loaded from an .RData or .rda file,
 # must be run on every new R session
+```
 
-# If we can get the loci `start` and `end` coordinates from txdb we will not 
-# need the `annotations` table above.
+## H. vulgare cv. Golden Promise annotations
+
+``` r
+# annotations <- paste0(
+#   gff_folder,
+#   "Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta"
+# ) %>% 
+#   CSCfasta::load_fasta() %>%
+#   CSCfasta::get_fasta_annotation()
+
+annotations <- txdb %>%
+  get_txdb_annotation()
 ```
 
 # GET PROMOTERS
 
-# Explicit pipeline
+## Explicit pipeline
 
 ``` r
 annotations %>%
@@ -74,13 +83,7 @@ annotations %>%
   # Trim found upstream distances and define promoter lengths
   trim_distances(.min_size = 100, .max_size = 2000) %>%
   # Get promoter sequences
-  get_promoter_sequences(
-    .txdb   = txdb,
-    .folder = paste0(
-      "../../../",
-      "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
-    )
-  )
+  get_promoter_sequences2(.txdb = txdb, .FASTA_list = fasta_list)
 ```
 
     ## DNAStringSet object of length 2:
@@ -88,25 +91,17 @@ annotations %>%
     ## [1]  2000 ATTGCGCTGTTTTCACATGAAAA...AGAGGAACAGGTGTTGGAGAGTG chr1Hg0000031
     ## [2]  1585 ACTAACACATGTACTCCTCCATG...GCCCGTAGGATGTGCTAAGCGTA chr1Hg0000041
 
-# Wrap-up function
+## Wrap-up function
 
 ``` r
-annotations %>%
-  # Wrap-up function
-  get_promoters(
-    .keep       = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"),
-    .txdb       = txdb,
-    .folder     = paste0(
-      "../../../",
-      "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
-    )
-)
+# annotations %>%
+#   # Wrap-up function
+#   get_promoters(
+#     .keep       = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"),
+#     .txdb       = txdb,
+#     .folder     = folder2
+#   )
 ```
-
-    ## DNAStringSet object of length 2:
-    ##     width seq                                               names               
-    ## [1]  2000 ATTGCGCTGTTTTCACATGAAAA...AGAGGAACAGGTGTTGGAGAGTG chr1Hg0000031
-    ## [2]  1585 ACTAACACATGTACTCCTCCATG...GCCCGTAGGATGTGCTAAGCGTA chr1Hg0000041
 
 # EXPORT SEQUENCES
 
