@@ -65,7 +65,7 @@ get_txdb_annotation <- function(
     dplyr::select(
       dplyr::all_of(c("tx_name", "tx_chrom", "tx_strand", "tx_start", "tx_end"))
     ) %>%
-    set_colnames(c(
+    magrittr::set_colnames(c(
       "tx_name"   = .locus_var,
       "tx_chrom"  = .chr_var,
       "tx_strand" = .strand_var,
