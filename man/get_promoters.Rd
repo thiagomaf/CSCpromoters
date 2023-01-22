@@ -22,6 +22,7 @@ get_promoters(
   .end_var = "end",
   .dist_var = "promoter_size",
   .distances = NULL,
+  .parallel = FALSE,
   ...
 )
 }
@@ -110,6 +111,9 @@ absolutely no reason you would need to change that.
 Defaults to \code{"promoter_size"}.}
 
 \item{.distances}{{TODO}}
+
+\item{.parallel}{A \code{logical}. If TRUE, apply computations in parallel.
+Defauts to \code{FALSE}.}
 
 \item{...}{Future-proof stuff.}
 }

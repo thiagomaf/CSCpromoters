@@ -38,21 +38,90 @@ fasta_list <- (function(
 ## H. vulgare cv. Golden Promise TxDB from GFF file
 
 ``` r
-txdb <- paste0(
-  gff_folder,
-  "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
-) %>% 
-  make_txdb(.data_source = "Hv - Golden Promise", .organism = "Hordeum vulgare")
-```
+# paste0(
+#   gff_folder,
+#   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
+# ) %>% 
+#   make_txdb(
+#     .data_source = "Hv - Golden Promise",
+#     .organism    = "Hordeum vulgare"
+#   ) %>% 
+#   saveDb(
+#     file = paste0(
+#       gff_folder,
+#       "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.sqlite"
+#     )
+#   )
 
-    ## Import genomic features from the file as a GRanges object ... OK
-    ## Prepare the 'metadata' data frame ... OK
-    ## Make the TxDb object ... OK
-
-``` r
 # For some reason this cannot be properly loaded from an .RData or .rda file,
 # must be run on every new R session
+
+txdb <- paste0(
+  gff_folder,
+  "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.sqlite"
+) %>% AnnotationDbi::loadDb()
 ```
+
+    ## Carregando pacotes exigidos: GenomicFeatures
+
+    ## Carregando pacotes exigidos: BiocGenerics
+
+    ## 
+    ## Attaching package: 'BiocGenerics'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     IQR, mad, sd, var, xtabs
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    ##     dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    ##     grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    ##     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    ##     rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    ##     union, unique, unsplit, which.max, which.min
+
+    ## Carregando pacotes exigidos: S4Vectors
+
+    ## Carregando pacotes exigidos: stats4
+
+    ## 
+    ## Attaching package: 'S4Vectors'
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     expand.grid, I, unname
+
+    ## Carregando pacotes exigidos: IRanges
+
+    ## 
+    ## Attaching package: 'IRanges'
+
+    ## The following object is masked from 'package:grDevices':
+    ## 
+    ##     windows
+
+    ## Carregando pacotes exigidos: GenomeInfoDb
+
+    ## Carregando pacotes exigidos: GenomicRanges
+
+    ## 
+    ## Attaching package: 'GenomicRanges'
+
+    ## The following object is masked from 'package:magrittr':
+    ## 
+    ##     subtract
+
+    ## Carregando pacotes exigidos: AnnotationDbi
+
+    ## Carregando pacotes exigidos: Biobase
+
+    ## Welcome to Bioconductor
+    ## 
+    ##     Vignettes contain introductory material; view with
+    ##     'browseVignettes()'. To cite Bioconductor, see
+    ##     'citation("Biobase")', and for packages 'citation("pkgname")'.
 
 ## H. vulgare cv. Golden Promise annotations
 
@@ -83,7 +152,9 @@ annotations %>%
   # Trim found upstream distances and define promoter lengths
   trim_distances(.min_size = 100, .max_size = 2000) %>%
   # Get promoter sequences
-  get_promoter_sequences2(.txdb = txdb, .FASTA_list = fasta_list)
+  get_promoter_sequences2(
+    .txdb = txdb, .FASTA_list = fasta_list, .parallel = F
+  )
 ```
 
     ## DNAStringSet object of length 2:

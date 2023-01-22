@@ -84,6 +84,9 @@
 #'                     different column names (not recommended). Defaults to 
 #'                     `"end"`.
 #'                     
+#' @param .parallel    A `logical`. If TRUE, apply computations in parallel. 
+#'                     Defauts to `FALSE`.
+#'                     
 #' @param ...          Future-proof stuff.
 #'
 #' @inheritSection progress::progress_bar Tokens
@@ -109,6 +112,7 @@ get_promoters <- function(
     .end_var    = "end",
     .dist_var   = "promoter_size",
     .distances  = NULL,
+    .parallel   = FALSE,
     ...
 ) {
   .annotations %>%

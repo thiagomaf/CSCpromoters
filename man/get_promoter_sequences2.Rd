@@ -14,6 +14,7 @@ get_promoter_sequences2(
   .chr_var = "chr",
   .dist_var = "promoter_size",
   .downstream = 0,
+  .parallel = FALSE,
   ...
 )
 }
@@ -61,6 +62,9 @@ Defaults to \code{"promoter_size"}.}
 start site to be included in the output promoter
 sequence. Presumably, will be reduced from the upstream
 sequence length but have never tested. Defaults to \code{0}.}
+
+\item{.parallel}{A \code{logical}. If TRUE, apply computations in parallel.
+Defauts to \code{FALSE}.}
 
 \item{...}{
   Arguments passed on to \code{\link[=get_promoters]{get_promoters}}

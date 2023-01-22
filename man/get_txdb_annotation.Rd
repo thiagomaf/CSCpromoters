@@ -92,6 +92,8 @@ percentage and a spinning character on the right
 table containing the final promoter lengths. There is
 absolutely no reason you would need to change that.
 Defaults to \code{"promoter_size"}.}
+    \item{\code{.parallel}}{A \code{logical}. If TRUE, apply computations in parallel.
+Defauts to \code{FALSE}.}
   }}
 }
 \description{

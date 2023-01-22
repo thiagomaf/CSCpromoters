@@ -36,14 +36,28 @@ fasta_list <- (function(
 # LOAD DATA
 ## H. vulgare cv. Golden Promise TxDB from GFF file
 ```{r}
-txdb <- paste0(
-  gff_folder,
-  "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
-) %>% 
-  make_txdb(.data_source = "Hv - Golden Promise", .organism = "Hordeum vulgare")
+# paste0(
+#   gff_folder,
+#   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
+# ) %>% 
+#   make_txdb(
+#     .data_source = "Hv - Golden Promise",
+#     .organism    = "Hordeum vulgare"
+#   ) %>% 
+#   saveDb(
+#     file = paste0(
+#       gff_folder,
+#       "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.sqlite"
+#     )
+#   )
 
 # For some reason this cannot be properly loaded from an .RData or .rda file,
 # must be run on every new R session
+
+txdb <- paste0(
+  gff_folder,
+  "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.sqlite"
+) %>% AnnotationDbi::loadDb()
 ```
 
 ## H. vulgare cv. Golden Promise annotations
@@ -73,7 +87,9 @@ annotations %>%
   # Trim found upstream distances and define promoter lengths
   trim_distances(.min_size = 100, .max_size = 2000) %>%
   # Get promoter sequences
-  get_promoter_sequences2(.txdb = txdb, .FASTA_list = fasta_list)
+  get_promoter_sequences2(
+    .txdb = txdb, .FASTA_list = fasta_list, .parallel = F
+  )
 ```
 
 ## Wrap-up function

@@ -81,6 +81,8 @@ Defaults to \code{"begin"}.}
 This can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
 \code{"end"}.}
+    \item{\code{.parallel}}{A \code{logical}. If TRUE, apply computations in parallel.
+Defauts to \code{FALSE}.}
   }}
 }
 \value{
