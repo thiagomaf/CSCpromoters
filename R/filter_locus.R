@@ -4,7 +4,6 @@
 # Each function will have its own `roxygen2` comments.
 
 
-
 #' Filter annotation table by loci names or loci indexes
 #'
 #' @inheritParams get_promoters
@@ -25,7 +24,7 @@ filter_locus <- function(
       "CSCpromoters: .keep argument is NULL. Use `help(filter_locus)` for help."
     )
   }
-  
+
   # Use the correct auxiliary function depending on the class of .keep argument.
   switch (
     class(.keep),
@@ -52,8 +51,11 @@ filter_locus <- function(
 #'
 #' @export
 filter_locus.numeric <- function(.annotations, .keep = NULL) {
-  .annotations %>%
-    dplyr::slice(.keep)
+  # .annotations %>%
+  #   dplyr::slice(.keep)
+  
+  .annotations %>% 
+    magrittr::set_attr(which = "keep", value = .keep)
 }
 
 
@@ -70,6 +72,16 @@ filter_locus.character <- function(
     .keep,
     .locus_var  = "locus_tag"
 ) {
-  .annotations %>%
-    subset(get(.locus_var) %in% .keep)
+  # .annotations %>%
+  #   subset(get(.locus_var) %in% .keep)
+  
+  .keep_indexes <- .annotations %>%
+    dplyr::pull(.locus_var) %in% .keep %>%
+    which()
+  
+  .annotations %>% 
+    magrittr::set_attr(
+      which = "keep", 
+      value = .keep_indexes
+    )
 }

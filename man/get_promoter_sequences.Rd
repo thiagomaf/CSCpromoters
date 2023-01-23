@@ -6,7 +6,7 @@
 \usage{
 get_promoter_sequences(
   .distances,
-  .folder = NULL,
+  .FASTA_list = NULL,
   .txdb = NULL,
   .pb = NULL,
   .pb_format = ":what - [:bar] :percent (:spin)",
@@ -14,18 +14,17 @@ get_promoter_sequences(
   .chr_var = "chr",
   .dist_var = "promoter_size",
   .downstream = 0,
+  .parallel = FALSE,
   ...
 )
 }
 \arguments{
 \item{.distances}{{TODO}}
 
-\item{.folder}{A \code{character} indicating the folder in which the FASTA
-files containing the genome sequences of each individual
-chromosome. Currently, the library assumes that the
-filename will have the following format:
-\code{paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")}
-.}
+\item{.FASTA_list}{A named \code{character} list. Each element is a full path and
+filename to each chromosome. Element names indicate
+chromosome names matching those found in the annotation
+table.}
 
 \item{.txdb}{{TODO}}
 
@@ -64,6 +63,9 @@ start site to be included in the output promoter
 sequence. Presumably, will be reduced from the upstream
 sequence length but have never tested. Defaults to \code{0}.}
 
+\item{.parallel}{A \code{logical}. If TRUE, apply computations in parallel.
+Defauts to \code{FALSE}.}
+
 \item{...}{
   Arguments passed on to \code{\link[=get_promoters]{get_promoters}}
   \describe{
@@ -73,10 +75,12 @@ computations are normally faster.}
     \item{\code{.keep}}{Either a \code{character} vector of loci names (present in the
 \code{.annotations} table) or a \code{numeric} vector of indexes
 (of the \code{.annotations} table).}
-    \item{\code{.FASTA_list}}{A named \code{character} list. Each element is a full path and
-filename to each chromosome. Element names indicate
-chromosome names matching those found in the annotation
-table.}
+    \item{\code{.folder}}{A \code{character} indicating the folder in which the FASTA
+files containing the genome sequences of each individual
+chromosome. Currently, the library assumes that the
+filename will have the following format:
+\code{paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")}
+.}
     \item{\code{.min_size}}{An integer indicating the minimum promoter size. Any
 \emph{loci} identified to have sequence length shorter than
 \code{.min_size} will be ignored.}
@@ -98,8 +102,6 @@ Defaults to \code{"begin"}.}
 This can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
 \code{"end"}.}
-    \item{\code{.parallel}}{A \code{logical}. If TRUE, apply computations in parallel.
-Defauts to \code{FALSE}.}
   }}
 }
 \value{

@@ -54,10 +54,13 @@ fasta_list <- (function(
 # For some reason this cannot be properly loaded from an .RData or .rda file,
 # must be run on every new R session
 
+# load_
 txdb <- paste0(
   gff_folder,
   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.sqlite"
 ) %>% AnnotationDbi::loadDb()
+
+# Loading an SQLITE file rather than a GFF seems to solve the issue
 ```
 
 ## H. vulgare cv. Golden Promise annotations
@@ -80,27 +83,55 @@ annotations <- txdb %>%
 annotations %>%
   # Choose which loci to use
   filter_locus(
-    .keep = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041")
-  ) %>%
+    # .keep = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041")
+    # .keep = "chr1Hg0040651"
+    .keep = c(
+      "chr6Hg0657981",
+      "chr1Hg0040651",
+      "chr3Hg0328761",
+      "chr4Hg0417171",
+      "chr3Hg0345511",
+      "chr4Hg0383761",
+      "chr5Hg0547031",
+      "chr4Hg0380431",
+      "chr4Hg0421931",
+      "chr7Hg0679581"
+    )
+    # .keep = 1:3
+  ) %>% 
+  #attr(which = "keep") %>%
   # Calculate distances to closest upstream locus
-  get_promoter_distances() %>%
+  get_promoter_distances(.debug = F) %>%
   # Trim found upstream distances and define promoter lengths
   trim_distances(.min_size = 100, .max_size = 2000) %>%
   # Get promoter sequences
-  get_promoter_sequences2(
+  get_promoter_sequences(
     .txdb = txdb, .FASTA_list = fasta_list, .parallel = F
   )
 ```
 
+
 ## Wrap-up function
 ```{r}
-# annotations %>%
-#   # Wrap-up function
-#   get_promoters(
-#     .keep       = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"),
-#     .txdb       = txdb,
-#     .folder     = folder2
-#   )
+annotations %>%
+  # Wrap-up function
+  get_promoters(
+    # .keep       = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"),
+    .keep       = c(
+      "chr6Hg0657981",
+      "chr1Hg0040651",
+      "chr3Hg0328761",
+      "chr4Hg0417171",
+      "chr3Hg0345511",
+      "chr4Hg0383761",
+      "chr5Hg0547031",
+      "chr4Hg0380431",
+      "chr4Hg0421931",
+      "chr7Hg0679581"
+    ),
+    .txdb       = txdb,
+    .FASTA_list = fasta_list
+  )
 ```
 
 

@@ -98,7 +98,7 @@ get_promoters <- function(
     .annotations,
     .keep       = NULL,
     .txdb       = NULL,
-    .folder     = NULL,
+    # .folder     = NULL,
     .FASTA_list = NULL,
     .min_size   = 100,
     .max_size   = 2000,
@@ -119,5 +119,6 @@ get_promoters <- function(
     filter_locus(.keep) %>%
     get_promoter_distances() %>% 
     trim_distances(.min_size, .max_size) %>% 
-    get_promoter_sequences(.folder, .txdb)
+    # get_promoter_sequences(.folder, .txdb)
+    get_promoter_sequences(.FASTA_list, .txdb)
 }

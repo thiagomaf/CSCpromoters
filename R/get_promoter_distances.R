@@ -31,8 +31,16 @@ get_promoter_distances <- function(
   # Start the progress bar
   .pb$tick(0)
   
+  # Query which loci to calculate distances from
+  .to_keep <- .annotations %>% attr(which = "keep")
+  if(is.null(.to_keep)) {
+    .to_keep <- 1:nrow(.annotations)
+  }
+  
   # THIS MUST BE PARALLELIZED
+  # Calculate distances
   .distances <- .annotations %>%
+    dplyr::slice(.to_keep) %>%
     dplyr::group_by(dplyr::across(dplyr::all_of(c(.locus_var, .chr_var)))) %>%
     dplyr::group_modify(.f = function(.each_annotation, .keys) {
       # Assign the current locus and chromosome names to objects ("character")
@@ -42,12 +50,15 @@ get_promoter_distances <- function(
       # Subset relevant loci - a.k.a. "loci of interest"
       .loci_OI <- .annotations %>%
         tidyr::pivot_longer(cols = c("begin", "end")) %>%
+        # print() %>% 
         # get all loci in the current chromosome
         #subset(chr == .keys$chr) %>%
         subset(get(.chr_var) == .curr_chr) %>%
+        # print() %>% 
         # get all loci but the current locus
         #subset(locus_tag != .keys$locus_tag) %>%
         subset(get(.locus_var) != .curr_locus) %>%
+        # print() %>% 
         # get all loci upstream the current locus
         subset(
           dplyr::case_when(
