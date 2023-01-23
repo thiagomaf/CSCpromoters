@@ -36,31 +36,38 @@ fasta_list <- (function(
 # LOAD DATA
 ## H. vulgare cv. Golden Promise TxDB from GFF file
 ```{r}
-# paste0(
+# # paste0(
+# #   gff_folder,
+# #   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
+# # ) %>% 
+# #   make_txdb(
+# #     .data_source = "Hv - Golden Promise",
+# #     .organism    = "Hordeum vulgare"
+# #   ) %>% 
+# #   saveDb(
+# #     file = paste0(
+# #       gff_folder,
+# #       "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.sqlite"
+# #     )
+# #   )
+# 
+# # For some reason this cannot be properly loaded from an .RData or .rda file,
+# # must be run on every new R session
+# 
+# 
+# txdb <- paste0(
 #   gff_folder,
-#   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
-# ) %>% 
-#   make_txdb(
-#     .data_source = "Hv - Golden Promise",
-#     .organism    = "Hordeum vulgare"
-#   ) %>% 
-#   saveDb(
-#     file = paste0(
-#       gff_folder,
-#       "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.sqlite"
-#     )
-#   )
+#   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.sqlite"
+# ) %>% AnnotationDbi::loadDb()
 
-# For some reason this cannot be properly loaded from an .RData or .rda file,
-# must be run on every new R session
-
-# load_
 txdb <- paste0(
   gff_folder,
-  "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.sqlite"
-) %>% AnnotationDbi::loadDb()
-
-# Loading an SQLITE file rather than a GFF seems to solve the issue
+  "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
+) %>%
+  make_txdb(
+    .data_source = "Hv - Golden Promise",
+    .organism    = "Hordeum vulgare"
+  )
 ```
 
 ## H. vulgare cv. Golden Promise annotations
