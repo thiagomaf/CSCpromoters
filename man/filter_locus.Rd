@@ -51,6 +51,11 @@ shown on the left (\verb{:what}), followed by the progress
 bar is within brackets (\verb{[:bar]}), and ended by the
 percentage and a spinning character on the right
 (\verb{:percent (:spin)}).}
+    \item{\code{.closest_var}}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing closest loci names. This
+can be altered to fit input annotation tables with
+different column names (not recommended). Defaults to
+\code{"locus_tag"}.}
     \item{\code{.chr_var}}{A \code{character} indicating the name of the column in the
 \code{.annotation} table containing chromosome names. This
 can be altered to fit input annotation tables with

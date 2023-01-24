@@ -55,6 +55,18 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(magrittr)
+library(ggplot2)
+```
+
+    ## Warning: package 'ggplot2' was built under R version 4.2.2
+
+``` r
+library(gggenes)
+```
+
+    ## Warning: package 'gggenes' was built under R version 4.2.2
+
+``` r
 library(CSCpromoters)
 ```
 
@@ -109,44 +121,6 @@ annotations <- txdb %>% get_txdb_annotation()
 
 ### GET PROMOTERS
 
-#### Explicit pipeline
-
-``` r
-annotations %>%
-  # Choose which loci to use
-  filter_locus(
-    .keep = c(
-      "chr6Hg0657981",
-      "chr1Hg0040651",
-      "chr3Hg0328761",
-      "chr4Hg0417171",
-      "chr3Hg0345511",
-      "chr4Hg0383761",
-      "chr5Hg0547031",
-      "chr4Hg0380431",
-      "chr4Hg0421931",
-      "chr7Hg0679581"
-    )
-  ) %>% 
-  # Calculate distances to closest upstream locus
-  get_promoter_distances(.debug = F) %>%
-  # Trim found upstream distances and define promoter lengths
-  trim_promoter_distances(.min_size = 100, .max_size = 2000) %>%
-  # Get promoter sequences
-  get_promoter_sequences(.txdb = txdb, .FASTA_list = fasta_list)
-```
-
-    ## DNAStringSet object of length 8:
-    ##     width seq                                               names               
-    ## [1]  2000 GTAACAATAGTAACAAGGTGCAC...CCAGCCGTACAGACGATATTTCA chr1Hg0040651
-    ## [2]  2000 AACTAATCTGTGGTTGGATGACT...ATTGTTCCGGCACGGGGCTGGGG chr3Hg0328761
-    ## [3]  2000 ACATAGAAAGTATGCACATGACA...CCTCCCTCCCTCCCTCCCCCCAA chr3Hg0345511
-    ## [4]  2000 TGCATTTGACACATCAGATTTGG...ATGGCGCGGCTACGTCTGCTACG chr4Hg0380431
-    ## [5]  2000 TTTAATGCAATGTATGAATATGA...AAGACTGCATAAAGTTTGGATCA chr4Hg0383761
-    ## [6]  2000 GAGAGCCTTTGGTCAGCAAAGAT...GCTCTCGATCGCATGGAAGAAAA chr4Hg0417171
-    ## [7]  1698 GACATATATGTGTCTCATAATGA...TACCCGCGCTACTATTACAGGAA chr5Hg0547031
-    ## [8]  2000 GACGGACGGATGGATCATGGATG...TGTGAGCCTGAGATGCAGGGGAA chr6Hg0657981
-
 #### Wrap-up function
 
 ``` r
@@ -181,18 +155,70 @@ annotations %>%
     ## [7]  1698 GACATATATGTGTCTCATAATGA...TACCCGCGCTACTATTACAGGAA chr5Hg0547031
     ## [8]  2000 GACGGACGGATGGATCATGGATG...TGTGAGCCTGAGATGCAGGGGAA chr6Hg0657981
 
+#### Explicit pipeline
+
+``` r
+promoter_sizes <- annotations %>%
+  # Choose which loci to use
+  filter_locus(
+    .keep = c(
+      "chr6Hg0657981",
+      "chr1Hg0040651",
+      "chr3Hg0328761",
+      "chr4Hg0417171",
+      "chr3Hg0345511",
+      "chr4Hg0383761",
+      "chr5Hg0547031",
+      "chr4Hg0380431",
+      "chr4Hg0421931",
+      "chr7Hg0679581"
+    )
+  ) %>% 
+  # Calculate distances to closest upstream locus
+  get_promoter_distances(.debug = F) %>%
+  # Trim found upstream distances and define promoter lengths
+  set_promoter_sizes(.min_size = 100, .max_size = 2000)
+
+# Get promoter sequences
+promoter_sizes %>% 
+  get_promoter_sequences(.txdb = txdb, .FASTA_list = fasta_list)
+```
+
+    ## DNAStringSet object of length 8:
+    ##     width seq                                               names               
+    ## [1]  2000 GTAACAATAGTAACAAGGTGCAC...CCAGCCGTACAGACGATATTTCA chr1Hg0040651
+    ## [2]  2000 AACTAATCTGTGGTTGGATGACT...ATTGTTCCGGCACGGGGCTGGGG chr3Hg0328761
+    ## [3]  2000 ACATAGAAAGTATGCACATGACA...CCTCCCTCCCTCCCTCCCCCCAA chr3Hg0345511
+    ## [4]  2000 TGCATTTGACACATCAGATTTGG...ATGGCGCGGCTACGTCTGCTACG chr4Hg0380431
+    ## [5]  2000 TTTAATGCAATGTATGAATATGA...AAGACTGCATAAAGTTTGGATCA chr4Hg0383761
+    ## [6]  2000 GAGAGCCTTTGGTCAGCAAAGAT...GCTCTCGATCGCATGGAAGAAAA chr4Hg0417171
+    ## [7]  1698 GACATATATGTGTCTCATAATGA...TACCCGCGCTACTATTACAGGAA chr5Hg0547031
+    ## [8]  2000 GACGGACGGATGGATCATGGATG...TGTGAGCCTGAGATGCAGGGGAA chr6Hg0657981
+
+# PLOT
+
+``` r
+promoter_sizes %>%
+  plot_promoter_maps(annotations)
+```
+
+![CSCpromoters - Gene map](data-raw/img/promoter_map.png)
+
 ## Dependencies
 
 ### Libraries
 
+- Biostrings
+- data.table
+- dplyr
+- GenomicFeatures
+- progress
 - magrittr
+- multidplyr
+- Rsamtools
+- stringr
 - tidyr
 - plyr
-- dplyr
-- purrr
-- progress
-- GenomicFeatures
-- CSCprimers
 
 ### Files
 

@@ -55,6 +55,12 @@
 #'                     altered to fit input annotation tables with different 
 #'                     column names (not recommended). Defaults to `"locus_tag"`
 #'                     .
+#'                     
+#' @param .closest_var A `character` indicating the name of the column in the 
+#'                     `.annotation` table containing closest loci names. This 
+#'                     can be altered to fit input annotation tables with 
+#'                     different column names (not recommended). Defaults to 
+#'                     `"locus_tag"`.
 #'                      
 #' @param .chr_var     A `character` indicating the name of the column in the 
 #'                     `.annotation` table containing chromosome names. This 
@@ -96,29 +102,29 @@
 #'
 get_promoters <- function(
     .annotations,
-    .keep       = NULL,
-    .txdb       = NULL,
+    .keep        = NULL,
+    .txdb        = NULL,
     # .folder     = NULL,
-    .FASTA_list = NULL,
-    .min_size   = 100,
-    .max_size   = 2000,
-    .downstream = 0,
-    .pb         = NULL,
-    .pb_format  = ":what - [:bar] :percent (:spin)",
-    .locus_var  = "locus_tag",
-    .chr_var    = "chr",
-    .strand_var = "strand",
-    .start_var  = "begin",
-    .end_var    = "end",
-    .dist_var   = "promoter_size",
-    .distances  = NULL,
-    .parallel   = FALSE,
+    .FASTA_list  = NULL,
+    .min_size    = 100,
+    .max_size    = 2000,
+    .downstream  = 0,
+    .pb          = NULL,
+    .pb_format   = ":what - [:bar] :percent (:spin)",
+    .locus_var   = "locus_tag",
+    .closest_var = "closest_locus",
+    .chr_var     = "chr",
+    .strand_var  = "strand",
+    .start_var   = "begin",
+    .end_var     = "end",
+    .dist_var    = "promoter_size",
+    .distances   = NULL,
+    .parallel    = FALSE,
     ...
 ) {
   .annotations %>%
     filter_locus(.keep) %>%
     get_promoter_distances() %>% 
-    trim_promoter_distances(.min_size, .max_size) %>% 
-    # get_promoter_sequences(.folder, .txdb)
+    set_promoter_sizes(.min_size, .max_size) %>% 
     get_promoter_sequences(.FASTA_list, .txdb)
 }

@@ -61,6 +61,8 @@ This is a basic example which shows you how to solve a common problem:
 #### Load libraries
 ```{r libraries}
 library(magrittr)
+library(ggplot2)
+library(gggenes)
 library(CSCpromoters)
 ```
 
@@ -127,32 +129,6 @@ annotations <- txdb %>% get_txdb_annotation()
 
 
 ### GET PROMOTERS
-#### Explicit pipeline
-```{r explicit_pipeline}
-annotations %>%
-  # Choose which loci to use
-  filter_locus(
-    .keep = c(
-      "chr6Hg0657981",
-      "chr1Hg0040651",
-      "chr3Hg0328761",
-      "chr4Hg0417171",
-      "chr3Hg0345511",
-      "chr4Hg0383761",
-      "chr5Hg0547031",
-      "chr4Hg0380431",
-      "chr4Hg0421931",
-      "chr7Hg0679581"
-    )
-  ) %>% 
-  # Calculate distances to closest upstream locus
-  get_promoter_distances(.debug = F) %>%
-  # Trim found upstream distances and define promoter lengths
-  trim_promoter_distances(.min_size = 100, .max_size = 2000) %>%
-  # Get promoter sequences
-  get_promoter_sequences(.txdb = txdb, .FASTA_list = fasta_list)
-```
-
 #### Wrap-up function
 ```{r wrap_up}
 annotations %>%
@@ -175,17 +151,71 @@ annotations %>%
   )
 ```
 
+#### Explicit pipeline
+```{r explicit_pipeline}
+promoter_sizes <- annotations %>%
+  # Choose which loci to use
+  filter_locus(
+    .keep = c(
+      "chr6Hg0657981",
+      "chr1Hg0040651",
+      "chr3Hg0328761",
+      "chr4Hg0417171",
+      "chr3Hg0345511",
+      "chr4Hg0383761",
+      "chr5Hg0547031",
+      "chr4Hg0380431",
+      "chr4Hg0421931",
+      "chr7Hg0679581"
+    )
+  ) %>% 
+  # Calculate distances to closest upstream locus
+  get_promoter_distances(.debug = F) %>%
+  # Trim found upstream distances and define promoter lengths
+  set_promoter_sizes(.min_size = 100, .max_size = 2000)
+
+# Get promoter sequences
+promoter_sizes %>% 
+  get_promoter_sequences(.txdb = txdb, .FASTA_list = fasta_list)
+```
+
+# PLOT
+```{r eval=FALSE}
+promoter_sizes %>%
+  plot_promoter_maps(annotations)
+```
+
+```{r include=FALSE}
+promoter_sizes %>%
+  plot_promoter_maps(annotations) %>% 
+  ggsave(
+    filename = "data-raw/img/promoter_map.png",
+    device = png,
+    type   = "cairo",
+    scale  = 2,
+    width  = 10,
+    height = 7,
+    units  = "cm",
+    dpi    = 300
+  )
+```
+
+![CSCpromoters - Gene map](data-raw/img/promoter_map.png)
+
 
 ## Dependencies
 ### Libraries
+- Biostrings
+- data.table
+- dplyr
+- GenomicFeatures
+- progress
 - magrittr
+- multidplyr
+- Rsamtools
+- stringr
 - tidyr
 - plyr
-- dplyr
-- purrr
-- progress
-- GenomicFeatures
-- CSCprimers
 	
 ### Files
 - `[gff_folder]`/Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta

@@ -1,12 +1,15 @@
-#' Trim the length of promoters based on the distance to the closest upstream gene and the user-defined minimum and maximum length.
+#' Set the size of promoters based on the distance to the closest upstream gene 
+#' and the user-defined minimum and maximum length.
 #'
 #' @inheritParams get_promoters
 #' @inheritDotParams get_promoters
 #'
-#' @return A data frame with filtered genes that have promoter lengths longer than the user-defined minimum length, and a new column containing the length of the final promoter sizes.
+#' @return A data frame with filtered genes that have promoter lengths longer 
+#'         than the user-defined minimum length, and a new column containing the 
+#'         length of the final promoter sizes.
 #' @export
 #'
-trim_promoter_distances <- function(.distances, .min_size = 100, .max_size = 2000, ...) {
+set_promoter_sizes <- function(.distances, .min_size = 100, .max_size = 2000, ...) {
   .value_var <- "dist"
   
   .distances <- .distances  %>%

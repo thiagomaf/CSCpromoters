@@ -87,7 +87,7 @@ annotations <- txdb %>%
 # GET PROMOTERS
 ## Explicit pipeline
 ```{r}
-annotations %>%
+distances <- annotations %>%
   # Choose which loci to use
   filter_locus(
     # .keep = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041")
@@ -110,12 +110,15 @@ annotations %>%
   # Calculate distances to closest upstream locus
   get_promoter_distances(.debug = F) %>%
   # Trim found upstream distances and define promoter lengths
-  trim_promoter_distances(.min_size = 100, .max_size = 2000) %>%
+  set_promoter_sizes(.min_size = 100, .max_size = 2000) %>%
   (function(.distances) {
     save(.distances, file = "data/my_distances.rda")
     .distances
-  }) %>% 
-  # Get promoter sequences
+  })
+  
+
+# Get promoter sequences
+distances %>% 
   get_promoter_sequences(
     .txdb = txdb, .FASTA_list = fasta_list, .parallel = F
   )

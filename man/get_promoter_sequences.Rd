@@ -81,6 +81,11 @@ computations are normally faster.}
     \item{\code{.max_size}}{An integer indicating the maximum promoter size. Any
 \emph{loci} identified to have sequence length longer than
 \code{.max_size} will be set (trimmed) to equals \code{.max_size}.}
+    \item{\code{.closest_var}}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing closest loci names. This
+can be altered to fit input annotation tables with
+different column names (not recommended). Defaults to
+\code{"locus_tag"}.}
     \item{\code{.strand_var}}{A \code{character} indicating the name of the column in the
 \code{.annotation} table containing each loci strand
 direction. This can be altered to fit input annotation

@@ -11,10 +11,13 @@
 #' 
 get_promoter_distances <- function(
     .annotations,
-    .pb        = NULL,
-    .pb_format = ":what - [:bar] :percent (:spin)",
-    .locus_var = "locus_tag",
-    .chr_var   = "chr",
+    .pb         = NULL,
+    .pb_format  = ":what - [:bar] :percent (:spin)",
+    .locus_var  = "locus_tag",
+    .chr_var    = "chr",
+    .strand_var = "strand",
+    .start_var  = "begin",
+    .end_var    = "end",
     ...
 ) {
   # Initiate (or not) the progress bar - can also receive external object
@@ -47,23 +50,24 @@ get_promoter_distances <- function(
       .curr_locus <- .keys %>% dplyr::pull(.locus_var)
       .curr_chr   <- .keys %>% dplyr::pull(.chr_var)
       
+      .curr_strand <- .each_annotation %>% dplyr::pull(.strand_var)
+      .curr_begin  <- .each_annotation %>% dplyr::pull(.start_var)
+      .curr_end    <- .each_annotation %>% dplyr::pull(.end_var)
+      
       # Subset relevant loci - a.k.a. "loci of interest"
       .loci_OI <- .annotations %>%
-        tidyr::pivot_longer(cols = c("begin", "end")) %>%
-        # print() %>% 
+        tidyr::pivot_longer(cols = c(.start_var, .end_var)) %>%
         # get all loci in the current chromosome
-        #subset(chr == .keys$chr) %>%
         subset(get(.chr_var) == .curr_chr) %>%
-        # print() %>% 
         # get all loci but the current locus
-        #subset(locus_tag != .keys$locus_tag) %>%
         subset(get(.locus_var) != .curr_locus) %>%
-        # print() %>% 
         # get all loci upstream the current locus
         subset(
           dplyr::case_when(
-            .each_annotation$strand ==  1 ~ value < .each_annotation$begin, #'begin' on the fly
-            .each_annotation$strand == -1 ~ value > .each_annotation$end,   #'end' on the fly
+            # .each_annotation$strand ==  1 ~ value < .each_annotation$begin, #'strand'/"begin' on the fly
+            # .each_annotation$strand == -1 ~ value > .each_annotation$end,   #'strand'/'end' on the fly
+            .curr_strand ==  1 ~ value < .curr_begin,
+            .curr_strand == -1 ~ value > .curr_end,
             TRUE               ~ NA
           )
         )
@@ -83,20 +87,21 @@ get_promoter_distances <- function(
           # get the reference coordinate to the upstream locus closest to the 
           # current locus
           subset(dplyr::case_when(
-            .each_annotation$strand ==  1 ~ value == max(value, na.rm = TRUE),
-            .each_annotation$strand == -1 ~ value == min(value, na.rm = TRUE)
+            # .each_annotation$strand ==  1 ~ value == max(value, na.rm = TRUE), #'strand' on the fly
+            # .each_annotation$strand == -1 ~ value == min(value, na.rm = TRUE)  #'strand' on the fly
+            .curr_strand ==  1 ~ value == max(value, na.rm = TRUE),
+            .curr_strand == -1 ~ value == min(value, na.rm = TRUE)
           )) %>%
           # Calculate the distance to the closest upstream locus we got above
           dplyr::mutate(dist = dplyr::case_when(
-            .each_annotation$strand ==  1 ~ .each_annotation$begin - value, #'begin' on the fly
-            .each_annotation$strand == -1 ~ value - .each_annotation$end    #'end' on the fly
+            # .each_annotation$strand ==  1 ~ .each_annotation$begin - value, #'strand'/'begin' on the fly
+            # .each_annotation$strand == -1 ~ value - .each_annotation$end    #'strand'/'end' on the fly
+            .curr_strand ==  1 ~ .curr_begin - value,
+            .curr_strand == -1 ~ value - .curr_end
           )) %>%
           dplyr::mutate(dist = as.double(.$dist)) %>%
           dplyr::select(dplyr::all_of(c(.locus_var, "dist"))) %>%
-          dplyr::rename(closest_locus = dplyr::all_of(.locus_var)) #%>% 
-          #---
-          # dplyr::mutate(begin = .each_annotation$begin) %>% #'begin' on the fly
-          # dplyr::mutate(end   = .each_annotation$end)
+          dplyr::rename(closest_locus = dplyr::all_of(.locus_var))
       }
       
       # progress bar oogie boogie

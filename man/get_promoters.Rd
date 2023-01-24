@@ -15,6 +15,7 @@ get_promoters(
   .pb = NULL,
   .pb_format = ":what - [:bar] :percent (:spin)",
   .locus_var = "locus_tag",
+  .closest_var = "closest_locus",
   .chr_var = "chr",
   .strand_var = "strand",
   .start_var = "begin",
@@ -72,6 +73,12 @@ percentage and a spinning character on the right
 altered to fit input annotation tables with different
 column names (not recommended). Defaults to \code{"locus_tag"}
 .}
+
+\item{.closest_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing closest loci names. This
+can be altered to fit input annotation tables with
+different column names (not recommended). Defaults to
+\code{"locus_tag"}.}
 
 \item{.chr_var}{A \code{character} indicating the name of the column in the
 \code{.annotation} table containing chromosome names. This

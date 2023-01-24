@@ -5,6 +5,8 @@ TO RUN ONCE PER PACKAGE
 # usethis::use_namespace()
 
 # usethis::use_package("magrittr")
+# usethis::use_package("gggenes")
+# usethis::use_package("ggplot2")
 
 # usethis::use_import_from("plyr", ".")
 ```

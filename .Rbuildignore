@@ -1,5 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+data-raw
 backup
 use_this-commands.Rmd
 new_code.Rmd

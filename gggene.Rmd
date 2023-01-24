@@ -25,8 +25,8 @@ library(gggenes)
 
 # PREPARE DATA FUNCTIONS
 ```{r fig.height=10, fig.width=10}
-get_plotdata_locus <- function(.trimmed_distances) {
-  .trimmed_distances %>%
+get_plotdata_locus <- function(.promoter_sizes, .annotations) {
+  .promoter_sizes %>%
     dplyr::select(dplyr::all_of(
       c("chr", "locus_tag", "closest_locus", "dist", "promoter_size")
     )) %>% 
@@ -43,8 +43,8 @@ get_plotdata_locus <- function(.trimmed_distances) {
     )
 }
 
-get_plotdata_promoter <- function(.trimmed_distances) {
-  .trimmed_distances %>% 
+get_plotdata_promoter <- function(.promoter_sizes) {
+  .promoter_sizes %>% 
     dplyr::select(dplyr::all_of(
       c("chr", "locus_tag", "strand", "begin", "end", "promoter_size")
     )) %>% 
@@ -62,34 +62,37 @@ get_plotdata_promoter <- function(.trimmed_distances) {
 
 # PLOT
 ```{r fig.height=10, fig.width=10}
+plot_promoter_maps<- function(.promoter_sizes, .annotations) {
+  .promoter_sizes %>%
+    get_plotdata_locus(.annotations) %>%
+    ggplot(aes(y = locus_tag)) +
+    theme_genes() +
+    geom_gene_arrow(aes(
+      xmin    = begin,
+      xmax    = end,
+      forward = strand,
+      fill    = "reference locus"
+    )) +
+    geom_gene_arrow(aes(
+      xmin    = closest_begin,
+      xmax    = closest_end,
+      forward = closest_strand,
+      fill    = "closest locus"
+    )) +
+    geom_segment(
+      mapping   = aes(
+        x     = x,
+        xend  = xend,
+        y     = locus_tag,
+        yend  = locus_tag,
+        color = "promoter"
+      ),
+      linewidth = 1.5,
+      data      = . %>% get_plotdata_promoter()
+    ) +
+    facet_wrap(~ locus_tag, scales = "free", ncol = 1) +
+    scale_fill_brewer(palette = "Set3")
+}
 
-.distances %>%
-  get_plotdata_locus() %>%
-  ggplot(aes(y = locus_tag)) +
-  theme_genes() +
-  geom_gene_arrow(aes(
-    xmin    = begin,
-    xmax    = end,
-    forward = strand,
-    fill    = "reference locus"
-  )) +
-  geom_gene_arrow(aes(
-    xmin    = closest_begin,
-    xmax    = closest_end,
-    forward = closest_strand,
-    fill    = "closest locus"
-  )) +
-  geom_segment(
-    mapping   = aes(
-      x     = x,
-      xend  = xend,
-      y     = locus_tag,
-      yend  = locus_tag,
-      color = "promoter"
-    ),
-    linewidth = 1.5,
-    data      = . %>% get_plotdata_promoter()
-  ) +
-  facet_wrap(~ locus_tag, scales = "free", ncol = 1) +
-  scale_fill_brewer(palette = "Set3")
+promoter_sizes %>% plot_promoter_maps(annotations)
 ```
