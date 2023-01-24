@@ -56,17 +56,7 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(magrittr)
 library(ggplot2)
-```
-
-    ## Warning: package 'ggplot2' was built under R version 4.2.2
-
-``` r
 library(gggenes)
-```
-
-    ## Warning: package 'gggenes' was built under R version 4.2.2
-
-``` r
 library(CSCpromoters)
 ```
 
