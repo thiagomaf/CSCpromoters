@@ -1,0 +1,95 @@
+---
+title: "CSCpromoters - ggplot/gggenes"
+output: github_document
+---
+
+# SETUP
+## Load libraries
+```{r}
+library(magrittr)
+library(CSCpromoters)
+library(ggplot2)
+library(gggenes)
+```
+
+
+# LOAD DATA
+```{r}
+.distances
+```
+
+```{r}
+.annotations
+```
+
+
+# PREPARE DATA FUNCTIONS
+```{r fig.height=10, fig.width=10}
+get_plotdata_locus <- function(.trimmed_distances) {
+  .trimmed_distances %>%
+    dplyr::select(dplyr::all_of(
+      c("chr", "locus_tag", "closest_locus", "dist", "promoter_size")
+    )) %>% 
+    dplyr::left_join(.annotations, by = c("chr", "locus_tag")) %>% 
+    dplyr::left_join(
+      .annotations %>% 
+        dplyr::rename(c(
+          "closest_locus"  = "locus_tag",
+          "closest_strand" = "strand",
+          "closest_begin"  = "begin",
+          "closest_end"    = "end"
+        )),
+      by = c("chr", "closest_locus")
+    )
+}
+
+get_plotdata_promoter <- function(.trimmed_distances) {
+  .trimmed_distances %>% 
+    dplyr::select(dplyr::all_of(
+      c("chr", "locus_tag", "strand", "begin", "end", "promoter_size")
+    )) %>% 
+    dplyr::mutate(x = dplyr::case_when(
+      strand ==  1 ~ begin,
+      strand == -1 ~ end
+    )) %>%
+    dplyr::mutate(xend = dplyr::case_when(
+      strand ==  1 ~ begin - promoter_size,
+      strand == -1 ~ end + promoter_size
+    ))
+}
+```
+
+
+# PLOT
+```{r fig.height=10, fig.width=10}
+
+.distances %>%
+  get_plotdata_locus() %>%
+  ggplot(aes(y = locus_tag)) +
+  theme_genes() +
+  geom_gene_arrow(aes(
+    xmin    = begin,
+    xmax    = end,
+    forward = strand,
+    fill    = "reference locus"
+  )) +
+  geom_gene_arrow(aes(
+    xmin    = closest_begin,
+    xmax    = closest_end,
+    forward = closest_strand,
+    fill    = "closest locus"
+  )) +
+  geom_segment(
+    mapping   = aes(
+      x     = x,
+      xend  = xend,
+      y     = locus_tag,
+      yend  = locus_tag,
+      color = "promoter"
+    ),
+    linewidth = 1.5,
+    data      = . %>% get_plotdata_promoter()
+  ) +
+  facet_wrap(~ locus_tag, scales = "free", ncol = 1) +
+  scale_fill_brewer(palette = "Set3")
+```

@@ -62,8 +62,8 @@ get_promoter_distances <- function(
         # get all loci upstream the current locus
         subset(
           dplyr::case_when(
-            .each_annotation$strand ==  1 ~ value < .each_annotation$begin,
-            .each_annotation$strand == -1 ~ value > .each_annotation$end,
+            .each_annotation$strand ==  1 ~ value < .each_annotation$begin, #'begin' on the fly
+            .each_annotation$strand == -1 ~ value > .each_annotation$end,   #'end' on the fly
             TRUE               ~ NA
           )
         )
@@ -88,12 +88,15 @@ get_promoter_distances <- function(
           )) %>%
           # Calculate the distance to the closest upstream locus we got above
           dplyr::mutate(dist = dplyr::case_when(
-            .each_annotation$strand ==  1 ~ .each_annotation$begin - value,
-            .each_annotation$strand == -1 ~ value - .each_annotation$end
+            .each_annotation$strand ==  1 ~ .each_annotation$begin - value, #'begin' on the fly
+            .each_annotation$strand == -1 ~ value - .each_annotation$end    #'end' on the fly
           )) %>%
           dplyr::mutate(dist = as.double(.$dist)) %>%
           dplyr::select(dplyr::all_of(c(.locus_var, "dist"))) %>%
-          dplyr::rename(closest_locus = dplyr::all_of(.locus_var))
+          dplyr::rename(closest_locus = dplyr::all_of(.locus_var)) #%>% 
+          #---
+          # dplyr::mutate(begin = .each_annotation$begin) %>% #'begin' on the fly
+          # dplyr::mutate(end   = .each_annotation$end)
       }
       
       # progress bar oogie boogie
