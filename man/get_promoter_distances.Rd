@@ -52,12 +52,6 @@ different column names (not recommended). Defaults to
 \code{.annotations} table) or a \code{numeric} vector of indexes
 (of the \code{.annotations} table).}
     \item{\code{.txdb}}{{TODO}}
-    \item{\code{.folder}}{A \code{character} indicating the folder in which the FASTA
-files containing the genome sequences of each individual
-chromosome. Currently, the library assumes that the
-filename will have the following format:
-\code{paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")}
-.}
     \item{\code{.FASTA_list}}{A named \code{character} list. Each element is a full path and
 filename to each chromosome. Element names indicate
 chromosome names matching those found in the annotation

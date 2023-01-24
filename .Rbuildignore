@@ -1,11 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+backup
 use_this-commands.Rmd
-CSCpromoters.RData
-simplified_code.Rmd
-simplified_code.md
-working_code.Rmd
-working_code.md
 new_code.Rmd
 new_code.md
 README.Rmd

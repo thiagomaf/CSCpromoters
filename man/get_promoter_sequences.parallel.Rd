@@ -71,12 +71,6 @@ computations are normally faster.}
     \item{\code{.keep}}{Either a \code{character} vector of loci names (present in the
 \code{.annotations} table) or a \code{numeric} vector of indexes
 (of the \code{.annotations} table).}
-    \item{\code{.folder}}{A \code{character} indicating the folder in which the FASTA
-files containing the genome sequences of each individual
-chromosome. Currently, the library assumes that the
-filename will have the following format:
-\code{paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")}
-.}
     \item{\code{.min_size}}{An integer indicating the minimum promoter size. Any
 \emph{loci} identified to have sequence length shorter than
 \code{.min_size} will be ignored.}

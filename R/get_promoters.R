@@ -12,13 +12,13 @@
 #'                     
 #' @param .txdb        {TODO}
 #' 
-#' @param .folder      A `character` indicating the folder in which the FASTA 
-#'                     files containing the genome sequences of each individual
-#'                     chromosome. Currently, the library assumes that the
-#'                     filename will have the following format: 
-#'                     `paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")`
-#'                     .
-#'                     
+# @param .folder      A `character` indicating the folder in which the FASTA 
+#                     files containing the genome sequences of each individual
+#                     chromosome. Currently, the library assumes that the
+#                     filename will have the following format: 
+#                     `paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")`
+#                     .
+#                     
 #' @param .FASTA_list  A named `character` list. Each element is a full path and
 #'                     filename to each chromosome. Element names indicate 
 #'                     chromosome names matching those found in the annotation 
@@ -118,7 +118,7 @@ get_promoters <- function(
   .annotations %>%
     filter_locus(.keep) %>%
     get_promoter_distances() %>% 
-    trim_distances(.min_size, .max_size) %>% 
+    trim_promoter_distances(.min_size, .max_size) %>% 
     # get_promoter_sequences(.folder, .txdb)
     get_promoter_sequences(.FASTA_list, .txdb)
 }

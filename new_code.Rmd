@@ -110,7 +110,7 @@ annotations %>%
   # Calculate distances to closest upstream locus
   get_promoter_distances(.debug = F) %>%
   # Trim found upstream distances and define promoter lengths
-  trim_distances(.min_size = 100, .max_size = 2000) %>%
+  trim_promoter_distances(.min_size = 100, .max_size = 2000) %>%
   # Get promoter sequences
   get_promoter_sequences(
     .txdb = txdb, .FASTA_list = fasta_list, .parallel = F
@@ -123,7 +123,8 @@ annotations %>%
 annotations %>%
   # Wrap-up function
   get_promoters(
-    # .keep       = c("chr1Hg0000021", "chr1Hg0000031", "chr1Hg0000041"),
+    .txdb       = txdb,
+    .FASTA_list = fasta_list,
     .keep       = c(
       "chr6Hg0657981",
       "chr1Hg0040651",
@@ -135,9 +136,7 @@ annotations %>%
       "chr4Hg0380431",
       "chr4Hg0421931",
       "chr7Hg0679581"
-    ),
-    .txdb       = txdb,
-    .FASTA_list = fasta_list
+    )
   )
 ```
 

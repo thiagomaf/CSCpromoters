@@ -8,7 +8,6 @@ get_promoters(
   .annotations,
   .keep = NULL,
   .txdb = NULL,
-  .folder = NULL,
   .FASTA_list = NULL,
   .min_size = 100,
   .max_size = 2000,
@@ -36,13 +35,6 @@ computations are normally faster.}
 (of the \code{.annotations} table).}
 
 \item{.txdb}{{TODO}}
-
-\item{.folder}{A \code{character} indicating the folder in which the FASTA
-files containing the genome sequences of each individual
-chromosome. Currently, the library assumes that the
-filename will have the following format:
-\code{paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")}
-.}
 
 \item{.FASTA_list}{A named \code{character} list. Each element is a full path and
 filename to each chromosome. Element names indicate
