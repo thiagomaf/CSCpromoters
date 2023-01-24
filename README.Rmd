@@ -34,7 +34,6 @@ You can install the development version of `CSCpromoters` from
 
 ```{r installation1, eval=FALSE}
 # install.packages("devtools")
-devtools::install_github("thiagomaf/CSCfasta")
 devtools::install_github("thiagomaf/CSCpromoters")
 
 # These commands will not work while the repositories are private.
@@ -191,11 +190,11 @@ annotations %>%
 ### Files
 - `[gff_folder]`/Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta
 - `[gff_folder]`/Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3
-- `[folder2]`/Hordeum_vulgare.refseq[chr1H].fasta
-- `[folder2]`/Hordeum_vulgare.refseq[chr2H].fasta
-- `[folder2]`/Hordeum_vulgare.refseq[chr3H].fasta
-- `[folder2]`/Hordeum_vulgare.refseq[chr4H].fasta
-- `[folder2]`/Hordeum_vulgare.refseq[chr5H].fasta
-- `[folder2]`/Hordeum_vulgare.refseq[chr6H].fasta
-- `[folder2]`/Hordeum_vulgare.refseq[chr7H].fasta
-- `[folder2]`/Hordeum_vulgare.refseq[chrUn].fasta
+- `[fasta_list]`/Hordeum_vulgare.refseq[chr1H].fasta
+- `[fasta_list]`/Hordeum_vulgare.refseq[chr2H].fasta
+- `[fasta_list]`/Hordeum_vulgare.refseq[chr3H].fasta
+- `[fasta_list]`/Hordeum_vulgare.refseq[chr4H].fasta
+- `[fasta_list]`/Hordeum_vulgare.refseq[chr5H].fasta
+- `[fasta_list]`/Hordeum_vulgare.refseq[chr6H].fasta
+- `[fasta_list]`/Hordeum_vulgare.refseq[chr7H].fasta
+- `[fasta_list]`/Hordeum_vulgare.refseq[chrUn].fasta
