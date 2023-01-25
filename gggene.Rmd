@@ -15,84 +15,60 @@ library(gggenes)
 
 # LOAD DATA
 ```{r}
-.distances
+promoter_sizes
 ```
 
 ```{r}
-.annotations
-```
-
-
-# PREPARE DATA FUNCTIONS
-```{r fig.height=10, fig.width=10}
-get_plotdata_locus <- function(.promoter_sizes, .annotations) {
-  .promoter_sizes %>%
-    dplyr::select(dplyr::all_of(
-      c("chr", "locus_tag", "closest_locus", "dist", "promoter_size")
-    )) %>% 
-    dplyr::left_join(.annotations, by = c("chr", "locus_tag")) %>% 
-    dplyr::left_join(
-      .annotations %>% 
-        dplyr::rename(c(
-          "closest_locus"  = "locus_tag",
-          "closest_strand" = "strand",
-          "closest_begin"  = "begin",
-          "closest_end"    = "end"
-        )),
-      by = c("chr", "closest_locus")
-    )
-}
-
-get_plotdata_promoter <- function(.promoter_sizes) {
-  .promoter_sizes %>% 
-    dplyr::select(dplyr::all_of(
-      c("chr", "locus_tag", "strand", "begin", "end", "promoter_size")
-    )) %>% 
-    dplyr::mutate(x = dplyr::case_when(
-      strand ==  1 ~ begin,
-      strand == -1 ~ end
-    )) %>%
-    dplyr::mutate(xend = dplyr::case_when(
-      strand ==  1 ~ begin - promoter_size,
-      strand == -1 ~ end + promoter_size
-    ))
-}
+annotations
 ```
 
 
 # PLOT
-```{r fig.height=10, fig.width=10}
-plot_promoter_maps<- function(.promoter_sizes, .annotations) {
-  .promoter_sizes %>%
-    get_plotdata_locus(.annotations) %>%
-    ggplot(aes(y = locus_tag)) +
-    theme_genes() +
-    geom_gene_arrow(aes(
-      xmin    = begin,
-      xmax    = end,
-      forward = strand,
-      fill    = "reference locus"
-    )) +
-    geom_gene_arrow(aes(
-      xmin    = closest_begin,
-      xmax    = closest_end,
-      forward = closest_strand,
-      fill    = "closest locus"
-    )) +
-    geom_segment(
-      mapping   = aes(
-        x     = x,
-        xend  = xend,
-        y     = locus_tag,
-        yend  = locus_tag,
-        color = "promoter"
-      ),
-      linewidth = 1.5,
-      data      = . %>% get_plotdata_promoter()
-    ) +
-    facet_wrap(~ locus_tag, scales = "free", ncol = 1) +
-    scale_fill_brewer(palette = "Set3")
-}
-
+```{r}
 promoter_sizes %>% plot_promoter_maps(annotations)
+```
+
+
+```{r fig.height=10, fig.width=10}
+promoter_sizes %>% get_plotdata_locus(annotations) %>% 
+  dplyr::mutate(dplyr::across(
+    .cols = dplyr::all_of(c("begin", "end", "closest_begin", "closest_end")),
+    .fns  = function(.col) {
+      dplyr::case_when(
+        strand ==  1 ~ .col - begin,
+        strand == -1 ~ .col - end,
+      )
+    }
+  ))
+
+promoter_sizes %>%
+  get_plotdata_locus(annotations) %>%
+  ggplot2::ggplot(ggplot2::aes(y = locus_tag)) +
+  gggenes::theme_genes() +
+  gggenes::geom_gene_arrow(ggplot2::aes(
+    xmin    = begin,
+    xmax    = end,
+    forward = strand,
+    fill    = "reference locus"
+  )) +
+  gggenes::geom_gene_arrow(ggplot2::aes(
+    xmin    = closest_begin,
+    xmax    = closest_end,
+    forward = closest_strand,
+    fill    = "closest locus"
+  )) +
+  ggplot2::geom_segment(
+    mapping   = ggplot2::aes(
+      x     = x,
+      xend  = xend,
+      y     = locus_tag,
+      yend  = locus_tag,
+      color = "promoter"
+    ),
+    linewidth = 1.5,
+    data      = . %>% get_plotdata_promoter()
+  ) +
+  ggplot2::facet_wrap(~ locus_tag, scales = "free", ncol = 1) +
+  ggplot2::scale_fill_brewer(palette = "Set3")
+
 ```

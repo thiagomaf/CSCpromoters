@@ -37,6 +37,4 @@ Imports:
     Rsamtools,
     stringr,
     tidyr,
-    plyr,
-    gggenes,
-    ggplot2
+    plyr

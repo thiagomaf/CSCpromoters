@@ -63,6 +63,8 @@ library(CSCpromoters)
 #### Define constants
 
 ``` r
+# MIN-YAO, set eval=TRUE and comment the next block to run on your computer
+
 gff_folder <- paste0(
   "./genome_barley_GP/" # user defined path
 )
@@ -93,9 +95,6 @@ txdb <- paste0(
     .organism    = "Hordeum vulgare"
   )
 ```
-
-    ## Warning in .recacheSubclasses(def@className, def, env): undefined subclass
-    ## "DataFrameFactor" of class "vector_OR_Vector"; definition not updated
 
     ## Import genomic features from the file as a GRanges object ... OK
     ## Prepare the 'metadata' data frame ... OK

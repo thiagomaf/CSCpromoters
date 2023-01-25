@@ -4,7 +4,7 @@
 \alias{plot_promoter_maps}
 \title{plot_promoter_maps}
 \usage{
-plot_promoter_maps(.promoter_sizes, .annotations)
+plot_promoter_maps(.promoter_sizes, .annotations, .relative_x = TRUE)
 }
 \arguments{
 \item{.promoter_sizes}{{TODO}}
@@ -12,6 +12,9 @@ plot_promoter_maps(.promoter_sizes, .annotations)
 \item{.annotations}{Preferably a \code{data.table} (but possibly a \code{data.frame})
 of annotations as described {HERE}. \code{data.table}
 computations are normally faster.}
+
+\item{.relative_x}{Whether to transform X-axis scale do indicate distance
+to each locus start coordinate.}
 }
 \description{
 plot_promoter_maps
