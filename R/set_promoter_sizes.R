@@ -9,20 +9,27 @@
 #'         length of the final promoter sizes.
 #' @export
 #'
-set_promoter_sizes <- function(.distances, .min_size = 100, .max_size = 2000, ...) {
+set_promoter_sizes <- function(
+    .distances,
+    .min_size = 100,
+    .max_size = 2000,
+    .dist_var = "dist",
+    .size_var = "promoter_size",
+    ...
+) {
   .value_var <- "dist"
   
   .distances <- .distances  %>%
     dplyr::ungroup() %>% # breaks the magig if removed!
-    #subset(dist >= .min_size) %>%
-    subset(get(.value_var) >= .min_size) %>%
+    subset(get(.dist_var) >= .min_size) %>%
     dplyr::mutate(
-      promoter_size = dplyr::case_when(
-        #dist > .max_size ~ .max_size,
-        get(.value_var) > .max_size ~ .max_size,
-        TRUE ~ dist
+      #promoter_size = dplyr::case_when(
+      !!.size_var := dplyr::case_when(
+        get(.dist_var) > .max_size ~ .max_size,
+        #TRUE ~ dist
+        TRUE ~ get(.dist_var)
       )
     )
   
-  .distances # absolutelly useless return but makes it clearer what is happening
+  .distances
 }

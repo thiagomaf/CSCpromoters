@@ -8,6 +8,7 @@ get_plotdata_promoter(
   .promoter_sizes,
   .locus_var = "locus_tag",
   .chr_var = "chr",
+  .size_var = "promoter_size",
   .strand_var = "strand",
   .start_var = "begin",
   .end_var = "end"
@@ -27,6 +28,11 @@ column names (not recommended). Defaults to \code{"locus_tag"}
 can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
 \code{"chr"}.}
+
+\item{.size_var}{A \code{character} indicating the name of the output column
+table containing the final promoter lengths. I still
+doubt you need to change that. Defaults to
+\code{"promoter_size"}.}
 
 \item{.strand_var}{A \code{character} indicating the name of the column in the
 \code{.annotation} table containing each loci strand

@@ -87,10 +87,14 @@ percentage and a spinning character on the right
 can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
 \code{"locus_tag"}.}
-    \item{\code{.dist_var}}{A \code{character} indicating the name of the output column
-table containing the final promoter lengths. There is
-absolutely no reason you would need to change that.
-Defaults to \code{"promoter_size"}.}
+    \item{\code{.dist_var}}{A \code{character} indicating the name of column used to
+output the distance from each locus to its closest
+upstream locus. I would bet you don't have a reason to
+change that. Defaults to \code{"dist"}.}
+    \item{\code{.size_var}}{A \code{character} indicating the name of the output column
+table containing the final promoter lengths. I still
+doubt you need to change that. Defaults to
+\code{"promoter_size"}.}
     \item{\code{.parallel}}{A \code{logical}. If TRUE, apply computations in parallel.
 Defauts to \code{FALSE}.}
   }}

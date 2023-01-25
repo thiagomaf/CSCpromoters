@@ -52,10 +52,10 @@ can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
 \code{"chr"}.}
 
-\item{.dist_var}{A \code{character} indicating the name of the output column
-table containing the final promoter lengths. There is
-absolutely no reason you would need to change that.
-Defaults to \code{"promoter_size"}.}
+\item{.dist_var}{A \code{character} indicating the name of column used to
+output the distance from each locus to its closest
+upstream locus. I would bet you don't have a reason to
+change that. Defaults to \code{"dist"}.}
 
 \item{.downstream}{An integer indicating the sequence length downstream the
 start site to be included in the output promoter
@@ -82,6 +82,10 @@ computations are normally faster.}
 can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
 \code{"locus_tag"}.}
+    \item{\code{.size_var}}{A \code{character} indicating the name of the output column
+table containing the final promoter lengths. I still
+doubt you need to change that. Defaults to
+\code{"promoter_size"}.}
     \item{\code{.strand_var}}{A \code{character} indicating the name of the column in the
 \code{.annotation} table containing each loci strand
 direction. This can be altered to fit input annotation

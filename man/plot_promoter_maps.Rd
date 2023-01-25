@@ -4,7 +4,15 @@
 \alias{plot_promoter_maps}
 \title{plot_promoter_maps}
 \usage{
-plot_promoter_maps(.promoter_sizes, .annotations, .relative_x = TRUE)
+plot_promoter_maps(
+  .promoter_sizes,
+  .annotations,
+  .locus_var = "locus_tag",
+  .strand_var = "strand",
+  .start_var = "begin",
+  .end_var = "end",
+  .relative_x = TRUE
+)
 }
 \arguments{
 \item{.promoter_sizes}{{TODO}}
@@ -12,6 +20,30 @@ plot_promoter_maps(.promoter_sizes, .annotations, .relative_x = TRUE)
 \item{.annotations}{Preferably a \code{data.table} (but possibly a \code{data.frame})
 of annotations as described {HERE}. \code{data.table}
 computations are normally faster.}
+
+\item{.locus_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing loci names. This can be
+altered to fit input annotation tables with different
+column names (not recommended). Defaults to \code{"locus_tag"}
+.}
+
+\item{.strand_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing each loci strand
+direction. This can be altered to fit input annotation
+tables with different column names (not recommended).
+Defaults to \code{"strand"}.}
+
+\item{.start_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing each loci start
+coordinate. This can be altered to fit input annotation
+tables with different column names (not recommended).
+Defaults to \code{"begin"}.}
+
+\item{.end_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing each loci end coordinate.
+This can be altered to fit input annotation tables with
+different column names (not recommended). Defaults to
+\code{"end"}.}
 
 \item{.relative_x}{Whether to transform X-axis scale do indicate distance
 to each locus start coordinate.}

@@ -11,13 +11,15 @@
 #' 
 get_promoter_distances <- function(
     .annotations,
-    .pb         = NULL,
-    .pb_format  = ":what - [:bar] :percent (:spin)",
-    .locus_var  = "locus_tag",
-    .chr_var    = "chr",
-    .strand_var = "strand",
-    .start_var  = "begin",
-    .end_var    = "end",
+    .pb          = NULL,
+    .pb_format   = ":what - [:bar] :percent (:spin)",
+    .locus_var   = "locus_tag",
+    .chr_var     = "chr",
+    .closest_var = "closest_locus",
+    .dist_var    = "dist",
+    .strand_var  = "strand",
+    .start_var   = "begin",
+    .end_var     = "end",
     ...
 ) {
   # Initiate (or not) the progress bar - can also receive external object
@@ -64,8 +66,6 @@ get_promoter_distances <- function(
         # get all loci upstream the current locus
         subset(
           dplyr::case_when(
-            # .each_annotation$strand ==  1 ~ value < .each_annotation$begin, #'strand'/"begin' on the fly
-            # .each_annotation$strand == -1 ~ value > .each_annotation$end,   #'strand'/'end' on the fly
             .curr_strand ==  1 ~ value < .curr_begin,
             .curr_strand == -1 ~ value > .curr_end,
             TRUE               ~ NA
@@ -74,10 +74,12 @@ get_promoter_distances <- function(
       
       # Initiate the output object
       .each_output <- data.frame(
-        closest_locus = NA_character_, 
+        closest_locus = NA_character_,
         dist          = NA
-      )
-      
+      ) %>%
+        dplyr::rename(!!.closest_var := dplyr::all_of("closest_locus")) %>%
+        dplyr::rename(!!.dist_var    := dplyr::all_of("dist"))
+
       # If there are "loci of interest", updates the output object with the 
       # upstream distance to the closest gene (still, in a given chromosome). 
       # The if() below handles e.g. the first locus in each chromosome which 
@@ -87,21 +89,17 @@ get_promoter_distances <- function(
           # get the reference coordinate to the upstream locus closest to the 
           # current locus
           subset(dplyr::case_when(
-            # .each_annotation$strand ==  1 ~ value == max(value, na.rm = TRUE), #'strand' on the fly
-            # .each_annotation$strand == -1 ~ value == min(value, na.rm = TRUE)  #'strand' on the fly
             .curr_strand ==  1 ~ value == max(value, na.rm = TRUE),
             .curr_strand == -1 ~ value == min(value, na.rm = TRUE)
           )) %>%
           # Calculate the distance to the closest upstream locus we got above
-          dplyr::mutate(dist = dplyr::case_when(
-            # .each_annotation$strand ==  1 ~ .each_annotation$begin - value, #'strand'/'begin' on the fly
-            # .each_annotation$strand == -1 ~ value - .each_annotation$end    #'strand'/'end' on the fly
+          dplyr::mutate(!!.dist_var := dplyr::case_when(
             .curr_strand ==  1 ~ .curr_begin - value,
             .curr_strand == -1 ~ value - .curr_end
           )) %>%
-          dplyr::mutate(dist = as.double(.$dist)) %>%
-          dplyr::select(dplyr::all_of(c(.locus_var, "dist"))) %>%
-          dplyr::rename(closest_locus = dplyr::all_of(.locus_var))
+          dplyr::mutate(!!.dist_var := as.double(get(.dist_var))) %>%
+          dplyr::select(dplyr::all_of(c(.locus_var, .dist_var))) %>%
+          dplyr::rename(!!.closest_var := dplyr::all_of(.locus_var))
       }
       
       # progress bar oogie boogie

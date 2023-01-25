@@ -90,10 +90,6 @@ get_promoter_sequences.serial <- function(
       # Open FASTA file for each chromosome b4 extracting promoters in each
       # - This is highly problematic! Currently assumes the input files will 
       #   have a given filename structure. There must be better ways to do that!
-      # .fasta_file <- paste0(
-      #   .folder,
-      #   paste0("Hordeum_vulgare.refseq[", .curr_chr, "].fasta")
-      # ) %>%
       .fasta_file <- .FASTA_list[[.curr_chr]] %>%
         Rsamtools::FaFile() %>% 
         open()

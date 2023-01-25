@@ -9,5 +9,6 @@ TO RUN ONCE PER PACKAGE
 # usethis::use_package("ggplot2")
 
 # usethis::use_import_from("plyr", ".")
+# usethis::use_import_from("data.table", ":=")
 ```
 

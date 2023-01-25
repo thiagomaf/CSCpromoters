@@ -11,6 +11,8 @@ get_promoter_distances(
   .pb_format = ":what - [:bar] :percent (:spin)",
   .locus_var = "locus_tag",
   .chr_var = "chr",
+  .closest_var = "closest_locus",
+  .dist_var = "dist",
   .strand_var = "strand",
   .start_var = "begin",
   .end_var = "end",
@@ -46,6 +48,17 @@ column names (not recommended). Defaults to \code{"locus_tag"}
 can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
 \code{"chr"}.}
+
+\item{.closest_var}{A \code{character} indicating the name of the column in the
+\code{.annotation} table containing closest loci names. This
+can be altered to fit input annotation tables with
+different column names (not recommended). Defaults to
+\code{"locus_tag"}.}
+
+\item{.dist_var}{A \code{character} indicating the name of column used to
+output the distance from each locus to its closest
+upstream locus. I would bet you don't have a reason to
+change that. Defaults to \code{"dist"}.}
 
 \item{.strand_var}{A \code{character} indicating the name of the column in the
 \code{.annotation} table containing each loci strand
@@ -87,15 +100,10 @@ table.}
 start site to be included in the output promoter
 sequence. Presumably, will be reduced from the upstream
 sequence length but have never tested. Defaults to \code{0}.}
-    \item{\code{.closest_var}}{A \code{character} indicating the name of the column in the
-\code{.annotation} table containing closest loci names. This
-can be altered to fit input annotation tables with
-different column names (not recommended). Defaults to
-\code{"locus_tag"}.}
-    \item{\code{.dist_var}}{A \code{character} indicating the name of the output column
-table containing the final promoter lengths. There is
-absolutely no reason you would need to change that.
-Defaults to \code{"promoter_size"}.}
+    \item{\code{.size_var}}{A \code{character} indicating the name of the output column
+table containing the final promoter lengths. I still
+doubt you need to change that. Defaults to
+\code{"promoter_size"}.}
     \item{\code{.parallel}}{A \code{logical}. If TRUE, apply computations in parallel.
 Defauts to \code{FALSE}.}
   }}

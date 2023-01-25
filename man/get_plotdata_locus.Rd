@@ -10,6 +10,8 @@ get_plotdata_locus(
   .locus_var = "locus_tag",
   .chr_var = "chr",
   .closest_var = "closest_locus",
+  .dist_var = "dist",
+  .size_var = "promoter_size",
   .strand_var = "strand",
   .start_var = "begin",
   .end_var = "end"
@@ -39,6 +41,16 @@ different column names (not recommended). Defaults to
 can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
 \code{"locus_tag"}.}
+
+\item{.dist_var}{A \code{character} indicating the name of column used to
+output the distance from each locus to its closest
+upstream locus. I would bet you don't have a reason to
+change that. Defaults to \code{"dist"}.}
+
+\item{.size_var}{A \code{character} indicating the name of the output column
+table containing the final promoter lengths. I still
+doubt you need to change that. Defaults to
+\code{"promoter_size"}.}
 
 \item{.strand_var}{A \code{character} indicating the name of the column in the
 \code{.annotation} table containing each loci strand

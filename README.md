@@ -108,7 +108,8 @@ txdb <- paste0(
 #### H. vulgare cv. Golden Promise annotations
 
 ``` r
-annotations <- txdb %>% get_txdb_annotation()
+annotations <- txdb %>%
+  get_txdb_annotation()
 ```
 
 ### GET PROMOTERS
@@ -179,8 +180,7 @@ my_promoters <- promoter_sizes %>%
 # PLOT
 
 ``` r
-promoter_sizes %>%
-  plot_promoter_maps(annotations)
+promoter_sizes %>% plot_promoter_maps(annotations)
 ```
 
 ![CSCpromoters - Gene map](data-raw/img/promoter_map.png)

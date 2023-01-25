@@ -14,23 +14,29 @@ get_txdb_annotation <- function(
     .end_var    = "end",
     ...
 ) {
+  .tx_name   <- "tx_name"
+  .tx_chrom  <- "tx_chrom"
+  .tx_strand <- "tx_strand"
+  .tx_start  <- "tx_start"
+  .tx_end    <- "tx_end"
+  
   .txdb_dump <- GenomicFeatures::as.list(.txdb)
   
   .txdb_dump$transcripts %>%
     data.table::as.data.table() %>% 
-    dplyr::mutate(tx_name = stringr::str_remove(.$tx_name, ".*\\|")) %>%
-    dplyr::mutate(tx_strand = dplyr::case_when(
-      tx_strand == "+" ~ 1,
-      tx_strand == "-" ~ -1,
+    dplyr::mutate(
+      !!.tx_name   := stringr::str_remove(get(.tx_name), ".*\\|")
+    ) %>%
+    dplyr::mutate(!!.tx_strand := dplyr::case_when(
+      get(.tx_strand) == "+" ~  1,
+      get(.tx_strand) == "-" ~ -1,
     )) %>%
     dplyr::select(
-      dplyr::all_of(c("tx_name", "tx_chrom", "tx_strand", "tx_start", "tx_end"))
+      dplyr::all_of(c(.tx_name, .tx_chrom, .tx_strand, .tx_start, .tx_end))
     ) %>%
-    magrittr::set_colnames(c(
-      "tx_name"   = .locus_var,
-      "tx_chrom"  = .chr_var,
-      "tx_strand" = .strand_var,
-      "tx_start"  = .start_var,
-      "tx_end"    = .end_var
-    ))
+    dplyr::rename(!!.locus_var  := dplyr::all_of(.tx_name)) %>% 
+    dplyr::rename(!!.chr_var    := dplyr::all_of(.tx_chrom)) %>% 
+    dplyr::rename(!!.strand_var := dplyr::all_of(.tx_strand)) %>% 
+    dplyr::rename(!!.start_var  := dplyr::all_of(.tx_start)) %>% 
+    dplyr::rename(!!.end_var    := dplyr::all_of(.tx_end))
 }

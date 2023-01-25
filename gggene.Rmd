@@ -25,50 +25,17 @@ annotations
 
 # PLOT
 ```{r}
-promoter_sizes %>% plot_promoter_maps(annotations)
+promoter_sizes %>%
+  get_plotdata_locus(annotations)
 ```
 
-
-```{r fig.height=10, fig.width=10}
-promoter_sizes %>% get_plotdata_locus(annotations) %>% 
-  dplyr::mutate(dplyr::across(
-    .cols = dplyr::all_of(c("begin", "end", "closest_begin", "closest_end")),
-    .fns  = function(.col) {
-      dplyr::case_when(
-        strand ==  1 ~ .col - begin,
-        strand == -1 ~ .col - end,
-      )
-    }
-  ))
-
+```{r}
 promoter_sizes %>%
   get_plotdata_locus(annotations) %>%
-  ggplot2::ggplot(ggplot2::aes(y = locus_tag)) +
-  gggenes::theme_genes() +
-  gggenes::geom_gene_arrow(ggplot2::aes(
-    xmin    = begin,
-    xmax    = end,
-    forward = strand,
-    fill    = "reference locus"
-  )) +
-  gggenes::geom_gene_arrow(ggplot2::aes(
-    xmin    = closest_begin,
-    xmax    = closest_end,
-    forward = closest_strand,
-    fill    = "closest locus"
-  )) +
-  ggplot2::geom_segment(
-    mapping   = ggplot2::aes(
-      x     = x,
-      xend  = xend,
-      y     = locus_tag,
-      yend  = locus_tag,
-      color = "promoter"
-    ),
-    linewidth = 1.5,
-    data      = . %>% get_plotdata_promoter()
-  ) +
-  ggplot2::facet_wrap(~ locus_tag, scales = "free", ncol = 1) +
-  ggplot2::scale_fill_brewer(palette = "Set3")
+  get_plotdata_promoter()
+```
 
+```{r}
+promoter_sizes %>%
+  plot_promoter_maps(annotations)
 ```

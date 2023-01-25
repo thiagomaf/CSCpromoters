@@ -20,7 +20,8 @@ get_promoters(
   .strand_var = "strand",
   .start_var = "begin",
   .end_var = "end",
-  .dist_var = "promoter_size",
+  .dist_var = "dist",
+  .size_var = "promoter_size",
   .distances = NULL,
   .parallel = FALSE,
   ...
@@ -104,10 +105,15 @@ This can be altered to fit input annotation tables with
 different column names (not recommended). Defaults to
 \code{"end"}.}
 
-\item{.dist_var}{A \code{character} indicating the name of the output column
-table containing the final promoter lengths. There is
-absolutely no reason you would need to change that.
-Defaults to \code{"promoter_size"}.}
+\item{.dist_var}{A \code{character} indicating the name of column used to
+output the distance from each locus to its closest
+upstream locus. I would bet you don't have a reason to
+change that. Defaults to \code{"dist"}.}
+
+\item{.size_var}{A \code{character} indicating the name of the output column
+table containing the final promoter lengths. I still
+doubt you need to change that. Defaults to
+\code{"promoter_size"}.}
 
 \item{.distances}{{TODO}}
 

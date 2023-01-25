@@ -67,10 +67,16 @@
 #'                     can be altered to fit input annotation tables with 
 #'                     different column names (not recommended). Defaults to 
 #'                     `"chr"`.
-#' @param .dist_var    A `character` indicating the name of the output column 
-#'                     table containing the final promoter lengths. There is 
-#'                     absolutely no reason you would need to change that. 
-#'                     Defaults to `"promoter_size"`.
+#'                     
+#' @param .dist_var    A `character` indicating the name of column used to 
+#'                     output the distance from each locus to its closest 
+#'                     upstream locus. I would bet you don't have a reason to 
+#'                     change that. Defaults to `"dist"`.
+#'                     
+#' @param .size_var    A `character` indicating the name of the output column 
+#'                     table containing the final promoter lengths. I still 
+#'                     doubt you need to change that. Defaults to 
+#'                     `"promoter_size"`.
 #'                     
 #' @param .strand_var  A `character` indicating the name of the column in the 
 #'                     `.annotation` table containing each loci strand 
@@ -117,7 +123,8 @@ get_promoters <- function(
     .strand_var  = "strand",
     .start_var   = "begin",
     .end_var     = "end",
-    .dist_var    = "promoter_size",
+    .dist_var    = "dist",
+    .size_var    = "promoter_size",
     .distances   = NULL,
     .parallel    = FALSE,
     ...
