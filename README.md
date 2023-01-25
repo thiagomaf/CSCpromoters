@@ -180,7 +180,8 @@ my_promoters <- promoter_sizes %>%
 # PLOT
 
 ``` r
-promoter_sizes %>% plot_promoter_maps(annotations)
+promoter_sizes %>
+  plot_promoter_maps(annotations)
 ```
 
 ![CSCpromoters - Gene map](data-raw/img/promoter_map.png)
@@ -188,7 +189,8 @@ promoter_sizes %>% plot_promoter_maps(annotations)
 # EXPORT SEQUENCES
 
 ``` r
-my_promoters %>% write_fasta("data/promoters_Min-Yao.fasta")
+my_promoters %>%
+  write_fasta("data/promoters_Min-Yao.fasta")
 ```
 
 ## Dependencies
