@@ -67,16 +67,16 @@ library(CSCpromoters)
 ```
 
 #### Define constants
-```{r constants, eval=FALSE}
+```{r constants}
 gff_folder <- paste0(
-  "./"
+  "./genome_barley_GP/" # user defined path
 )
 
 fasta_list <- (function(
     .chr_list = c(
       "chr1H", "chr2H", "chr3H", "chr4H", "chr5H", "chr6H", "chr7H", "chrUn"
     ),
-    .folder   = "./"
+    .folder   = "./genome_barley_GP/" # user defined path
 ) {
   .folder %>% 
     paste0(paste0("Hordeum_vulgare.refseq[", .chr_list, "].fasta")) %>% 
@@ -85,24 +85,24 @@ fasta_list <- (function(
 ```
 
 ```{r include = FALSE}
-gff_folder <- paste0(
-  "../../../",
-  "Data/FASTA sequences/Genomes/Hordeum vulgare - Golden Promise/"
-)
-
-fasta_list <- (function(
-    .chr_list = c(
-      "chr1H", "chr2H", "chr3H", "chr4H", "chr5H", "chr6H", "chr7H", "chrUn"
-    ),
-    .folder   = paste0(
-      "../../../",
-      "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
-    )
-) {
-  .folder %>% 
-    paste0(paste0("Hordeum_vulgare.refseq[", .chr_list, "].fasta")) %>% 
-    magrittr::set_names(.chr_list)
-})()
+# gff_folder <- paste0(
+#   "../../../",
+#   "Data/FASTA sequences/Genomes/Hordeum vulgare - Golden Promise/"
+# )
+# 
+# fasta_list <- (function(
+#     .chr_list = c(
+#       "chr1H", "chr2H", "chr3H", "chr4H", "chr5H", "chr6H", "chr7H", "chrUn"
+#     ),
+#     .folder   = paste0(
+#       "../../../",
+#       "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
+#     )
+# ) {
+#   .folder %>% 
+#     paste0(paste0("Hordeum_vulgare.refseq[", .chr_list, "].fasta")) %>% 
+#     magrittr::set_names(.chr_list)
+# })()
 ```
 
 
@@ -136,7 +136,7 @@ annotations %>%
   get_promoters(
     .txdb       = txdb,
     .FASTA_list = fasta_list,
-    .keep       = c(
+    .keep       = c( # user defined gene list
       "chr6Hg0657981",
       "chr1Hg0040651",
       "chr3Hg0328761",
@@ -170,12 +170,12 @@ promoter_sizes <- annotations %>%
     )
   ) %>% 
   # Calculate distances to closest upstream locus
-  get_promoter_distances(.debug = F) %>%
+  get_promoter_distances() %>%
   # Trim found upstream distances and define promoter lengths
   set_promoter_sizes(.min_size = 100, .max_size = 2000)
 
 # Get promoter sequences
-promoter_sizes %>% 
+my_promoters <- promoter_sizes %>% 
   get_promoter_sequences(.txdb = txdb, .FASTA_list = fasta_list)
 ```
 
@@ -201,6 +201,11 @@ promoter_sizes %>%
 ```
 
 ![CSCpromoters - Gene map](data-raw/img/promoter_map.png)
+
+# EXPORT SEQUENCES
+```{r}
+my_promoters %>% write_fasta("data/promoters_Min-Yao.fasta")
+```
 
 
 ## Dependencies

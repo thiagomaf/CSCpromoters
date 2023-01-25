@@ -64,14 +64,14 @@ library(CSCpromoters)
 
 ``` r
 gff_folder <- paste0(
-  "./"
+  "./genome_barley_GP/" # user defined path
 )
 
 fasta_list <- (function(
     .chr_list = c(
       "chr1H", "chr2H", "chr3H", "chr4H", "chr5H", "chr6H", "chr7H", "chrUn"
     ),
-    .folder   = "./"
+    .folder   = "./genome_barley_GP/" # user defined path
 ) {
   .folder %>% 
     paste0(paste0("Hordeum_vulgare.refseq[", .chr_list, "].fasta")) %>% 
@@ -93,6 +93,9 @@ txdb <- paste0(
     .organism    = "Hordeum vulgare"
   )
 ```
+
+    ## Warning in .recacheSubclasses(def@className, def, env): undefined subclass
+    ## "DataFrameFactor" of class "vector_OR_Vector"; definition not updated
 
     ## Import genomic features from the file as a GRanges object ... OK
     ## Prepare the 'metadata' data frame ... OK
@@ -119,7 +122,7 @@ annotations %>%
   get_promoters(
     .txdb       = txdb,
     .FASTA_list = fasta_list,
-    .keep       = c(
+    .keep       = c( # user defined gene list
       "chr6Hg0657981",
       "chr1Hg0040651",
       "chr3Hg0328761",
@@ -165,25 +168,14 @@ promoter_sizes <- annotations %>%
     )
   ) %>% 
   # Calculate distances to closest upstream locus
-  get_promoter_distances(.debug = F) %>%
+  get_promoter_distances() %>%
   # Trim found upstream distances and define promoter lengths
   set_promoter_sizes(.min_size = 100, .max_size = 2000)
 
 # Get promoter sequences
-promoter_sizes %>% 
+my_promoters <- promoter_sizes %>% 
   get_promoter_sequences(.txdb = txdb, .FASTA_list = fasta_list)
 ```
-
-    ## DNAStringSet object of length 8:
-    ##     width seq                                               names               
-    ## [1]  2000 GTAACAATAGTAACAAGGTGCAC...CCAGCCGTACAGACGATATTTCA chr1Hg0040651
-    ## [2]  2000 AACTAATCTGTGGTTGGATGACT...ATTGTTCCGGCACGGGGCTGGGG chr3Hg0328761
-    ## [3]  2000 ACATAGAAAGTATGCACATGACA...CCTCCCTCCCTCCCTCCCCCCAA chr3Hg0345511
-    ## [4]  2000 TGCATTTGACACATCAGATTTGG...ATGGCGCGGCTACGTCTGCTACG chr4Hg0380431
-    ## [5]  2000 TTTAATGCAATGTATGAATATGA...AAGACTGCATAAAGTTTGGATCA chr4Hg0383761
-    ## [6]  2000 GAGAGCCTTTGGTCAGCAAAGAT...GCTCTCGATCGCATGGAAGAAAA chr4Hg0417171
-    ## [7]  1698 GACATATATGTGTCTCATAATGA...TACCCGCGCTACTATTACAGGAA chr5Hg0547031
-    ## [8]  2000 GACGGACGGATGGATCATGGATG...TGTGAGCCTGAGATGCAGGGGAA chr6Hg0657981
 
 # PLOT
 
@@ -193,6 +185,12 @@ promoter_sizes %>%
 ```
 
 ![CSCpromoters - Gene map](data-raw/img/promoter_map.png)
+
+# EXPORT SEQUENCES
+
+``` r
+my_promoters %>% write_fasta("data/promoters_Min-Yao.fasta")
+```
 
 ## Dependencies
 
