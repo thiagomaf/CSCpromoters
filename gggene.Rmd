@@ -1,6 +1,6 @@
 ---
 title: "CSCpromoters - ggplot/gggenes"
-output: github_document
+output: none
 ---
 
 # SETUP
