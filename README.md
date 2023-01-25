@@ -56,7 +56,6 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(magrittr)
 library(ggplot2)
-library(gggenes)
 library(CSCpromoters)
 ```
 
@@ -180,7 +179,7 @@ my_promoters <- promoter_sizes %>%
 # PLOT
 
 ``` r
-promoter_sizes %>
+promoter_sizes %>%
   plot_promoter_maps(annotations)
 ```
 

@@ -68,6 +68,7 @@ plot_promoter_maps <- function(
       linewidth = 1.5,
       data      = . %>% get_plotdata_promoter()
     ) +
+    ggplot2::labs(x = .x, y = .locus_var) +
     ggplot2::facet_wrap(
       stats::as.formula(paste0("~ ", .locus_var)), scales = "free", ncol = 1
     ) +

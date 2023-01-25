@@ -62,7 +62,6 @@ This is a basic example which shows you how to solve a common problem:
 ```{r libraries, warning=FALSE}
 library(magrittr)
 library(ggplot2)
-library(gggenes)
 library(CSCpromoters)
 ```
 
@@ -206,7 +205,7 @@ promoter_sizes %>%
 ![CSCpromoters - Gene map](data-raw/img/promoter_map.png)
 
 # EXPORT SEQUENCES
-```{r}
+```{r eval=FALSE}
 my_promoters %>%
   write_fasta("data/promoters_Min-Yao.fasta")
 ```
