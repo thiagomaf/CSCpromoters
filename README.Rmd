@@ -59,7 +59,7 @@ This is a basic example which shows you how to solve a common problem:
 
 ### SETUP
 #### Load libraries
-```{r libraries}
+```{r libraries, warning=FALSE}
 library(magrittr)
 library(ggplot2)
 library(gggenes)
