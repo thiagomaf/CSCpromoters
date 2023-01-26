@@ -4,6 +4,18 @@
 # CSCpromoters
 
 <!-- badges: start -->
+
+[![](https://img.shields.io/badge/CSC-promoters-green.svg)](https://github.com/thiagomaf/CSCpromoters)
+
+[![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Project Status: Active - The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![License: file
+LICENSE](https://img.shields.io/badge/license-file%20LICENSE-blue.svg)](https://cran.r-project.org/web/licenses/file%20LICENSE)
+[![](https://img.shields.io/github/languages/code-size/thiagomaf/CSCpromoters.svg)](https://github.com/thiagomaf/CSCpromoters)
+[![](https://img.shields.io/github/last-commit/thiagomaf/CSCpromoters.svg)](https://github.com/thiagomaf/CSCpromoters/commits/main)
+<!--[![R build status](https://github.com/thiagomaf/CSCpromoters/workflows/R-CMD-check/badge.svg)](https://github.com/thiagomaf/CSCpromoters/actions)-->
 <!-- badges: end -->
 
 ## About
@@ -122,15 +134,15 @@ annotations %>%
     .txdb       = txdb,
     .FASTA_list = fasta_list,
     .keep       = c( # user defined gene list
-      "chr6Hg0657981",
       "chr1Hg0040651",
       "chr3Hg0328761",
-      "chr4Hg0417171",
       "chr3Hg0345511",
       "chr4Hg0383761",
-      "chr5Hg0547031",
       "chr4Hg0380431",
+      "chr4Hg0417171",
       "chr4Hg0421931",
+      "chr5Hg0547031",
+      "chr6Hg0657981",
       "chr7Hg0679581"
     )
   )
@@ -154,15 +166,15 @@ promoter_sizes <- annotations %>%
   # Choose which loci to use
   filter_locus(
     .keep = c(
-      "chr6Hg0657981",
       "chr1Hg0040651",
       "chr3Hg0328761",
-      "chr4Hg0417171",
       "chr3Hg0345511",
       "chr4Hg0383761",
-      "chr5Hg0547031",
       "chr4Hg0380431",
+      "chr4Hg0417171",
       "chr4Hg0421931",
+      "chr5Hg0547031",
+      "chr6Hg0657981",
       "chr7Hg0679581"
     )
   ) %>% 

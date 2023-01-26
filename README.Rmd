@@ -15,7 +15,21 @@ output: github_document
 # CSCpromoters
 
 <!-- badges: start -->
+`r badger::badge_custom(
+  x     = "CSC",
+  y     = "promoters", 
+  color = "green", 
+  url   = "https://github.com/thiagomaf/CSCpromoters"
+)`
+
+`r badger::badge_lifecycle(stage = "experimental")`
+`r badger::badge_repostatus(status = "Active")`
+`r badger::badge_license(license = NULL)`
+`r badger::badge_code_size(ref = "thiagomaf/CSCpromoters")`
+`r badger::badge_last_commit(ref = "thiagomaf/CSCpromoters")`
+<!--`r badger::badge_github_actions(ref = "thiagomaf/CSCpromoters")`-->
 <!-- badges: end -->
+
 
 ## About
 
