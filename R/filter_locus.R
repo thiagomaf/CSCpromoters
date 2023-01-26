@@ -4,8 +4,11 @@
 # Each function will have its own `roxygen2` comments.
 
 
-#' Filter annotation table by loci names or loci indexes
-#'
+#' @title Filter annotation table by loci names or loci indexes
+#' 
+#' @description 
+#' `r lifecycle::badge("stable")`
+#' 
 #' @inheritParams get_promoters
 #' @inheritDotParams get_promoters
 #'

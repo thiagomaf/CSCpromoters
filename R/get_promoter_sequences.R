@@ -1,4 +1,7 @@
-#' Extract promoter sequences from the final promoter sizes
+#' @title Extract promoter sequences from the final promoter sizes
+#' 
+#' @description 
+#' `r lifecycle::badge("stable")`
 #' 
 #' @inheritParams get_promoters
 #' @inheritDotParams get_promoters

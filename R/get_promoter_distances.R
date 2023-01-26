@@ -1,6 +1,9 @@
-#' Get the distance from the gene-of-interest transcription start site to the 
-#' closest upstream gene.
-#'
+#' @title Get the distance from the gene-of-interest transcription start site to the 
+#'        closest upstream gene.
+#' 
+#' @description 
+#' `r lifecycle::badge("experimental")`
+#' 
 #' @inheritParams get_promoters
 #' @inheritDotParams get_promoters
 #'

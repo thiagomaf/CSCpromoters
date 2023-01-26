@@ -1,6 +1,9 @@
-#' Set the size of promoters based on the distance to the closest upstream gene 
-#' and the user-defined minimum and maximum length.
+#' @title Set the size of promoters based on the distance to the closest 
+#'        upstream gene and the user-defined minimum and maximum length.
 #'
+#'@description 
+#' `r lifecycle::badge("experimental")`
+#' 
 #' @inheritParams get_promoters
 #' @inheritDotParams get_promoters
 #'
@@ -23,7 +26,6 @@ set_promoter_sizes <- function(
     dplyr::ungroup() %>% # breaks the magig if removed!
     subset(get(.dist_var) >= .min_size) %>%
     dplyr::mutate(
-      #promoter_size = dplyr::case_when(
       !!.size_var := dplyr::case_when(
         get(.dist_var) > .max_size ~ .max_size,
         #TRUE ~ dist

@@ -111,5 +111,5 @@ different column names (not recommended). Defaults to
 DNAStringSet
 }
 \description{
-Extract promoter sequences from the final promoter sizes
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }

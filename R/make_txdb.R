@@ -1,4 +1,8 @@
-#' make a TxDb object from transcript annotations available as a GFF3 or GTF file.
+#' @title Make a TxDb object from transcript annotations available as a GFF3 or 
+#'        GTF file.
+#' 
+#' @description 
+#' `r lifecycle::badge("experimental")`
 #'
 #' @param .filename    {TODO}
 #' @param .data_source {TODO}

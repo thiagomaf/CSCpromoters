@@ -1,4 +1,7 @@
-#' Wrap-up function to query promoter sequences
+#' @title Wrap-up function to query promoter sequences
+#' 
+#' @description 
+#' `r lifecycle::badge("stable")`
 #'
 #' @param .annotations Preferably a `data.table` (but possibly a `data.frame`) 
 #'                     of annotations as described {HERE}. `data.table` 

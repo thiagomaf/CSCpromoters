@@ -1,5 +1,8 @@
-#' Extract annotation table from TxDB object
+#' @title Extract annotation table from TxDB object
 #'
+#' @description 
+#' `r lifecycle::badge("stable")`
+#' 
 #' @inheritParams get_promoters
 #' @inheritDotParams get_promoters
 #' 

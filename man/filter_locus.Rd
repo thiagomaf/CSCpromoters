@@ -92,5 +92,5 @@ Defauts to \code{FALSE}.}
 An annotations table object with the same class as \code{.annotations}
 }
 \description{
-Filter annotation table by loci names or loci indexes
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }

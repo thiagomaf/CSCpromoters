@@ -126,7 +126,7 @@ Defauts to \code{FALSE}.}
 DNAStringSet
 }
 \description{
-Wrap-up function to query promoter sequences
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \section{Tokens}{
 

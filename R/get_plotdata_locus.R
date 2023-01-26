@@ -1,5 +1,8 @@
-#' get_plotdata_locus
-#'
+#' @title get_plotdata_locus
+#' 
+#' @description 
+#' `r lifecycle::badge("experimental")`
+#' 
 #' @inheritParams get_promoters
 #' @param .promoter_sizes {TODO}
 #'

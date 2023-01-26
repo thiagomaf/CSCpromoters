@@ -1,4 +1,7 @@
-#' Export promoter sequences in a fasta file.
+#' @title Export promoter sequences in a fasta file.
+#' 
+#' @description 
+#' `r lifecycle::badge("stable")`
 #' 
 #' @param .sequences   {TODO}
 #' @param .output_file {TODO}

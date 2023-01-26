@@ -2,8 +2,8 @@
 % Please edit documentation in R/set_promoter_sizes.R
 \name{set_promoter_sizes}
 \alias{set_promoter_sizes}
-\title{Set the size of promoters based on the distance to the closest upstream gene
-and the user-defined minimum and maximum length.}
+\title{Set the size of promoters based on the distance to the closest
+upstream gene and the user-defined minimum and maximum length.}
 \usage{
 set_promoter_sizes(
   .distances,
@@ -104,6 +104,5 @@ than the user-defined minimum length, and a new column containing the
 length of the final promoter sizes.
 }
 \description{
-Set the size of promoters based on the distance to the closest upstream gene
-and the user-defined minimum and maximum length.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }

@@ -114,6 +114,5 @@ gene-of-interest transcription start site to the closest upstream
 gene.
 }
 \description{
-Get the distance from the gene-of-interest transcription start site to the
-closest upstream gene.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }

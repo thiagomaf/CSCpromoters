@@ -1,4 +1,7 @@
-#' get_plotdata_promoter
+#' @title get_plotdata_promoter
+#' 
+#' @description 
+#' `r lifecycle::badge("experimental")`
 #' 
 #' @inheritParams get_promoters
 #' @param .promoter_sizes {TODO}

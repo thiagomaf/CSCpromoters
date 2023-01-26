@@ -2,7 +2,8 @@
 % Please edit documentation in R/make_txdb.R
 \name{make_txdb}
 \alias{make_txdb}
-\title{make a TxDb object from transcript annotations available as a GFF3 or GTF file.}
+\title{Make a TxDb object from transcript annotations available as a GFF3 or
+GTF file.}
 \usage{
 make_txdb(.filename = NULL, .data_source = NULL, .organism = NULL, ...)
 }
@@ -19,5 +20,5 @@ make_txdb(.filename = NULL, .data_source = NULL, .organism = NULL, ...)
 A TxDb object.
 }
 \description{
-make a TxDb object from transcript annotations available as a GFF3 or GTF file.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }

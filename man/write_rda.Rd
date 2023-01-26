@@ -17,5 +17,5 @@ write_rda(.sequences, .output_file, ...)
 A R Data File \code{rda}.
 }
 \description{
-Export extracted promoter sequence results in a R Data File.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }

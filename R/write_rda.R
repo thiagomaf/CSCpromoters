@@ -1,4 +1,7 @@
-#' Export extracted promoter sequence results in a R Data File.
+#' @title Export extracted promoter sequence results in a R Data File.
+#' 
+#' @description 
+#' `r lifecycle::badge("stable")`
 #' 
 #' @param .sequences   {TODO}
 #' @param .output_file {TODO}

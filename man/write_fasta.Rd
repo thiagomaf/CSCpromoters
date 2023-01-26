@@ -17,5 +17,5 @@ write_fasta(.sequences, .output_file, ...)
 A fasta file.
 }
 \description{
-Export promoter sequences in a fasta file.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
