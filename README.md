@@ -4,17 +4,15 @@
 # CSCpromoters
 
 <!-- badges: start -->
-
-[![](https://img.shields.io/badge/CSC-promoters-green.svg)](https://github.com/thiagomaf/CSCpromoters)
+<!-- [![](https://img.shields.io/badge/CSC-promoters-green.svg)](https://github.com/thiagomaf/CSCpromoters)-->
 
 [![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![Project Status: Active - The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![License: file
-LICENSE](https://img.shields.io/badge/license-file%20LICENSE-blue.svg)](https://cran.r-project.org/web/licenses/file%20LICENSE)
+[![License: file LICENSE](https://img.shields.io/badge/license-file%20LICENSE-blue.svg)](https://cran.r-project.org/web/licenses/file%20LICENSE)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
 [![](https://img.shields.io/github/languages/code-size/thiagomaf/CSCpromoters.svg)](https://github.com/thiagomaf/CSCpromoters)
 [![](https://img.shields.io/github/last-commit/thiagomaf/CSCpromoters.svg)](https://github.com/thiagomaf/CSCpromoters/commits/main)
+
 <!--[![R build status](https://github.com/thiagomaf/CSCpromoters/workflows/R-CMD-check/badge.svg)](https://github.com/thiagomaf/CSCpromoters/actions)-->
 <!-- badges: end -->
 
