@@ -3,3 +3,4 @@
 backup
 data-raw
 README.Rmd
+^\.github$
