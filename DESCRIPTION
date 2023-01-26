@@ -1,6 +1,6 @@
 Package: CSCpromoters
 Title: CSCpromoters: Extract the sequences of promoter regions
-Version: 0.0.0.9000
+Version: 1.0.0.0000
 Authors@R:
   # can only have one person with "cre" role, otherwise won't pass check / install
   c(
@@ -37,4 +37,5 @@ Imports:
     Rsamtools,
     stringr,
     tidyr,
-    plyr
+    plyr,
+    lifecycle
