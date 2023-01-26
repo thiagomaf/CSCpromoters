@@ -205,23 +205,22 @@ my_promoters %>%
 ```
 
 ## Dependencies
-
 ### Libraries
-
-- Biostrings
-- data.table
-- dplyr
-- GenomicFeatures
-- progress
-- magrittr
-- multidplyr
-- Rsamtools
-- stringr
-- tidyr
+- Biostrings,
+- data.table,
+- dplyr,
+- GenomicFeatures,
+- gggenes,
+- ggplot2,
+- progress,
+- magrittr,
+- multidplyr,
+- Rsamtools,
+- stringr,
+- tidyr,
 - plyr
 
 ### Files
-
 - `[gff_folder]`/Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta
 - `[gff_folder]`/Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3
 - `[fasta_list]`/Hordeum_vulgare.refseq\[chr1H\].fasta
