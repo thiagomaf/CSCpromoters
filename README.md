@@ -219,7 +219,7 @@ my_promoters %>%
 - plyr
 
 ### Files
-- `[gff_folder]`/Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta
+<!-- - `[gff_folder]`/Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta -->
 - `[gff_folder]`/Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3
 - `[fasta_list]`/Hordeum_vulgare.refseq\[chr1H\].fasta
 - `[fasta_list]`/Hordeum_vulgare.refseq\[chr2H\].fasta
