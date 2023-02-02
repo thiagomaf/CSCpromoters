@@ -4,15 +4,17 @@
 # CSCpromoters
 
 <!-- badges: start -->
-<!-- [![](https://img.shields.io/badge/CSC-promoters-green.svg)](https://github.com/thiagomaf/CSCpromoters)-->
+
+[![](https://img.shields.io/badge/CSC-promoters-green.svg)](https://github.com/thiagomaf/CSCpromoters)
 
 [![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![License: file LICENSE](https://img.shields.io/badge/license-file%20LICENSE-blue.svg)](https://cran.r-project.org/web/licenses/file%20LICENSE)
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-
+[![Project Status: Active - The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![License: file
+LICENSE](https://img.shields.io/badge/license-file%20LICENSE-blue.svg)](https://cran.r-project.org/web/licenses/file%20LICENSE)
 [![](https://img.shields.io/github/languages/code-size/thiagomaf/CSCpromoters.svg)](https://github.com/thiagomaf/CSCpromoters)
 [![](https://img.shields.io/github/last-commit/thiagomaf/CSCpromoters.svg)](https://github.com/thiagomaf/CSCpromoters/commits/main)
-
 <!--[![R build status](https://github.com/thiagomaf/CSCpromoters/workflows/R-CMD-check/badge.svg)](https://github.com/thiagomaf/CSCpromoters/actions)-->
 <!-- badges: end -->
 
@@ -78,16 +80,16 @@ gff_folder <- paste0(
   "./genome_barley_GP/" # user defined path
 )
 
-fasta_list <- (function(
-    .chr_list = c(
-      "chr1H", "chr2H", "chr3H", "chr4H", "chr5H", "chr6H", "chr7H", "chrUn"
-    ),
-    .folder   = "./genome_barley_GP/" # user defined path
-) {
-  .folder %>% 
-    paste0(paste0("Hordeum_vulgare.refseq[", .chr_list, "].fasta")) %>% 
-    magrittr::set_names(.chr_list)
-})()
+fasta_list <- c(
+  "chr1H" = "./genome_barley_GP/Hordeum_vulgare.refseq[chr1H].fasta",
+  "chr2H" = "./genome_barley_GP/Hordeum_vulgare.refseq[chr2H].fasta", 
+  "chr3H" = "./genome_barley_GP/Hordeum_vulgare.refseq[chr3H].fasta",
+  "chr4H" = "./genome_barley_GP/Hordeum_vulgare.refseq[chr4H].fasta", 
+  "chr5H" = "./genome_barley_GP/Hordeum_vulgare.refseq[chr5H].fasta",
+  "chr6H" = "./genome_barley_GP/Hordeum_vulgare.refseq[chr6H].fasta", 
+  "chr7H" = "./genome_barley_GP/Hordeum_vulgare.refseq[chr7H].fasta",
+  "chrUn" = "./genome_barley_GP/Hordeum_vulgare.refseq[chrUn].fasta"
+)
 ```
 
 ### LOAD DATA
@@ -180,10 +182,6 @@ promoter_sizes <- annotations %>%
   get_promoter_distances() %>%
   # Trim found upstream distances and define promoter lengths
   set_promoter_sizes(.min_size = 100, .max_size = 2000)
-
-# Get promoter sequences
-my_promoters <- promoter_sizes %>% 
-  get_promoter_sequences(.txdb = txdb, .FASTA_list = fasta_list)
 ```
 
 # PLOT
@@ -198,27 +196,29 @@ promoter_sizes %>%
 # EXPORT SEQUENCES
 
 ``` r
-my_promoters %>%
+promoter_sizes %>% 
+  get_promoter_sequences(.txdb = txdb, .FASTA_list = fasta_list) %>%
   write_fasta("data/promoters_Min-Yao.fasta")
 ```
 
 ## Dependencies
+
 ### Libraries
-- Biostrings,
-- data.table,
-- dplyr,
-- GenomicFeatures,
-- gggenes,
-- ggplot2,
-- progress,
-- magrittr,
-- multidplyr,
-- Rsamtools,
-- stringr,
-- tidyr,
+
+- Biostrings
+- data.table
+- dplyr
+- GenomicFeatures
+- progress
+- magrittr
+- multidplyr
+- Rsamtools
+- stringr
+- tidyr
 - plyr
 
 ### Files
+
 - `[gff_folder]`/Annotation_Golden_Promise_v1r1_Apollo_300620_mRNA.fasta
 - `[gff_folder]`/Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3
 - `[fasta_list]`/Hordeum_vulgare.refseq\[chr1H\].fasta
