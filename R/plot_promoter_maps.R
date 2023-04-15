@@ -48,7 +48,6 @@ plot_promoter_maps <- function(
   .xend <- "xend"
   
   .plot_data %>%
-    print() %>% 
     ggplot2::ggplot(ggplot2::aes(y = get(.locus_var))) +
     gggenes::theme_genes() +
     gggenes::geom_gene_arrow(ggplot2::aes(
