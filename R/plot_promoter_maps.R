@@ -18,9 +18,9 @@ plot_promoter_maps <- function(
     .start_var  = "begin",
     .end_var    = "end",
     .relative_x = TRUE
-  ) {
+) {
   .plot_data <- .promoter_sizes %>%
-    get_plotdata_locus(.annotations) 
+    get_plotdata_locus(.annotations)
   
   if(.relative_x) {
     .plot_data <- .plot_data %>%
@@ -35,8 +35,10 @@ plot_promoter_maps <- function(
         ),
         .fns  = function(.col) {
           dplyr::case_when(
-            get(.strand_var) ==  1 ~ .col - get(.start_var),
-            get(.strand_var) == -1 ~ .col - get(.end_var),
+            # get(.strand_var) ==  1 ~ .col - get(.start_var),
+            # get(.strand_var) == -1 ~ .col - get(.end_var),
+            get(.strand_var) == TRUE  ~ .col - get(.start_var),
+            get(.strand_var) == FALSE ~ .col - get(.end_var),
           )
         }
       ))
@@ -46,6 +48,7 @@ plot_promoter_maps <- function(
   .xend <- "xend"
   
   .plot_data %>%
+    print() %>% 
     ggplot2::ggplot(ggplot2::aes(y = get(.locus_var))) +
     gggenes::theme_genes() +
     gggenes::geom_gene_arrow(ggplot2::aes(

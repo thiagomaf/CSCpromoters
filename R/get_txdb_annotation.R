@@ -31,8 +31,10 @@ get_txdb_annotation <- function(
       !!.tx_name   := stringr::str_remove(get(.tx_name), ".*\\|")
     ) %>%
     dplyr::mutate(!!.tx_strand := dplyr::case_when(
-      get(.tx_strand) == "+" ~  1,
-      get(.tx_strand) == "-" ~ -1,
+      # get(.tx_strand) == "+" ~  1,
+      # get(.tx_strand) == "-" ~ -1,
+      get(.tx_strand) == "+" ~ TRUE,
+      get(.tx_strand) == "-" ~ FALSE,
     )) %>%
     dplyr::select(
       dplyr::all_of(c(.tx_name, .tx_chrom, .tx_strand, .tx_start, .tx_end))
