@@ -211,7 +211,6 @@ promoter_sizes %>%
 - GenomicFeatures
 - progress
 - magrittr
-- multidplyr
 - Rsamtools
 - stringr
 - tidyr
