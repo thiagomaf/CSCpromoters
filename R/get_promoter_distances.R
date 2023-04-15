@@ -69,9 +69,11 @@ get_promoter_distances <- function(
         # get all loci upstream the current locus
         subset(
           dplyr::case_when(
-            .curr_strand ==  1 ~ value < .curr_begin,
-            .curr_strand == -1 ~ value > .curr_end,
-            TRUE               ~ NA
+            # .curr_strand ==  1 ~ value < .curr_begin,
+            # .curr_strand == -1 ~ value > .curr_end,
+            # TRUE               ~ NA
+            .curr_strand == TRUE  ~ value < .curr_begin,
+            .curr_strand == FALSE ~ value > .curr_end
           )
         )
       
@@ -92,13 +94,17 @@ get_promoter_distances <- function(
           # get the reference coordinate to the upstream locus closest to the 
           # current locus
           subset(dplyr::case_when(
-            .curr_strand ==  1 ~ value == max(value, na.rm = TRUE),
-            .curr_strand == -1 ~ value == min(value, na.rm = TRUE)
+            # .curr_strand ==  1 ~ value == max(value, na.rm = TRUE),
+            # .curr_strand == -1 ~ value == min(value, na.rm = TRUE)
+            .curr_strand == TRUE  ~ value == max(value, na.rm = TRUE),
+            .curr_strand == FALSE ~ value == min(value, na.rm = TRUE)
           )) %>%
           # Calculate the distance to the closest upstream locus we got above
           dplyr::mutate(!!.dist_var := dplyr::case_when(
-            .curr_strand ==  1 ~ .curr_begin - value,
-            .curr_strand == -1 ~ value - .curr_end
+            # .curr_strand ==  1 ~ .curr_begin - value,
+            # .curr_strand == -1 ~ value - .curr_end
+            .curr_strand == TRUE  ~ .curr_begin - value,
+            .curr_strand == FALSE ~ value - .curr_end
           )) %>%
           dplyr::mutate(!!.dist_var := as.double(get(.dist_var))) %>%
           dplyr::select(dplyr::all_of(c(.locus_var, .dist_var))) %>%

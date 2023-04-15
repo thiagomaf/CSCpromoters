@@ -22,11 +22,15 @@ get_plotdata_promoter <- function(
       c(.chr_var, .locus_var, .strand_var, .start_var, .end_var, .size_var)
     )) %>% 
     dplyr::mutate(x = dplyr::case_when(                        # 'x' on the fly?
-      get(.strand_var) ==  1 ~ get(.start_var),
-      get(.strand_var) == -1 ~ get(.end_var)
+      # get(.strand_var) ==  1 ~ get(.start_var),
+      # get(.strand_var) == -1 ~ get(.end_var)
+      get(.strand_var) == TRUE  ~ get(.start_var),
+      get(.strand_var) == FALSE ~ get(.end_var)
     )) %>%
     dplyr::mutate(xend = dplyr::case_when(                  # 'xend' on the fly?
-      get(.strand_var) ==  1 ~ get(.start_var) - get(.size_var),
-      get(.strand_var) == -1 ~ get(.end_var) + get(.size_var)
+      # get(.strand_var) ==  1 ~ get(.start_var) - get(.size_var),
+      # get(.strand_var) == -1 ~ get(.end_var) + get(.size_var)
+      get(.strand_var) == TRUE  ~ get(.start_var) - get(.size_var),
+      get(.strand_var) == FALSE ~ get(.end_var) + get(.size_var)
     ))
 }
