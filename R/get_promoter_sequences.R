@@ -86,14 +86,19 @@ get_promoter_sequences.serial <- function(
       .pb$tick(0)
       
       # Assign the current chromosome name to an object ("character")
-      .curr_chr <- .keys %>% dplyr::pull(.chr_var)
-      
+      #.curr_chr <- .keys %>% dplyr::pull(.chr_var) # Issue #25
+      .curr_chr <- .keys %>%
+        dplyr::pull(.chr_var) %>% 
+        as.character()
+
       # Should trimming of promoter sizes be moved here???
       
       # Open FASTA file for each chromosome b4 extracting promoters in each
       # - This is highly problematic! Currently assumes the input files will 
       #   have a given filename structure. There must be better ways to do that!
-      .fasta_file <- .FASTA_list[[.curr_chr]] %>%
+      #.fasta_file <- .FASTA_list[[.curr_chr]] %>% # Issue #25
+      .fasta_file <- .FASTA_list %>%
+        purrr::pluck(.curr_chr) %>%
         Rsamtools::FaFile() %>% 
         open()
       

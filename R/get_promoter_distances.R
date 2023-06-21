@@ -61,21 +61,28 @@ get_promoter_distances <- function(
       
       # Subset relevant loci - a.k.a. "loci of interest"
       .loci_OI <- .annotations %>%
-        tidyr::pivot_longer(cols = c(.start_var, .end_var)) %>%
+        #tidyr::pivot_longer(cols = c(.start_var, .end_var)) %>%
         # get all loci in the current chromosome
         subset(get(.chr_var) == .curr_chr) %>%
         # get all loci but the current locus
         subset(get(.locus_var) != .curr_locus) %>%
         # get all loci upstream the current locus
-        subset(
+        # subset(
+        #   dplyr::case_when(
+        #     # .curr_strand ==  1 ~ value < .curr_begin,
+        #     # .curr_strand == -1 ~ value > .curr_end,
+        #     # TRUE               ~ NA
+        #     .curr_strand == TRUE  ~ value < .curr_begin,
+        #     .curr_strand == FALSE ~ value > .curr_end
+        #   )
+        # )
+        subset( # Issue #26
           dplyr::case_when(
-            # .curr_strand ==  1 ~ value < .curr_begin,
-            # .curr_strand == -1 ~ value > .curr_end,
-            # TRUE               ~ NA
-            .curr_strand == TRUE  ~ value < .curr_begin,
-            .curr_strand == FALSE ~ value > .curr_end
+            .curr_strand == TRUE  ~ begin < .curr_begin & end < .curr_begin,
+            .curr_strand == FALSE ~ begin > .curr_end   & end > .curr_end
           )
-        )
+        ) %>% 
+        tidyr::pivot_longer(cols = c(.start_var, .end_var)) # Issue #26
       
       # Initiate the output object
       .each_output <- data.frame(
@@ -84,7 +91,7 @@ get_promoter_distances <- function(
       ) %>%
         dplyr::rename(!!.closest_var := dplyr::all_of("closest_locus")) %>%
         dplyr::rename(!!.dist_var    := dplyr::all_of("dist"))
-
+      
       # If there are "loci of interest", updates the output object with the 
       # upstream distance to the closest gene (still, in a given chromosome). 
       # The if() below handles e.g. the first locus in each chromosome which 
