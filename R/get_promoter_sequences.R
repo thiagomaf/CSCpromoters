@@ -118,14 +118,18 @@ get_promoter_sequences.serial <- function(
           
           # get promoter sequence for each locus
           .each_promoters <- .txdb %>% 
-            GenomicFeatures::transcripts(
-              filter = list("tx_name" = .curr_locus)
-            ) %>%
+            # GenomicFeatures::transcripts(
+            #   filter = list("tx_name" = .curr_locus)
+            # ) %>%
+            GenomicFeatures::transcripts() %>% 
+            subset(stringr::str_detect(tx_name, .curr_locus)) %>% 
+            # print() %>%
             GenomicFeatures::getPromoterSeq(
               subject    = .fasta_file,
               upstream   = .len_upstream,
               downstream = .len_downstream
             ) %>%
+             
             magrittr::set_names(.curr_locus)
           
           # progress bar oogie boogie
