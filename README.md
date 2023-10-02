@@ -10,6 +10,8 @@ tags:
 <!-- badges: start -->
 
 [![](https://img.shields.io/badge/CSC-promoters-green.svg)](https://github.com/thiagomaf/CSCpromoters)
+[![DOI](https://zenodo.org/badge/589937693.svg)](https://zenodo.org/badge/latestdoi/589937693)
+
 
 [![](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Project Status: Active - The project has reached a stable, usable
