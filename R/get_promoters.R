@@ -4,7 +4,7 @@
 #' `r lifecycle::badge("stable")`
 #'
 #' @param .annotations Preferably a `data.table` (but possibly a `data.frame`) 
-#'                     of annotations as described {HERE}. `data.table` 
+#'                     of annotations as described (HERE). `data.table` 
 #'                     computations are normally faster.
 #'                     
 #' @param .distances   {TODO}

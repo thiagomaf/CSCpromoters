@@ -8,7 +8,7 @@ filter_locus.numeric(.annotations, .keep = NULL)
 }
 \arguments{
 \item{.annotations}{Preferably a \code{data.table} (but possibly a \code{data.frame})
-of annotations as described {HERE}. \code{data.table}
+of annotations as described (HERE). \code{data.table}
 computations are normally faster.}
 
 \item{.keep}{A \code{numeric} vector of indexes (of the \code{.annotations} table).}

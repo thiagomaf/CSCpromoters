@@ -29,7 +29,7 @@ get_promoters(
 }
 \arguments{
 \item{.annotations}{Preferably a \code{data.table} (but possibly a \code{data.frame})
-of annotations as described {HERE}. \code{data.table}
+of annotations as described (HERE). \code{data.table}
 computations are normally faster.}
 
 \item{.keep}{Either a \code{character} vector of loci names (present in the
@@ -134,22 +134,22 @@ DNAStringSet
 They can be used in the \code{format} argument when creating the
 progress bar.
 \describe{
-  \item{:bar}{The progress bar itself.}
-  \item{:current}{Current tick number.}
-  \item{:total}{Total ticks.}
-  \item{:elapsed}{Elapsed time in seconds.}
-  \item{:elapsedfull}{Elapsed time in hh:mm:ss format.}
-  \item{:eta}{Estimated completion time in seconds.}
-  \item{:percent}{Completion percentage.}
-  \item{:rate}{Download rate, bytes per second. See example below.}
-  \item{:tick_rate}{Similar to \code{:rate}, but we don't assume that
-     the units are bytes, we just print the raw number of ticks per
-     second.}
-  \item{:bytes}{Shows :current, formatted as bytes. Useful
-     for downloads or file reads if you don't know the size of the
-     file in advance. See example below.}
-  \item{:spin}{Shows a spinner that updates even when progress is
-     advanced by zero.}
+\item{:bar}{The progress bar itself.}
+\item{:current}{Current tick number.}
+\item{:total}{Total ticks.}
+\item{:elapsed}{Elapsed time in seconds.}
+\item{:elapsedfull}{Elapsed time in hh:mm:ss format.}
+\item{:eta}{Estimated completion time in seconds.}
+\item{:percent}{Completion percentage.}
+\item{:rate}{Download rate, bytes per second. See example below.}
+\item{:tick_rate}{Similar to \verb{:rate}, but we don't assume that
+the units are bytes, we just print the raw number of ticks per
+second.}
+\item{:bytes}{Shows :current, formatted as bytes. Useful
+for downloads or file reads if you don't know the size of the
+file in advance. See example below.}
+\item{:spin}{Shows a spinner that updates even when progress is
+advanced by zero.}
 }
 
 Custom tokens are also supported, and you need to pass their

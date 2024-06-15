@@ -8,7 +8,7 @@ filter_locus(.annotations, .keep = NULL, .locus_var = "locus_tag", ...)
 }
 \arguments{
 \item{.annotations}{Preferably a \code{data.table} (but possibly a \code{data.frame})
-of annotations as described {HERE}. \code{data.table}
+of annotations as described (HERE). \code{data.table}
 computations are normally faster.}
 
 \item{.keep}{Either a \code{character} vector of loci names (present in the

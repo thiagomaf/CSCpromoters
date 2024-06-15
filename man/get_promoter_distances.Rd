@@ -21,7 +21,7 @@ get_promoter_distances(
 }
 \arguments{
 \item{.annotations}{Preferably a \code{data.table} (but possibly a \code{data.frame})
-of annotations as described {HERE}. \code{data.table}
+of annotations as described (HERE). \code{data.table}
 computations are normally faster.}
 
 \item{.pb}{An optional progress bar object created via

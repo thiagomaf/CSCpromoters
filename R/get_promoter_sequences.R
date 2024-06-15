@@ -122,7 +122,7 @@ get_promoter_sequences.serial <- function(
             #   filter = list("tx_name" = .curr_locus)
             # ) %>%
             GenomicFeatures::transcripts() %>% 
-            subset(stringr::str_detect(tx_name, .curr_locus)) %>% 
+            dplyr::filter(stringr::str_detect(tx_name, .curr_locus)) %>% 
             # print() %>%
             GenomicFeatures::getPromoterSeq(
               subject    = .fasta_file,

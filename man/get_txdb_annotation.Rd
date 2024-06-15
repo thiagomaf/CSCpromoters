@@ -51,7 +51,7 @@ different column names (not recommended). Defaults to
   Arguments passed on to \code{\link[=get_promoters]{get_promoters}}
   \describe{
     \item{\code{.annotations}}{Preferably a \code{data.table} (but possibly a \code{data.frame})
-of annotations as described {HERE}. \code{data.table}
+of annotations as described (HERE). \code{data.table}
 computations are normally faster.}
     \item{\code{.distances}}{{TODO}}
     \item{\code{.keep}}{Either a \code{character} vector of loci names (present in the

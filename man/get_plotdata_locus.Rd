@@ -21,7 +21,7 @@ get_plotdata_locus(
 \item{.promoter_sizes}{{TODO}}
 
 \item{.annotations}{Preferably a \code{data.table} (but possibly a \code{data.frame})
-of annotations as described {HERE}. \code{data.table}
+of annotations as described (HERE). \code{data.table}
 computations are normally faster.}
 
 \item{.locus_var}{A \code{character} indicating the name of the column in the
