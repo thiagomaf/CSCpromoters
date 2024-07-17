@@ -74,7 +74,7 @@ This is a basic example which shows you how to solve a common problem:
 ### SETUP
 #### Load libraries
 ```{r libraries, warning=FALSE}
-library(magrittr)
+# library(magrittr)
 library(ggplot2)
 library(CSCpromoters)
 ```
@@ -101,8 +101,8 @@ fasta_list <- c(
 
 ```{r include = FALSE}
 gff_folder <- paste0(
-  "../../../",
-  "Data/FASTA sequences/Genomes/Hordeum vulgare - Golden Promise/"
+  Sys.getenv("OneDrive"),
+  "/CSC/Data/FASTA sequences/Genomes/Hordeum vulgare - Golden Promise/"
 )
 
 fasta_list <- (function(
@@ -110,12 +110,12 @@ fasta_list <- (function(
       "chr1H", "chr2H", "chr3H", "chr4H", "chr5H", "chr6H", "chr7H", "chrUn"
     ),
     .folder   = paste0(
-      "../../../",
-      "rcs-gedo2-team_coldstorage/LAB_Share/RNAseq/barley/genome_GP/"
+      Sys.getenv("OneDrive"),
+      "/CSC/Data/FASTA sequences/Genomes/Hordeum vulgare - Golden Promise/"
     )
 ) {
-  .folder %>%
-    paste0(paste0("Hordeum_vulgare.refseq[", .chr_list, "].fasta")) %>%
+  .folder |>
+    paste0(paste0("Hordeum_vulgare.refseq[", .chr_list, "].fasta")) |>
     magrittr::set_names(.chr_list)
 })()
 ```
@@ -127,7 +127,7 @@ fasta_list <- (function(
 txdb <- paste0(
   gff_folder,
   "Horvul_GP_v1r1_Apollo_30_06_20_named_product_GO.gff3"
-) %>%
+) |>
   make_txdb(
     .data_source = "Hv - Golden Promise",
     .organism    = "Hordeum vulgare"
@@ -139,7 +139,7 @@ txdb <- paste0(
 
 #### H. vulgare cv. Golden Promise annotations
 ```{r annotations}
-annotations <- txdb %>%
+annotations <- txdb |>
   get_txdb_annotation()
 ```
 
@@ -147,7 +147,7 @@ annotations <- txdb %>%
 ### GET PROMOTERS
 #### Wrap-up function
 ```{r wrap_up}
-annotations %>%
+annotations |>
   # Wrap-up function
   get_promoters(
     .txdb       = txdb,
@@ -169,7 +169,7 @@ annotations %>%
 
 #### Explicit pipeline
 ```{r explicit_pipeline}
-promoter_sizes <- annotations %>%
+promoter_sizes <- annotations |>
   # Choose which loci to use
   filter_locus(
     .keep = c(
@@ -184,22 +184,22 @@ promoter_sizes <- annotations %>%
       "chr6Hg0657981",
       "chr7Hg0679581"
     )
-  ) %>% 
+  ) |> 
   # Calculate distances to closest upstream locus
-  get_promoter_distances() %>%
+  get_promoter_distances() |>
   # Trim found upstream distances and define promoter lengths
   set_promoter_sizes(.min_size = 100, .max_size = 2000)
 ```
 
 # PLOT
 ```{r eval=FALSE}
-promoter_sizes %>%
+promoter_sizes |>
   plot_promoter_maps(annotations)
 ```
 
 ```{r include=FALSE}
-promoter_sizes %>%
-  plot_promoter_maps(annotations) %>% 
+promoter_sizes |>
+  plot_promoter_maps(annotations) |> 
   ggsave(
     filename = "data-raw/img/promoter_map.png",
     device = png,
@@ -217,8 +217,8 @@ promoter_sizes %>%
 # EXPORT SEQUENCES
 ```{r eval=FALSE}
 
-promoter_sizes %>% 
-  get_promoter_sequences(.txdb = txdb, .FASTA_list = fasta_list) %>%
+promoter_sizes |> 
+  get_promoter_sequences(.txdb = txdb, .FASTA_list = fasta_list) |>
   write_fasta("data/promoters_Min-Yao.fasta")
 ```
 

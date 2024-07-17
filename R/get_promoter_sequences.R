@@ -118,11 +118,11 @@ get_promoter_sequences.serial <- function(
           
           # get promoter sequence for each locus
           .each_promoters <- .txdb %>% 
-            # GenomicFeatures::transcripts(
-            #   filter = list("tx_name" = .curr_locus)
-            # ) %>%
-            GenomicFeatures::transcripts() %>% 
-            dplyr::filter(stringr::str_detect(tx_name, .curr_locus)) %>% 
+            GenomicFeatures::transcripts(             # This will not return entries that should be returned if locus_id is not sanitized
+              filter = list("tx_name" = .curr_locus)
+            ) %>%
+            # GenomicFeatures::transcripts() %>%          # This is broken.
+            # dplyr::filter(stringr::str_detect(tx_name, .curr_locus)) %>% 
             # print() %>%
             GenomicFeatures::getPromoterSeq(
               subject    = .fasta_file,

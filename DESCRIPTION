@@ -40,3 +40,4 @@ Imports:
     Rsamtools,
     stringr,
     tidyr
+Config/testthat/edition: 3
